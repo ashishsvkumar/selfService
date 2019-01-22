@@ -1,0 +1,23 @@
+# MacOS temp file
+.DS_Store
+
+# Log files
+*.log*
+
+# IDEs and Editors
+*.iml
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Builds
+build/
+coverage/
+remote-repo/
+node_modules
+.module-cache
+
+# Ignore generate templates
+/mobile.html
+/desktop.html
+*-lock.json
