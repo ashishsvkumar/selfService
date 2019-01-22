@@ -1,0 +1,35 @@
+@import '../../../base.scss';
+
+.content {
+    padding-top: 20px;   
+}
+
+.sections {
+    margin-bottom: 30px;
+}
+
+.section {
+    font-size: 14px;
+    margin-bottom: 30px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.section_title {
+    padding: 0 12px;
+    font-size: 15px;
+    color: $almost_black;
+    margin-bottom: 10px;
+}
+
+.articles_list {
+    margin-top: 4px;
+}
+
+.article_link {
+    display: block;
+    color: $grape_fruit;
+    margin-bottom: 2px;
+}

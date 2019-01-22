@@ -1,0 +1,57 @@
+@import '../../base.scss';
+
+.content {
+    color: #353535;
+    font-size: 14px;
+
+    background-color: white;
+    padding: 8px 0 8px 2px;
+}
+
+.label {
+    padding-top: 4px;
+}
+
+.picker {
+    margin-top: 10px;
+}
+
+.btn, .value {
+    display: inline-block;
+    text-align: center;
+    user-select: none;
+}
+
+.value {
+    font-size: 14px;
+    padding: 5px 14px 5px;
+    vertical-align: bottom;
+    background-color: $almost_white;
+    border-top: 1px solid $border_grey;
+    border-bottom: 1px solid $border_grey;
+}
+
+.btn {
+    cursor: pointer;
+    border: 1px solid $border_grey;
+    font-size: 18px;
+    padding: 2px 13px 3px;
+
+    &:hover {
+        background-color: #eee;
+    }
+
+    &.decr {
+        padding: 2px 8px 3px;
+    }
+}
+
+.disabled {
+    color: $border_grey;
+    cursor: default;
+
+    &:hover, &:active {
+        background-color: white;
+        color: $border_grey;
+    }
+}

@@ -1,0 +1,31 @@
+@import '../../../base.scss';
+
+.content {
+    padding: 12px 0;
+    min-height: 80vh;
+}
+
+.body {
+    background-color: white;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: $almost_black;
+    line-height: 1.6rem;
+
+    border-top: 1px solid $border_grey;
+    border-bottom: 1px solid $border_grey;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+a {
+    color: $grape_fruit;
+    text-decoration: none;
+
+    &:visited {
+        color: $lz_orange_lighter;
+    }
+}

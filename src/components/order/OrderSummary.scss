@@ -1,0 +1,137 @@
+@import '../../base.scss';
+
+.content {
+    display: block;
+    background-color: white;
+    padding: 18px 12px;
+
+    margin-bottom: 10px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.card {
+    border-radius: 2px;
+    border: 1px solid $border_grey;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 1px 1px 2px $grey;
+    }
+
+    &:active {
+        box-shadow: inset 0 0 1px $grey;
+    }
+}
+
+.subcard {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.pack {
+    background-color: white;
+    padding: 0;
+
+    .recent {
+        color: $light_grey;
+        font-size: 12px;
+        margin: 14px 12px 7px;
+    }
+
+    .all_orders {
+        display: block;
+        border-top: 1px solid $border_grey;
+        padding: 18px 12px;  
+
+        .arrow, .help {
+            float: right;
+        }
+        
+        .help {
+            font-size: 14px;
+            color: $brownish_grey;
+            margin-right: 3px;
+            margin-top: -1px; 
+        }
+    }
+}
+
+.slot {
+    font-size: 13px;
+
+    .label {
+        float: left;
+        color: $light_grey;
+        margin-right: 6px;
+    }
+    .time {
+        float: left;
+        color: $almost_black;
+        font-weight: bold;
+
+        max-width: 80%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        direction: rtl;
+    }
+    .status {
+        float: right;
+        font-style: italic;
+        text-transform: capitalize;
+    }
+}
+
+.thumbnails {
+    margin-top: 14px;
+
+    .thumbail_holder, .thumbail {
+        position: relative;
+    
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 60px;
+        height: 60px;
+        z-index: 1;
+
+        margin-left: 6px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    .thumbail_holder {
+        background-image: url('../../assets/placeholder-rm-small.png');
+        float: left;
+    }
+
+    .thumbail {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+    }
+
+    &.greyscale .thumbail {
+        filter: grayscale(1)
+    }
+
+    .arrow, .help {
+        float: right; 
+    
+        /* We are intentionally not use translateY here. IE support is not good and we know the height of all elements involved. */
+        margin-top: 24px;
+    }
+    
+    .help {
+        font-size: 14px;
+        color: $brownish_grey;
+        margin-right: 3px;
+        margin-top: 23px;
+    }
+}

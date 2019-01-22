@@ -1,0 +1,15 @@
+@import '../../base.scss';
+
+.content {
+    background-color: $almost_white;
+    overflow: hidden;
+}
+
+.warning {
+    padding: 18px 20px;
+    font-size: 14px;
+    color: $brownish_grey;
+    line-height: 1.5;
+
+    margin-top: 20px;
+}

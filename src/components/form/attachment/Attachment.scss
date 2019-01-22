@@ -1,0 +1,107 @@
+@import '../../../base.scss';
+
+.content {
+    background-color: white;
+}
+
+.label {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.thumbnails {
+
+    margin-bottom: 10px;
+
+    .thumbnail {
+        float: left;
+        position: relative;
+        box-shadow: 1px 1px 3px #999;
+        border-radius: 2px;
+        margin-bottom: 12px;
+
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        width: calc(50% - 4px);
+        margin-right: 8px;
+        height: 100px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:nth-child(even) {
+            margin-right: 0;
+        }
+    }
+
+    .remove_icon {
+        float: right;
+        padding: 0 5px 1px;
+
+        background-color: rgba(0, 0, 0, 0.6);
+        border-top-right-radius: 2px;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        user-select: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        &:active {
+            background-color: rgba(0, 0, 0, 1);
+        }
+    }
+}
+
+.progress_bar {
+    position: absolute;
+    bottom: 0;
+    top: calc(100% - 4px);
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    .meter {
+        position: absolute;
+        background-color: $grape_fruit;
+
+        bottom: 0;
+        top: calc(100% - 4px);
+        left: 0;
+        right: 0;
+        z-index: 2;
+
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+
+        transition: all 0.5s;
+    }
+}
+
+.upload_error {
+    position: absolute;
+    border-radius: 2px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    user-select: none;
+    
+    color: #f08c6a;
+    text-align: center;
+    padding: 18%;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.1);
+    font-size: 13px;
+}

@@ -1,0 +1,67 @@
+@import '../../base.scss';
+
+.content {
+    padding: 0;
+    border: 1px solid $border_grey;
+    margin-bottom: 16px;
+}
+
+.body {
+    background-color: white;
+    padding: 8px;
+
+    .preview {
+        float: left;
+        max-width: calc(100% - 30px);
+    }
+
+    .btn {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url('../../assets/cross-large.png');
+        width: 28px;
+        height: 28px;
+
+        float: right;
+        font-size: 16px;
+        margin-top: -2px;
+        user-select: none;
+        cursor: pointer;
+
+        opacity: 0.6;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        &:active {
+            opacity: 1;
+        }
+    }
+}
+
+.form {
+    padding: 0 12px 0 83px;
+    background-color: white;
+}
+
+.select_container {
+    padding-top: 8px;
+    border-top: 1px solid $border_grey;
+
+    .select_label {
+        color: #353535;
+        font-size: 14px;
+        margin: 8px auto 10px;
+    }
+}
+
+.picker {
+    background-color: white;
+    padding: 4px 0;
+
+    &:only-child {
+        border-top: 1px solid $border_grey;
+    }
+}

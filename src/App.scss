@@ -1,0 +1,42 @@
+@import './base.scss';
+
+:global(#rm-cs-app) {
+    width: 100%;
+    min-height: calc(100vh - (48px + 137px));
+    background-color: $almost_white;
+    margin-bottom: -40px;
+    padding-bottom: 40px;
+}
+
+:global(#lzd-global-header .title-wrap h1) {
+    margin-bottom: -2px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+:global(.modal-open) {
+    overflow: hidden;
+    position: fixed;
+}
+
+@media (min-width: 576px) { 
+    // Small devices (landscape phones, 576px and up)
+}
+
+@media (min-width: 768px) { 
+    // Medium devices (tablets, 768px and up)
+}
+
+
+@media (min-width: 992px) { 
+    // Large devices (desktops, 992px and up)
+    .app {
+        width: 100%;
+        min-height: calc(100vh - (140px + 627px + 99px)) // App Content Minimum Height = 100% - (Header + Footer + Correction)
+    }
+}
+
+
+@media (min-width: 1200px) { 
+    // Extra large devices (large desktops, 1200px and up)
+}

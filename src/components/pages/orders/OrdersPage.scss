@@ -1,0 +1,16 @@
+@import '../../../base.scss';
+
+.content {
+    padding: 20px 14px;
+}
+
+.cards {
+    margin-top: 12px;
+}
+
+.empty_order_page {
+    color: $light_grey;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+}
