@@ -9,6 +9,7 @@
     "dev": "npm run template:alpha && DEBUG='express:*' webpack-dev-server -d --progress",
     "prod": "npm run template:prod && DEBUG='express:*' webpack-dev-server -d --progress",
     "storybook": "start-storybook -p 6006 -c .storybook",
+    "build:prod": "npm run template:prod && NODE_ENV=production webpack -p",
     "build:alpha": "npm run template:alpha && NODE_ENV=development webpack -d",
     "build:ftr": "npm run build:alpha",
     "clean": "rm -rf dist mobile.html desktop.html",
