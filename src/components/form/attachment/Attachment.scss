@@ -40,23 +40,21 @@
 
     .remove_icon {
         position: absolute;
-        top: 2px;
-        right: 2px;
-        width: 28px;
-        height: 28px;
+        background-color: $almost_black;
+        border-radius: 50%;
+        top: 4px;
+        right: 4px;
+        width: 24px;
+        height: 24px;
         cursor: pointer;
-
         background-repeat: no-repeat;
         background-position: center;
-        background-size: cover;
-        background-image: url('../../../assets/cancel-666.png');
+        background-size: 34px;
+        background-image: url('../../../assets/cancel-fff.png');
 
-        &:hover {
-            background-image: url('../../../assets/cancel-999.png');
-        }
-
-        &:active {
+        &:hover, &:active {
             background-image: url('../../../assets/cancel-333.png');
+            background-color: white;
         }
     }
 }
@@ -125,11 +123,6 @@
             &:nth-child(even) {
                 margin-right: 16px;
             }
-        }
-
-        .remove_icon {
-            width: 32px;
-            height: 32px;
         }
     }
 }
