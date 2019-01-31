@@ -8,7 +8,8 @@ module.exports = {
     entry: "./src/index.tsx",
     output: {
         //path: path.resolve(__dirname, "dist"),
-        filename: "./rm-cs-bundle-[hash:6].js"
+        filename: "./rm-cs-bundle-[hash:6].js",
+        publicPath: '/'
     },
 
     // Enable sourcemaps for debugging webpack's output.
