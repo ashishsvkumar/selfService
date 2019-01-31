@@ -8,7 +8,7 @@ module.exports = {
     entry: "./src/index.tsx",
     output: {
         //path: path.resolve(__dirname, "dist"),
-        filename: "./rm-cs-bundle-[hash:6].js",
+        filename: "./support/rm-cs-bundle-[hash:6].js",
         publicPath: '/'
     },
 
@@ -81,21 +81,21 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            filename: 'm/index.html',
+            filename: 'support/m/index.html',
             template: './mobile.html',
             inject: true
         }),
         new HtmlWebpackPlugin({
-            filename: 'index.html',
+            filename: 'support/index.html',
             template: './desktop.html',
             inject: true
         }),
         new MiniCssExtractPlugin({
-            filename: "./rm-cs-bundle-[hash:6].css",
+            filename: "./support/rm-cs-bundle-[hash:6].css",
             chunkFilename: "[name].css"
         }),
         new CopyWebpackPlugin([
-            { from: './lib/**/*', to: './' }
+            { from: './lib/**/*', to: './support/' }
         ])
     ],
 
