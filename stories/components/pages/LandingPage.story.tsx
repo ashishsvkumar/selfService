@@ -12,7 +12,7 @@ storiesOf('page/LandingPage', module)
 
 
 function defaultPage() {
-  return <LandingPage />;
+  return <LandingPage userName={null}/>;
 }
 
 function whenLoggedIn() {
@@ -28,6 +28,7 @@ function whenLoggedIn() {
                 itemThumnails: urls
             }
         }
+        userName="Anurag Saini"
     />;
   }
 
