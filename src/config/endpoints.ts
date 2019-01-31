@@ -7,7 +7,6 @@ function getSelfServiceBase() {
     case Environments.development:
       return "//selfservice-api.alpha.redmart.com/v1.0.0/support";
     default:
-            // For local setup
       return "//selfservice-api.alpha.redmart.com/v1.0.0/support";
   }
 }

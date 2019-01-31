@@ -43,9 +43,9 @@ export class NumberPicker extends React.Component<NumberPickerProps, NumberPicke
     
         return (
             <React.Fragment>
-                <div className={minClassNames} onClick={this.onDecrement}>—</div>
-                <div className={styles.value}>{this.state.value}</div>
-                <div className={maxClassNames} onClick={this.onIncrement}>+</div>
+                <div className={minClassNames} onClick={this.onDecrement}/>
+                <div className={styles.value}><div>{this.state.value}</div></div>
+                <div className={maxClassNames} onClick={this.onIncrement}/>
             </React.Fragment>
         );
     }

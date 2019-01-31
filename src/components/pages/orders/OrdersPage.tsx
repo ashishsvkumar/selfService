@@ -12,7 +12,8 @@ export const OrdersPage = (props: OrdersPageProps) => {
 
     return (
         <div className={styles.content}>
-            { hasOrders &&  <ContentTitle text="Which order do you need help with?" />}
+            { hasOrders &&  <div className={styles.mobile_title}><ContentTitle text="Which order do you need help with?" /></div>}
+            <div className={styles.desktop_title}><ContentTitle text="Past Orders" /></div>
             { hasOrders && <div className={styles.cards}>
                 {props.orders.map(order => prepareOrderCard(order))}
             </div>}

@@ -11,7 +11,8 @@ export const NotificationCard = (props: Alert) => {
         <div className={styles.content}>
             {title && <div className={styles.title}>{title}</div>}
             {message && <div className={styles.message}>{message}</div>}
-            {btnText && <Button text={btnText} isPrimary={true} style={{ width: '100%', borderTopLeftRadius: 0, borderTopRightRadius: 0, boxShadow: 'none' }} onClick={onClick} />}
+            {btnText && <div className={styles.only_mobile}><Button text={btnText} isPrimary={true} style={{ width: '100%', borderTopLeftRadius: 0, borderTopRightRadius: 0, boxShadow: 'none' }} onClick={onClick} /></div>}
+            {btnText && <div className={styles.only_desktop}><Button text={btnText} isPrimary={true} style={{ margin: '30px 10px 8px auto', padding: '15px 50px' }} onClick={onClick} /></div>}
         </div>
     )
 };

@@ -15,7 +15,7 @@
 
 .thumbnail_holder {
     position: relative;
-    background-image: url('../../assets/placeholder-rm-small.png');
+    background-image: url('https://img.alicdn.com/tfs/TB13yWDDMHqK1RjSZJnXXbNLpXa-240-240.png');
     float: left;
     z-index: 1;
 }
@@ -45,4 +45,21 @@
 .price {
     font-weight: 500;
     color: $brownish_grey;
+}
+
+@media (min-width: 992px) { 
+    .body {
+        font-size: 15px;
+        width: auto;
+    }
+
+    .name {
+        margin-bottom: 16px;
+    }
+
+
+    .thumbnail, .thumbnail_holder {
+        width: 65px;
+        height: 65px;
+    }
 }

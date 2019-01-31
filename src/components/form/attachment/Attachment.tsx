@@ -27,7 +27,7 @@ export class Attachment extends React.Component<AttachmentProps, AttachmentState
 
         return (
             <div style={thumbnailStyle} className={styles.thumbnail} key={`thumbnail-image-${image.addedOn}`}>
-                <div className={styles.remove_icon} onClick={() => this.removeImage(image.name)}>&times;</div>
+                <div className={styles.remove_icon} onClick={() => this.removeImage(image.name)}/>
                 {!image.failed && !image.uploaded && <div className={styles.progress_bar}><div className={styles.meter} style={progressStyle}></div></div>}
                 {image.failed && <div className={styles.upload_error}>File upload failed!</div>}
                 <div className={styles.clear} />
@@ -137,8 +137,9 @@ export class Attachment extends React.Component<AttachmentProps, AttachmentState
             <div className={styles.content}>
                 <div className={styles.label}>{label}</div>
                 {this.state.images.length > 0 && this.thumbnails()}
-                {isWindVandAvailable() && <Button text="Add Photo(s)" onClick={this.onTriggerWindvaneFile} style={{ padding: '16px' }} icon={Icon.ATTACHMENT} isDisabled={this.onGoingUpload()} />}
-                {!isWindVandAvailable() && <Button text="Add Photo(s)" fileProps={{ id: 'file-picker', onChange: this.onFileSelect }} style={{ padding: '16px' }} icon={Icon.ATTACHMENT} isDisabled={this.onGoingUpload()} />}
+                {isWindVandAvailable() && <div className={styles.only_mobile}><Button text="Add Photo(s)" onClick={this.onTriggerWindvaneFile} style={{ padding: '16px' }} icon={Icon.ATTACHMENT} isDisabled={this.onGoingUpload()} /></div>}
+                {!isWindVandAvailable() && <div className={styles.only_mobile}><Button text="Add Photo(s)" fileProps={{ id: 'file-picker', onChange: this.onFileSelect }} style={{ padding: '16px' }} icon={Icon.ATTACHMENT} isDisabled={this.onGoingUpload()} /></div>}
+                {!isWindVandAvailable() && <div className={styles.only_desktop}><Button text="Add Photo(s)" fileProps={{ id: 'file-picker', onChange: this.onFileSelect }} style={{ padding: '13px 50px', display: 'inline-block' }} icon={Icon.ATTACHMENT} isDisabled={this.onGoingUpload()} /></div>}
             </div>
         );
     }

@@ -6,3 +6,11 @@
     font-size: 16px;
     margin: 0;
 }
+
+@media (min-width: 992px) { 
+    .content {
+        font-size: 36px;
+        font-weight: normal;
+        color: #202020;
+    }
+}

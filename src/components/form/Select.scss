@@ -109,3 +109,19 @@
 .dropdown_menu.striped .option:not(.highlighted):nth-child(even) {
     background-color: #fafafa;
 }
+
+@media (min-width: 992px) { 
+    .dropdown_menu {
+        border-color: #bdbdbd;
+        top: 45px;
+    }
+
+    .caret_icon {
+        top: calc(27% + 1px);
+
+
+        &.flip {
+            top: calc(41% + 1px);
+        }
+    }
+}

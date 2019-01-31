@@ -20,3 +20,27 @@
     margin-bottom: 20px;
     padding: 8px 20px;
 }
+
+@media (min-width: 992px) { 
+
+    .content {
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-bottom: 28px;
+        font-weight: 400;
+        text-align: left;
+        padding: 12px 15px 0;
+        color: #424242;
+    }
+
+    .message {
+        color: #424242;
+        font-size: 16px;
+        margin-bottom: 20px;
+        padding: 8px 16px;
+        font-weight: 200;
+    }
+}

@@ -2,33 +2,29 @@ import * as log from "loglevel";
 const ENV = process.env.NODE_ENV || "development";
 
 export const enum Environments {
+  daily = "daily",
   development = "development",
-  production = "production",
-  local = "local",
+  production = "production"
 }
 
 function getCurrentEnvironment() {
+  const isTest = location.hostname.indexOf('.test') > 0;
+
   switch (ENV) {
     case Environments.production:
       return Environments.production;
     case Environments.development:
-      return Environments.development;
+      return isTest ? Environments.daily : Environments.development;
     default:
-      return Environments.local;
+      return Environments.daily;
   }
 }
 
 export function getBasePath(): string {
   const path = location.pathname;
-  if (path.indexOf("/customer-support/m") === 0) {
-    return "/customer-support/m/";
-  }
   if (path.indexOf("/support/m") === 0) {
     return "/support/m/";
   }  
-  if (path.indexOf("/customer-support") === 0) {
-    return "/customer-support/";
-  }
   if (path.indexOf("/support") === 0) {
     return "/support/";
   }  

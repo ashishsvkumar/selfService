@@ -12,7 +12,7 @@ export function isEmptyObject(obj: any): boolean {
 }
 
 export function decode(str: string): string {
-    return decodeURIComponent(str).replace(/%20/g, ' ').replace(/\+/g, ' ');
+    return decodeURIComponent(str).replace(/%20/g, ' ').replace(/\+/g, ' ').replace(/\-/g, ' ');
 }
 
 export function encodeSpace(str: string): string {

@@ -11,6 +11,10 @@
     }
 }
 
+.arrow_2 {
+    display: none;
+}
+
 .card {
     border-radius: 2px;
     border: 1px solid $border_grey;
@@ -64,7 +68,9 @@
     .label {
         float: left;
         color: $light_grey;
-        margin-right: 6px;
+        margin-left: 12px;
+        margin-right: 12px;
+        display: none;
     }
     .time {
         float: left;
@@ -104,8 +110,12 @@
     }
 
     .thumbail_holder {
-        background-image: url('../../assets/placeholder-rm-small.png');
+        background-image: url('https://img.alicdn.com/tfs/TB13yWDDMHqK1RjSZJnXXbNLpXa-240-240.png');
         float: left;
+
+        &:nth-child(4) {
+            display: none;
+        }
     }
 
     .thumbail {
@@ -121,7 +131,7 @@
         filter: grayscale(1)
     }
 
-    .arrow, .help {
+    .arrow, .help, .arrow_2 {
         float: right; 
     
         /* We are intentionally not use translateY here. IE support is not good and we know the height of all elements involved. */
@@ -133,5 +143,123 @@
         color: $brownish_grey;
         margin-right: 3px;
         margin-top: 23px;
+    }
+}
+
+
+@media (min-width: 992px) { 
+
+    .card {
+        border-radius: 5px;
+        border-color: #dadada;
+    }
+
+    .subcard {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .slot {
+        float: left;
+        margin-top: 13px;
+        font-size: 14px;
+        width: 50%;
+
+        .time {
+            font-weight: 400;
+            color: #212121;
+        }
+        .status {
+            font-size: 12px;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+    }
+
+    .thumbnails {
+        margin-top: 0;
+        float: right;
+        width: calc(50% - 60px);
+        margin-right: 8px;
+
+        .thumbail_holder, .thumbail {
+            width: 40px;
+            height: 40px;
+            margin-right: 8px;
+
+            &:nth-child(4) {
+                display: block;
+            }
+        }
+
+        .help {
+            margin-top: 11px; 
+            margin-right: 8px;
+        }
+
+
+        .arrow, .arrow_2 {
+            margin-top: 13px;
+            transform: scale(1.5);
+        }
+    }
+
+    .pack {
+        .recent {
+            color: #212121;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 17px 12px 17px;
+        }
+        .content {
+            background-color: $almost_white;
+            margin-bottom: 0;
+        }
+        .all_orders {
+            position: relative;
+            text-align: center;
+            .help, .arrow_2 {
+                display: inline-block;
+                float: none;
+                font-weight: 300;
+            }
+            .arrow {
+                display: none;
+            }
+            .help {
+                color: #0094b6;
+            }
+            .arrow_2 {
+                transform: scale(1.5);
+                vertical-align: text-top;
+                margin-left: 4px;
+            }
+        }
+    }
+
+    .thumbail {
+        .arrow {
+            transform: scale(1.5);
+        }
+    }
+}
+
+@media (min-width: 1360px) { 
+    .slot {
+        width: 40%;
+        .label {
+            color: #757575;
+            display: block;
+            max-width: 84px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .thumbnails {
+        float: right;
+        width: calc(50% - 60px);
+        margin-right: 8px;
     }
 }

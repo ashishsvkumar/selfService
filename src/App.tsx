@@ -1,38 +1,58 @@
 import * as React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import * as styles from "./App.scss";
-import LandingPage from "./containers/pages/LandingPage";
-import OrdersPage from "./containers/pages/OrdersPage";
-import OrderHelpLandingPage from "./containers/pages/OrderHelpLandingPage";
-import ItemLevelHelpPage from "./containers/pages/ItemLevelHelpPage";
-import QueryFormPage from "./containers/pages/QueryFormPage";
-import FaqPage from "./containers/pages/FaqPage";
-import CategoryPage from "./containers/pages/CategoryPage";
+import { BrowserRouter as Router } from "react-router-dom";
 import { basePath } from "./config/environment";
 import CommonShell from "./containers/CommonShell";
-import ScrollToTop from "./components/wrappers/ScrollToTop";
-
+import MainContentHolder from "./components/wrappers/MainContentHolder";
+import { connect } from "react-redux";
+import { UserInfoState } from "./store/user/types";
+import { fetchUserInfo } from "./store/user/actions";
+import { ApplicationState } from "./store";
+import * as log from 'loglevel';
+import { isEmptyObject } from "./utils/extras";
 const supportsHistory = "pushState" in window.history;
 
-export const App = (props: AppProps) => {
+class App extends React.Component<AppProps, {}> {
 
-    return (
-        <CommonShell>
-            <Router basename={basePath} forceRefresh={!supportsHistory}>
-                <ScrollToTop>
-                    <div className={styles.app}>
-                        <Route exact path="/orders/:tradeOrderId/help/:category" component={ItemLevelHelpPage} />
-                        <Route exact path="/orders/:tradeOrderId" component={OrderHelpLandingPage} />
-                        <Route exact path="/category/:id/:heading" component={CategoryPage} />
-                        <Route exact path="/faq/:id/:heading?" component={FaqPage} />
-                        <Route exact path="/orders" component={OrdersPage} />
-                        <Route exact path="/query" component={QueryFormPage} />
-                        <Route exact path="/" component={LandingPage} />
-                    </div>
-                </ScrollToTop>
-            </Router>
-        </CommonShell>
-    );
-};
+    constructor(props: AppProps) {
+        super(props);
+    }
 
-export interface AppProps { }
+    componentWillMount() {
+        log.info('App mounted 🚀');
+        if (!this.props.user.fetching && isEmptyObject(this.props.user.user)) {
+            this.props.fetchUserInfo();
+        }
+    }
+
+    render() {    
+        return (
+            <CommonShell>
+                <Router basename={basePath} forceRefresh={!supportsHistory}>
+                    <MainContentHolder/>
+                </Router>
+            </CommonShell>
+        );
+    }
+}
+
+interface PropsFromState {
+    user: UserInfoState
+}
+
+interface PropsFromDispatch {
+    fetchUserInfo: () => void
+}
+
+type AppProps = PropsFromState & PropsFromDispatch;
+
+const mapDispatchToProps = {
+    fetchUserInfo: fetchUserInfo
+}
+
+const maptStateToProps = ({ user }: ApplicationState) => {
+    return {
+        user
+    };
+}
+
+export default connect(maptStateToProps, mapDispatchToProps)(App);

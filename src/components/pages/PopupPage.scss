@@ -38,3 +38,16 @@
         z-index: 1000;
     }
 }
+
+@media (min-width: 992px) { 
+    .overlay {
+
+        bottom: 20px;
+
+        > div {
+            width: 600px;
+            margin: 60px auto;
+            max-height: 80%;
+        }
+    }
+}

@@ -19,6 +19,7 @@
 h3 {
     font-weight: 700;
     font-size: 14px;
+    line-height: 1.3;
 }
 
 a {
@@ -27,5 +28,34 @@ a {
 
     &:visited {
         color: $lz_orange_lighter;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid $lz_orange_darker;
+    text-align: center;
+    vertical-align: top;
+}
+
+th, td, tr {
+    padding: 3px;
+    border: 1px solid $lz_orange_lighter;
+    font-size: 12px;
+}
+
+@media (min-width: 992px) { 
+    .body {
+        border: none;
+        padding: 0;
+
+        font-size: 15px;
+    }
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 50px;
+        font-size: 36px;
+        font-weight: 400;
     }
 }

@@ -4,12 +4,14 @@ import { connect } from "react-redux";
 import { OrdersPage as Component } from "../../components/pages/orders/OrdersPage"
 import { Spinner } from "../../components/icons/Spinner"
 import { fetchOrdersList } from "../../store/order/actions";
+import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { isLoggedIn } from '../../utils/session'
 import { ProtectedPage } from "../../components/wrappers/AuthWrapper"
 import { OrderSummaryProps } from "../../components/order/OrderSummary";
 import { orderSummaryToProps } from "../../utils/transformers";
 import { isEmptyArray } from "../../utils/extras";
+import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 
 export class OrdersPage extends React.Component<OrdersPageProps, OrdersPageState> {
 
@@ -18,7 +20,9 @@ export class OrdersPage extends React.Component<OrdersPageProps, OrdersPageState
     }
 
     componentWillMount() {
-        log.info('Orders page countainer will mount');
+        log.info('Orders page countainer will mount 📖');
+        this.props.setBreadcrumbs([ { text: 'Past Orders', url: location.href, needLogin: true } ]);
+
         if (isLoggedIn()) {
             if (this.props.shouldFetch) {
                 log.info('Will fetch recent orders');
@@ -41,7 +45,8 @@ interface OrdersPageState {
 }
 
 interface PropsFromDispatch {
-    fetchOrdersList: () => void
+    fetchOrdersList: () => void,
+    setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 
 interface PropsFromState {
@@ -53,7 +58,8 @@ interface PropsFromState {
 type OrdersPageProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
-    fetchOrdersList: fetchOrdersList
+    fetchOrdersList: fetchOrdersList,
+    setBreadcrumbs: setBreadcrumbs
 }
 
 const maptStateToProps = ({ ordersList }: ApplicationState) => {

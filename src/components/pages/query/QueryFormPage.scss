@@ -63,3 +63,37 @@
 .submit {
     margin-top: 15px;
 }
+
+@media (min-width: 992px) { 
+    .content {
+        padding: 0 40% 0 0;
+    }
+
+    .title {
+        font-size: 36px;
+        color: #202020;
+        margin-bottom: 40px;
+    }
+
+    .label {
+        color: #4a4a4a;
+
+        &:not(:first-child) {
+            margin-top: 24px;
+        }
+    }
+
+    .text, .details {
+        border-color: #979797;
+        border-radius: 5px;
+    }
+
+    .contact {
+        > div {
+            border-top: none;
+            > div {
+                margin-top: 20px;
+            }
+        }
+    }
+}

@@ -3,10 +3,12 @@ import * as log from "loglevel";
 import { connect } from "react-redux";
 import { CategoryPage as Component } from "../../components/pages/faq/CategoryPage"
 import { fetchCategoryDetails, fetchSectionDetails } from "../../store/faq/actions";
+import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { CategoriesState, SectionsState, Category } from "../../store/faq/types";
 import { Spinner } from "../../components/icons/Spinner";
-import { isEmptyObject, isEmptyArray } from "../../utils/extras";
+import { isEmptyObject, isEmptyArray, encodeSpace, decode } from "../../utils/extras";
+import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 
 export class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState> {
 
@@ -16,16 +18,34 @@ export class CategoryPage extends React.Component<CategoryPageProps, CategoryPag
     }
 
     componentWillMount() {
-        log.info('Category page countainer will mount');
-        if (this.categoryFetched()) {
+        log.info('Category page countainer will mount 📗');
+        this.fetchCategory();
+
+        const id = this.props.match.params.id;
+        const heading = this.props.match.params.heading;
+        this.props.setBreadcrumbs([ { text: decode(heading), url: `/category/${id}/${heading}`, needLogin: false } ])
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps: CategoryPageProps) {
+        if (nextProps.match.params.id !== this.props.match.params.id) {
+            this.setState({ready: false}, () => this.fetchCategory(nextProps.match.params.id));
+
+            const id = nextProps.match.params.id;
+            const heading = nextProps.match.params.heading;
+            this.props.setBreadcrumbs([ { text: decode(heading), url: location.href, needLogin: false } ])
+        }
+    }
+
+    fetchCategory(categoryId?: number) {
+        if (this.categoryFetched(categoryId)) {
             if(this.allSectionsFetch()) {
                 this.setState( { ready: true } )
             }
         }
-    }
+    } 
 
-    categoryFetched = (): boolean => {
-        const id = this.props.match.params.id;
+    categoryFetched = (categoryId?: number): boolean => {
+        const id = categoryId || this.props.match.params.id;
         if (isEmptyObject(this.props.categories) || isEmptyObject(this.props.categories[id])) {
             this.props.fetchCategoryDetails(id).then(this.allSectionsFetch);
             return false;
@@ -75,8 +95,9 @@ export class CategoryPage extends React.Component<CategoryPageProps, CategoryPag
 
         if (this.state.ready) {
             const category = this.getCategory();
+            const id = this.props.match.params.id;
             const heading = this.props.match.params.heading;
-            return <Component title={decodeURI(heading)} sections={category.sections} />
+            return <Component id={id} title={decodeURI(heading)} sections={category.sections} />
         } else {
             return <Spinner />;
         }
@@ -89,7 +110,8 @@ interface CategoryPageState {
 
 interface PropsFromDispatch {
     fetchCategoryDetails: Function,
-    fetchSectionDetails: Function
+    fetchSectionDetails: Function,
+    setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 
 interface PropsFromState {
@@ -105,7 +127,8 @@ type CategoryPageProps = PropsFromDispatch & PropsFromState & PropsFromRoute;
 
 const mapDispatchToProps = {
     fetchCategoryDetails: fetchCategoryDetails,
-    fetchSectionDetails: fetchSectionDetails
+    fetchSectionDetails: fetchSectionDetails,
+    setBreadcrumbs: setBreadcrumbs
 }
 
 const maptStateToProps = ({ categories, sections }: ApplicationState) => {

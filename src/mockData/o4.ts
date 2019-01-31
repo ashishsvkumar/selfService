@@ -2,134 +2,241 @@ export const o4: any = {
     "api": "mtop.lazada.om.orderdetail",
     "data": {
         "data": {
-            "deliverySummary_838900898013#address": {
-                "tag": "deliverySummary",
-                "id": "838900898013#address",
+            "package_#package#8483100220166#NONE": {
+                "tag": "package",
+                "id": "#package#8483100220166#NONE",
                 "type": "biz",
                 "fields": {
-                    "consignee": "Redmart Test",
-                    "address": "Singapore, Singapore, 8 SHENTON WAY, 8",
-                    "phone": "68805501",
-                    "kind": "shipping",
-                    "postCode": "068811",
-                    "title": "Shipping Address"
+                    "leadingTimeInfo": {
+                        "desc": "Get by Sun 26 Feb - Sun 26 Feb",
+                        "title": "Delivery Time"
+                    },
+                    "isLiveUp": false,
+                    "instruction": {
+                        "instructionInfos": ["demo for the instruction"],
+                        "title": "Instructions",
+                        "updateName": "Update",
+                        "updateUrl": "http://www.alibaba-inc.com/test.htm"
+                    },
+                    "title": "Package 1",
+                    "ofcPackageId": "#package#8483100220166#NONE",
+                    "status": "Processing"
                 }
             },
-            "shippingInfo_#package#838900998013#NONE": {
-                "tag": "shippingInfo",
-                "id": "#package#838900998013#NONE",
+            "detailInfo_8483100120166": {
+                "tag": "detailInfo",
+                "id": "8483100120166",
                 "type": "biz",
                 "fields": {
-                    "delivery": {
-                        "createdAt": "Get by Thu 10 Jan - Mon 28 Jan",
-                        "desc": "Saver",
-                        "method": "Express",
-                        "status": "info"
-                    },
-                    "statusMap": {
-                        "active": "Payment pending",
-                        "all": ["Payment pending", "Processing", "Shipped", "Delivered"]
-                    },
-                    "trackingList": []
+                    "createdAt": "Placed on 29 Jan 2019  00:53:45",
+                    "total": "SGD79.04",
+                    "visaCode": "Paid by card xxxx-8744",
+                    "authCode": "Authorization Code 987654",
+                    "tradeOrderId": 8483100120166,
+                    "paidAt": "Paid on 29 Jan 2019  00:53:55"
                 }
             },
-            "orderItem_838901298013": {
-                "tag": "orderItem",
-                "id": "838901298013",
+            "packageCancel_#package#8483100220166#NONE": {
+                "tag": "packageCancel",
+                "id": "#package#8483100220166#NONE",
                 "type": "biz",
                 "fields": {
-                    "itemType": "normal",
-                    "paymentPendingCancel": true,
-                    "buyerEmail": "testing@redmart.com",
-                    "isFreeGift": false,
-                    "groupId": "#package#838900998013#NONE",
-                    "tradeOrderId": "838900898013",
-                    "title": "Andersen's of Denmark Mocha Almond Fudge Ice cream",
-                    "scene": "orderDetail",
-                    "picUrl": "https://filebroker-lzd.alibaba.net/p/Gatineau-Gatineau-Floracil-Gentle-Cleansing-Lotion-For-Eyes-(Alcohol-Free)-400ml/13.5oz-(EXPORT)-8311-07541-1-catalog.jpg",
-                    "sellerId": "8",
-                    "price": "$12.00",
                     "reversible": {
                         "action": true,
                         "desc": "CANCEL",
-                        "paymentPendingCancel": true,
-                        "status": "enable",
+                        "status": "CANCEL",
                         "step": "cancel",
-                        "tradeOrderId": "838900898013",
-                        "tradeOrderLineId": "838901298013"
-                    },
-                    "warranty": "No Warranty",
-                    "skuId": "219110001",
+                        "tradeOrderId": "8483100120166",
+                        "tradeOrderLineId": "8483100320166"
+                    }
+                }
+            },
+            "totalSummary_8483100120166": {
+                "tag": "totalSummary",
+                "id": "8483100120166",
+                "type": "biz",
+                "fields": {
+                    "total": "SGD79.04",
+                    "fees": [{
+                        "key": "Subtotal",
+                        "value": "SGD73.85"
+                    }, {
+                        "key": "Shipping Fee",
+                        "value": "SGD5.99"
+                    }, {
+                        "details": [{
+                            "title": "Promotion",
+                            "value": "-SGD0.80"
+                        }],
+                        "isOpen": false,
+                        "key": "Total Saving",
+                        "value": "-SGD0.80"
+                    }],
+                    "totalText": "8 Items, 1 Package",
+                    "taxTitle": "GST Incl.",
+                    "payments": [{
+                        "key": "Paid by",
+                        "value": "Credit/Debit Card"
+                    }],
+                    "totalKey": "Total(GST Incl.): "
+                }
+            },
+            "sellerInfo_1000008313": {
+                "tag": "sellerInfo",
+                "id": "1000008313",
+                "type": "biz",
+                "fields": {
+                    "sellerStoreInfos": [{
+                        "enterBtnText": "Visit Store",
+                        "sellerId": "1000008313",
+                        "shopLogo": "//laz-img-cdn.alicdn.com/tfs/TB1bLw7w1OSBuNjy0FdXXbDnVXa-120-120.png",
+                        "shopName": "RedMartLtd"
+                    }],
+                    "title": "Sold by RedMartLtd"
+                }
+            },
+            "orderItem_8483100520166": {
+                "tag": "orderItem",
+                "id": "8483100520166",
+                "type": "biz",
+                "fields": {
                     "delivery": {
-                        "desc": "Get by Thu 10 Jan - Mon 28 Jan",
-                        "email": "testing@redmart.com",
-                        "method": "Saver",
+                        "desc": "Get by Sun 26 Feb - Sun 26 Feb",
+                        "email": "anurag.saini@redmart.com",
                         "status": "info"
                     },
-                    "quantity": 6,
-                    "icons": ["https://laz-img-cdn.alicdn.com/tfs/TB1AHvdxMmTBuNjy1XbXXaMrVXa-96-32.png"],
-                    "itemId": "216168001",
-                    "sequence": 3,
+                    "itemType": "normal",
+                    "quantity": 3,
+                    "paymentPendingCancel": false,
+                    "buyerEmail": "anurag.saini@redmart.com",
+                    "isFreeGift": false,
+                    "groupId": "#package#8483100220166#NONE",
+                    "tradeOrderId": "8483100120166",
+                    "title": "Baggie's Beef and Pork 'Boerewors' Sausage - Frozen",
+                    "scene": "orderDetail",
+                    "itemId": "300614310",
+                    "picUrl": "https://sg-live-02.slatic.net/p/de651e3fed4357f67a0c115fcc6da41a.jpg",
+                    "sequence": 2,
                     "external": {},
+                    "sellerId": "1000008313",
                     "reviewable": false,
+                    "price": "SGD15.00",
+                    "warranty": "No Warranty",
                     "oldTradeOrderId": "null",
-                    "itemUrl": "http://pdp.lazada.test/-i216168001-s219110001.html?urlFlag=true&mp=1",
-                    "status": "cancel",
+                    "skuId": "502808314",
+                    "itemUrl": "https://www.lazada.sg/-i300614310-s502808314.html?urlFlag=true&mp=1",
                     "isFreeSample": false
                 }
             },
-            "totalSummary_838900898013": {
-                "tag": "totalSummary",
-                "id": "838900898013",
+            "sellerChat_#package#8483100220166#NONEchat": {
+                "tag": "sellerChat",
+                "id": "#package#8483100220166#NONEchat",
                 "type": "biz",
                 "fields": {
-                    "total": "$41.99",
-                    "fees": [{
-                        "key": "Subtotal",
-                        "value": "$36.00"
-                    }, {
-                        "key": "Shipping Fee",
-                        "value": "$5.99"
-                    }],
-                    "taxTitle": "GST Incl."
+                    "chatBtn": {
+                        "colorType": "orange",
+                        "text": "Chat Now"
+                    },
+                    "sellerChatInfos": [{
+                        "sellerId": "1000008313",
+                        "shopLogo": "//laz-img-cdn.alicdn.com/tfs/TB1bLw7w1OSBuNjy0FdXXbDnVXa-120-120.png",
+                        "shopName": "RedMartLtd"
+                    }]
                 }
             },
-            "sellerInfo_8": {
-                "tag": "sellerInfo",
-                "id": "8",
+            "orderOperation_8483100120166": {
+                "tag": "orderOperation",
+                "id": "8483100120166",
+                "type": "biz",
+                "fields": {}
+            },
+            "orderItem_8483100820166": {
+                "tag": "orderItem",
+                "id": "8483100820166",
                 "type": "biz",
                 "fields": {
-                    "imChatName": "Chat Now",
-                    "itemId": "212452090",
-                    "accountId": "100100128",
-                    "IMUrl": "/chat_page?targetid=100100128&orderid=838900898013&suborderid=838901098013&_p_slr=8&targettype=2&type=103&from=order",
-                    "sellerId": "8",
-                    "shopName": "BestDeals",
-                    "imSwitch": "true",
-                    "shopUrl": "//www.ali-lazada.com/bestdeals",
-                    "IMHost": "http://native.m.lazada.com",
-                    "skuId": "212462119"
+                    "delivery": {
+                        "desc": "Get by Sun 26 Feb - Sun 26 Feb",
+                        "email": "anurag.saini@redmart.com",
+                        "status": "info"
+                    },
+                    "itemType": "normal",
+                    "quantity": 3,
+                    "paymentPendingCancel": false,
+                    "buyerEmail": "anurag.saini@redmart.com",
+                    "isFreeGift": false,
+                    "groupId": "#package#8483100220166#NONE",
+                    "tradeOrderId": "8483100120166",
+                    "title": "Chinatown Toasted Flat Bread - Frozen",
+                    "scene": "orderDetail",
+                    "itemId": "300600546",
+                    "picUrl": "https://sg-live-02.slatic.net/p/b8a051d3e7fe60313a634a7007285230.jpg",
+                    "sequence": 3,
+                    "external": {},
+                    "sellerId": "1000008313",
+                    "reviewable": false,
+                    "price": "SGD3.95",
+                    "warranty": "No Warranty",
+                    "oldTradeOrderId": "null",
+                    "skuId": "502804550",
+                    "itemUrl": "https://www.lazada.sg/-i300600546-s502804550.html?urlFlag=true&mp=1",
+                    "isFreeSample": false
                 }
             },
-            "detailInfo_838900898013": {
-                "tag": "detailInfo",
-                "id": "838900898013",
+            "orderItem_8483100320166": {
+                "tag": "orderItem",
+                "id": "8483100320166",
                 "type": "biz",
                 "fields": {
-                    "createdAt": "Placed on 08 Jan 2019  17:11:14",
-                    "total": "$41.99",
-                    "tradeOrderId": 838900898013,
-                    "linkText": "PAY NOW",
-                    "payUrl": "http://pages.lazada.test/wow/i/systest/checkout/cashier?wh_weex=true&checkoutOrderId=294400298013&entranceName=OM",
-                    "linkColor": "#f57224"
+                    "delivery": {
+                        "desc": "Get by Sun 26 Feb - Sun 26 Feb",
+                        "email": "anurag.saini@redmart.com",
+                        "status": "info"
+                    },
+                    "itemType": "normal",
+                    "quantity": 2,
+                    "paymentPendingCancel": false,
+                    "buyerEmail": "anurag.saini@redmart.com",
+                    "isFreeGift": false,
+                    "groupId": "#package#8483100220166#NONE",
+                    "tradeOrderId": "8483100120166",
+                    "title": "Take Root Salad Snackers Balsamic Vinaigrette 62G",
+                    "scene": "orderDetail",
+                    "itemId": "300628061",
+                    "picUrl": "https://sg-live-02.slatic.net/p/a000bf7ea29fc562aff421bf8249254b.jpg",
+                    "sequence": 1,
+                    "external": {},
+                    "sellerId": "1000008313",
+                    "reviewable": false,
+                    "price": "SGD8.50",
+                    "warranty": "No Warranty",
+                    "oldTradeOrderId": "null",
+                    "skuId": "502812066",
+                    "itemUrl": "https://www.lazada.sg/-i300628061-s502812066.html?urlFlag=true&mp=1",
+                    "isFreeSample": false
                 }
             },
-            "root_838900898013": {
+            "deliverySummary_8483100120166#comb-address": {
+                "tag": "deliverySummary",
+                "id": "8483100120166#comb-address",
+                "type": "biz",
+                "fields": {
+                    "consignee": "Anurag",
+                    "address": "Singapore, Singapore, 6 FISHERY PORT ROAD",
+                    "phone": "62613456",
+                    "kind": "shipping",
+                    "mobile": "62613456",
+                    "postCode": "619747",
+                    "title": "Ship & bill to",
+                    "addressId": "1002110181"
+                }
+            },
+            "root_8483100120166": {
                 "tag": "root",
-                "id": "838900898013",
+                "id": "8483100120166",
                 "type": "biz",
                 "fields": {
-                    "buyerId": "103498013",
+                    "buyerId": "1002820166",
                     "confirmDialog": {
                         "cancelText": "No, I will wait",
                         "checkBoxText": "Cancel current payment",
@@ -138,117 +245,6 @@ export const o4: any = {
                         "title": "Process New Payment"
                     }
                 }
-            },
-            "orderItem_838901198013": {
-                "tag": "orderItem",
-                "id": "838901198013",
-                "type": "biz",
-                "fields": {
-                    "delivery": {
-                        "desc": "Get by Thu 10 Jan - Mon 28 Jan",
-                        "email": "testing@redmart.com",
-                        "method": "Saver",
-                        "status": "info"
-                    },
-                    "itemType": "normal",
-                    "quantity": 6,
-                    "paymentPendingCancel": true,
-                    "buyerEmail": "testing@redmart.com",
-                    "isFreeGift": false,
-                    "groupId": "#package#838900998013#NONE",
-                    "tradeOrderId": "838900898013",
-                    "title": "Cadbury Stocking Selection Chocolate Box - Christmas Special",
-                    "scene": "orderDetail",
-                    "itemId": "214120001",
-                    "picUrl": "https://s3-ap-southeast-1.amazonaws.com/media.redmart.com/newmedia/1600x/i/m/7622210763198_0045_1510896460214.jpg",
-                    "sequence": 2,
-                    "external": {},
-                    "sellerId": "1",
-                    "reviewable": false,
-                    "price": "$12.00",
-                    "reversible": {
-                        "action": true,
-                        "desc": "CANCEL",
-                        "paymentPendingCancel": true,
-                        "status": "enable",
-                        "step": "cancel",
-                        "tradeOrderId": "838900898013",
-                        "tradeOrderLineId": "838901198013"
-                    },
-                    "warranty": "No Warranty Available",
-                    "oldTradeOrderId": "null",
-                    "skuId": "216934001",
-                    "itemUrl": "http://pdp.lazada.test/-i214120001-s216934001.html?urlFlag=true&mp=1",
-                    "status": "cancel",
-                    "isFreeSample": false
-                }
-            },
-            "package_#package#838900998013#NONE": {
-                "tag": "package",
-                "id": "#package#838900998013#NONE",
-                "type": "biz",
-                "fields": {
-                    "isLiveUp": false,
-                    "packageId": "1"
-                }
-            },
-            "deliverySummary_838900898013#billing": {
-                "tag": "deliverySummary",
-                "id": "838900898013#billing",
-                "type": "biz",
-                "fields": {
-                    "consignee": "Redmart Test",
-                    "address": "Singapore, Singapore, 8 SHENTON WAY, 8",
-                    "phone": "68805501",
-                    "kind": "shipping",
-                    "postCode": "068811",
-                    "title": "Billing Address"
-                }
-            },
-            "orderItem_838901098013": {
-                "tag": "orderItem",
-                "id": "838901098013",
-                "type": "biz",
-                "fields": {
-                    "itemType": "normal",
-                    "paymentPendingCancel": true,
-                    "buyerEmail": "testing@redmart.com",
-                    "isFreeGift": false,
-                    "groupId": "#package#838900998013#NONE",
-                    "tradeOrderId": "838900898013",
-                    "title": "ModernMum Ready To Cook Fresh Cut Pumpkin",
-                    "scene": "orderDetail",
-                    "picUrl": "https://s3-ap-southeast-1.amazonaws.com/media.redmart.com/newmedia/1600x/i/m/8886316220033_0001_1547316963083.jpg",
-                    "sellerId": "8",
-                    "price": "$12.00",
-                    "reversible": {
-                        "action": true,
-                        "desc": "CANCEL",
-                        "paymentPendingCancel": true,
-                        "status": "enable",
-                        "step": "cancel",
-                        "tradeOrderId": "838900898013",
-                        "tradeOrderLineId": "838901098013"
-                    },
-                    "warranty": "No Warranty Available",
-                    "skuId": "212462119",
-                    "delivery": {
-                        "desc": "Get by Thu 10 Jan - Mon 28 Jan",
-                        "email": "testing@redmart.com",
-                        "method": "Saver",
-                        "status": "info"
-                    },
-                    "quantity": 6,
-                    "icons": ["https://laz-img-cdn.alicdn.com/tfs/TB1AHvdxMmTBuNjy1XbXXaMrVXa-96-32.png"],
-                    "itemId": "212452090",
-                    "sequence": 1,
-                    "external": {},
-                    "reviewable": false,
-                    "oldTradeOrderId": "null",
-                    "itemUrl": "http://pdp.lazada.test/-i212452090-s212462119.html?urlFlag=true&mp=1",
-                    "status": "cancel",
-                    "isFreeSample": false
-                }
             }
         },
         "endpoint": {
@@ -256,22 +252,22 @@ export const o4: any = {
             "protocolVersion": "2.0"
         },
         "hierarchy": {
-            "component": ["package", "orderItem", "deliverySummary", "shippingInfo", "root", "detailInfo", "totalSummary", "sellerInfo"],
-            "root": "root_838900898013",
+            "component": ["packageCancel", "package", "orderItem", "deliverySummary", "root", "detailInfo", "totalSummary", "orderOperation", "sellerChat", "sellerInfo"],
+            "root": "root_8483100120166",
             "structure": {
-                "root_838900898013": ["detailInfo_838900898013", "package_#package#838900998013#NONE", "totalSummary_838900898013", "deliverySummary_838900898013#address", "deliverySummary_838900898013#billing"],
-                "package_#package#838900998013#NONE": ["sellerInfo_8", "shippingInfo_#package#838900998013#NONE", "orderItem_838901098013", "orderItem_838901198013", "orderItem_838901298013"]
+                "root_8483100120166": ["deliverySummary_8483100120166#comb-address", "package_#package#8483100220166#NONE", "detailInfo_8483100120166", "totalSummary_8483100120166", "orderOperation_8483100120166"],
+                "package_#package#8483100220166#NONE": ["sellerInfo_1000008313", "orderItem_8483100320166", "orderItem_8483100520166", "orderItem_8483100820166", "sellerChat_#package#8483100220166#NONEchat", "packageCancel_#package#8483100220166#NONE"]
             }
         },
         "linkage": {
             "input": [],
-            "request": [],
+            "request": ["package_#package#8483100220166#NONE"],
             "common": {
                 "compress": true,
-                "queryParams": "^^$$8e6a37c0ee297b7845adc58df0cb686d{$_$}H4sIAAAAAAAAAH1Ty27cMAz8F+caLKi3lFuL9rCXBO1+QECJ1MaoX7W9BZIg/156NwHSIsjJlDkzGg2l52bluW8H7Jqb52bqcK3j3Dc3zYNrrpsJjyz1kQeeBfFy3QzY82HCsv0e+7uZeP7GK7adoE8Lz1+WpT0Om1bpcFluBS7IMva7Dp+QcDdulF2Pg0j3PKw7nNrdzL9PvKy7HyeeH7+eHnl+p/zz0pQN8tbZU3OjwNgUQZnrZp2R+IzeGtHEBBBfexf76lIc2qdtAXIIsTONg2y+HMQsrqeZN8fEXftHDBxOfY/z4/17sSskmnlZ5DBaYzLOe/IZlU6VlNXGGe1CBKdJidFPlXLbde1wFCVvIFnlijVekTHOJcUuQPIiU3INZ6Utgv1Qx39EhGyDs1iDiUQUFbLXqRDkWGvwDl0U8jnr/cr9havgjWu4ZobkAKyJYDRlZzxQigisAOkDrnrj1iRgUwB9rdozk6+xajTKSx4B4AOufuNyyGio6FCDxiof56O2JSgLlSXJ85Urv2Ra91evxdXl2OmS3e3d7XfRcV6balywqeZkigrAyWpKOQXtsy6iM4/j+n9k6LMAAcGWrBUbKDHKCEEzoU8xCW3hrhPv57yFQaxjUrmYklVCMhStV0lrE60r/hzy8tBOk8zzzPnUtVzUQiEygUWnvIy7llIgFFToOW0Pbh1X7D66NdsjSjpIRoglVlXY54hkE/nkZM3eNy8vfwENwv+4zgMAAA==",
+                "queryParams": "^^$$bd74348ffbd2fc2d5ebcecd829603abc{$_$}H4sIAAAAAAAAAIVSy04cMRD8l+FKVrbbT24JyYELKEHKNWq327DKPDae2UiA+Pf0LGwSBErmNHZ3VVe566FbuA3bEfvu7KHb9bjUqQ3dWXfrutNuhzcs/zc8cpOOx9NuxIGvd0jr9TRctcLtIy+47aV7P3N7P8/bm3Hloh7n+VLapZOmYdPjPRbcTCtkM+Ao1AOPywZ3203jH3uel83nPbe7D/s7bn8xf3kqyoC8Vi5Kd6aVMtEo7f1ptzQsfGhfK9FGkKp+Lu77pU3jV27zdhJVndmY37b008/19n49KDEnMnfTKKLmazGBy77x6qRwv/0pwq73w4Dt7tuLGScCyu+wlMbzLBMYbbLW5IQlBucrMFaIKmcIQVMgGV8Oti7GOr2kErQCigGstpCcNil6Q4qSM6ZS1jas4g8PeLHwcATDERxzYZ2DApvQeA3VQ2GKPhtbYmH/FtgdwZR81EWzcy747LEoUA5zUuKkUtFvgeMRbMlrHaoFZguGDcQsZLkIkQww6Qi+2kmOFlnFK+NWy6lWBDSJHJRsSlKgE0XIDDYetkbfZV/nOBL3306ejyfPTOZpG5dXl5+EriZ5aw3kq6peW4MOSFtCLOC0ZOcP3X+I5CWqd1kWgY6oQC7apaxqJptdNihEbZqWV34M1yCr0YGSdiFHaXWsLIaICZHWGMzc99zOb3H5lwaS+hqrSNWEaKkEwyGnWiiiXHkyQWvLv/kOsRIK+YQKBCo5hKyiLwDSXwpor1NgML4SlxwEukwL9m/Ge01GiCHrbAOhFQnASd7AVFBQs6gK3ePjL2LEBjFGBAAA",
                 "submitParams": "^^$$39ecbfc485ddeabea7a97c9bf49dde7f{$_$}H4sIAAAAAAAAAKtWKkktys3MS8xRsqpWKshJLEnLL8pVslLKMFXSUSpITE8FstNT81KLgCpqdZTyEnNTgwsSk0HC+bn+RSmpRS6pJYmZQEkAPC1INEsAAAA="
             },
-            "signature": "5ec450fb3a9023a98220096cdd153571"
+            "signature": "32a29ab159e2a28b4d82de2c0e9346e4"
         },
         "reload": true
     },

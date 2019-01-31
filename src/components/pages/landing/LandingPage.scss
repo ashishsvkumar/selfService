@@ -7,3 +7,74 @@
 .cards {
     margin-top: 12px;
 }
+
+.first_card {
+    margin-bottom: 10px;
+}
+
+.hue_box {
+    display: none;
+}
+
+@media (min-width: 992px) { 
+    // Large devices (desktops, 992px and up)
+    .title {
+        display: none;
+    }
+
+    .hue_box {
+        position: relative;
+        display: block;
+        background-image: url('../../../assets/orange-hue.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 200px;
+        text-align: center;
+        font-size: 36px;
+        color: white;
+
+        padding-top: 47px;
+
+        &.shorten {
+            height: 95px;
+        }
+    }
+
+    .first_card {
+        margin-bottom: 20px;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .cards {
+        margin-left: auto;
+        margin-right: auto;
+        width: calc(100% - 2*76px);
+
+        position: relative;
+        margin-top: -32px;
+        border-radius: 5px;
+
+        &.pull_up {
+            margin-top: -142px;
+        }
+
+        .other_cards {
+            a {
+                display: inline-block;
+                width: calc(50% - 57px);
+            
+                &:nth-child(odd) {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1200px) { 
+    // Extra large devices (large desktops, 1200px and up)
+}

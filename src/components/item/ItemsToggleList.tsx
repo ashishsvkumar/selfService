@@ -59,7 +59,8 @@ export class ItemsToggleList extends React.Component<ItemsToggleListProps, Items
                     {items.map(item => this.listItem(item))}
                 </div>
                 <div className={styles.footer}>
-                    <Button isPrimary={true} text="Next" style={{ padding: '10px 20px', width: '80%', margin: 'auto' }} onClick={this.onSave} />
+                    <div className={styles.only_mobile}><Button isPrimary={true} text="Next" style={{ padding: '10px 20px', width: '80%', margin: 'auto' }} onClick={this.onSave} /></div>
+                    <div className={styles.only_desktop}><Button isPrimary={true} text="Confirm" style={{ padding: '12px 20px', width: '160px', margin: 'auto 12px auto auto' }} onClick={this.onSave} /></div>
                 </div>
             </div>
         )

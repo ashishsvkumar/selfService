@@ -4,6 +4,7 @@ import {ItemPreview, ItemPreviewProps} from './ItemPreview';
 import { NumberPicker } from "../form/NumberPicker";
 import { Select, SelectOption } from "../form/Select";
 import { isEmptyString } from "../../utils/extras";
+import { WarningIcon } from "../icons/WarningIcon";
 
 export const ItemIssue = (props: ItemIssueProps) => {
     return (
@@ -16,6 +17,7 @@ export const ItemIssue = (props: ItemIssueProps) => {
             <div className={styles.form}>
                 {props.issueTypes && dropdown(props)}
                 <div className={styles.picker}><NumberPicker label={props.pickerLabel} min={1} max={props.quantity} value={1} valueChanged={props.quantityChanged}/></div>
+                <div className={styles.clear}/>
             </div>
         </div>
     )
@@ -27,7 +29,7 @@ function dropdown(props: ItemIssueProps) {
             <div className={styles.select_label}>What's the issue?</div>
             <div className={styles.select}>
                 <Select options={props.issueTypes} value={props.selectedIssue} onChange={props.selectChanged} inputOptions={ { placeholder: "Select" } }/>
-                { props.enableWarning === true && isEmptyString(props.selectedIssue) && <div className={styles.warn_text}>&#9888; Please don’t leave this empty.</div> }
+                { props.enableWarning === true && isEmptyString(props.selectedIssue) && <div className={styles.warn_text}><WarningIcon text="Please don’t leave this empty."/></div> }
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import * as log from "loglevel";
 import { connect } from "react-redux";
 import { ItemLevelHelpPage as Component, ItemLevelHelpPageProps as ComponentProps, Category } from "../../components/pages/order/ItemLevelHelpPage"
 import { fetchOrderDetails } from "../../store/order/actions";
+import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { Spinner } from "../../components/icons/Spinner";
 import { isLoggedIn } from "../../utils/session";
@@ -11,6 +12,7 @@ import { OrderDetails } from "../../store/order/types";
 import { isEmptyObject } from "../../utils/extras";
 import { createTicket } from "../../store/ticket/actions";
 import { Ticket } from "../../store/ticket/types";
+import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, ItemLevelHelpPageState> {
 
@@ -19,7 +21,16 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     componentWillMount() {
-        log.info('Item level help page countainer will mount for order', this.props.match.params.tradeOrderId);
+        log.info('Item level help page countainer will mount for order 📝', this.props.match.params.tradeOrderId);
+
+        const title = this.props.match.params.category === Category.missing ? 'I have missing items' : 'I have problem with the received items';
+
+        this.props.setBreadcrumbs([
+            { text: 'Past Orders', url: '/orders', needLogin: true },
+            { text: 'Order Help', url: `/orders/${this.props.match.params.tradeOrderId}`, needLogin: true },
+            { text: title, url: location.href, needLogin: true }
+        ]);
+
         if (isLoggedIn() && !this.getOrder()) {
             this.props.fetchOrderDetails(this.props.match.params.tradeOrderId);
         }
@@ -47,7 +58,8 @@ interface ItemLevelHelpPageState {
 
 interface PropsFromDispatch {
     fetchOrderDetails: Function,
-    createTicket: (ticket: Ticket) => void
+    createTicket: (ticket: Ticket) => void,
+    setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 
 interface PropsFromState {
@@ -63,7 +75,8 @@ type ItemLevelHelpPageProps = PropsFromDispatch & PropsFromState & PropsFromRout
 
 const mapDispatchToProps = {
     fetchOrderDetails: fetchOrderDetails,
-    createTicket: createTicket
+    createTicket: createTicket,
+    setBreadcrumbs: setBreadcrumbs
 }
 
 const maptStateToProps = ({ ordersDetails, ticket }: ApplicationState) => {

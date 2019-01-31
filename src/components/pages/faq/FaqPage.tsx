@@ -36,6 +36,11 @@ function sanitizeFaqLink(str: string): string {
         }
     })
 
+    const tables = Array.prototype.slice.call(doc.getElementsByTagName('table'));
+    tables.forEach(table => {
+        table.style = '';
+    })
+
     return doc.outerHTML;
 }
 
@@ -44,3 +49,4 @@ export interface FaqPageProps {
     title: string,
     body: string
 }
+

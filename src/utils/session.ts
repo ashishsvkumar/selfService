@@ -5,7 +5,7 @@ import { isWindVandAvailable, initiateLogin } from "../api/windvane";
 
 const USER_ID_KEY = "lzd_uid";
 const SESSION_ID_KEY = "lzd_sid";
-const useMock: boolean = location.host.indexOf('redmart.com') > 0;
+const useMock: boolean = location.host.indexOf('local') >= 0 || location.host.indexOf('redmart.com') > 0;
 
 function cookieDomain() {
   let domain;
@@ -38,10 +38,26 @@ export function getUserId() {
   return isLoggedIn() ? id : null;
 }
 
+export function getSessionId() {
+  if (useMock) {
+    return 'foo-bar';
+  }
+
+  const id = getCookie(SESSION_ID_KEY);
+  return isLoggedIn() ? id : null;
+}
+
 export function loginFrom(currentLocation: string = location.href): string {
-  let url = currentEnvironment === Environments.production ? 'https://member.lazada.sg/user/login' : 'http://buyer.lazada.test/user/login';
-  url = url + `?redirect=${encodeURIComponent(currentLocation)}`;
-  return url;
+  const param = `?redirect=${encodeURIComponent(currentLocation)}`;
+
+  switch(currentEnvironment) {
+    case Environments.production: 
+      return `https://member.lazada.sg/user/login${param}`;
+    case Environments.development: 
+      return `https://member-rm.lazada.sg/user/login${param}`;
+    default:
+    return `https://buyer.lazada.test/user/login${param}`;
+  }
 }
 
 export function reLogin() {

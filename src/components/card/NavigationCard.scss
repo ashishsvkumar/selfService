@@ -48,6 +48,7 @@
 
 .arrow {
     float: right;
+    margin-top: 2px;
 }
 
 .loginButton {
@@ -58,4 +59,28 @@
     font-style: italic;
     font-size: 14px;
     color: $grape_fruit;
+}
+
+@media (min-width: 992px) { 
+    .arrow {
+        transform: scale(1.5);
+    }
+
+    .content {
+        padding: 22px 25px 21px 20px;
+
+        &.card {
+            border-color: #dadada;
+        }
+        
+        &.strip {
+            border-color: #dadada;
+        }
+    }
+
+    .text {
+        color: #424242;
+        font-weight: 400;
+        font-size: 14px;
+    }
 }

@@ -67,3 +67,20 @@
         padding-left: 8px;
     }
 }
+
+@media (min-width: 992px) { 
+
+    .default { 
+        border-color: #dddddd;
+    }
+
+    .primary {
+        background-image: none;
+        background-color: #1a9cb7;
+        font-size: 13px;
+        text-transform: uppercase;
+
+        border-radius: 2px;
+    }
+
+}

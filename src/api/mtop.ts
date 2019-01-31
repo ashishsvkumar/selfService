@@ -1,16 +1,16 @@
-import { mockOrders, mockDetails } from "../mockData/mock";
-const useMock: boolean = location.search.indexOf('mock=true') >= 0 || location.host.indexOf('redmart.com') > 0;
+import { mockOrders, mockDetails, mockUser } from "../mockData/mock";
+const useMock: boolean = location.host.indexOf('local') >= 0 || location.search.indexOf('mock=true') >= 0 || location.host.indexOf('redmart.com') > 0;
 
 // @ts-ignore
 const Mtop = window.lib.mtop;
 
-Mtop.config.prefix = "acs";
-Mtop.config.subDomain = "waptest";
-Mtop.config.mainDomain = "lazada.test";
+Mtop.config.prefix = "";
+Mtop.config.subDomain = "acs-wapa-rm";
+Mtop.config.mainDomain = "lazada.sg";
 
 const DEFAULT_CONFIG = {
   "v": "1.0",
-  "data": {},
+  "data": { ultronVersion: 2.2 },
   "appKey": "24814220",
   "type": "GET",
   "ecode": 0,
@@ -30,6 +30,10 @@ export function orderList(): Promise<any> {
     {
       ...DEFAULT_CONFIG,
       api: "mtop.lazada.om.orderlist",
+      "data": {
+        sellerId: 1000008313,
+        ultronVersion: 2.2
+      }
     });
 }
 
@@ -43,7 +47,27 @@ export function orderDetails(id: string): Promise<any> {
       ...DEFAULT_CONFIG,
       api: "mtop.lazada.om.orderdetail",
       data: {
-        tradeOrderId: parseInt(id, 10)
+        tradeOrderId: parseInt(id, 10),
+        ultronVersion: 2.2
       }
     });
+}
+
+
+export function memberDetails(userId: string, sessionId: string): Promise<any> {
+  if (useMock) {
+    return mockUser();
+  }
+
+  return Mtop.request(
+    {
+      ...DEFAULT_CONFIG,
+      api: "mtop.lazada.member.user.biz.getloginuser",
+      data: {
+        sessionId: sessionId,
+        userId: parseInt(userId, 10),
+        ultronVersion: 2.2
+      }
+    }
+  );
 }

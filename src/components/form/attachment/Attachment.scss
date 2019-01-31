@@ -39,23 +39,24 @@
     }
 
     .remove_icon {
-        float: right;
-        padding: 0 5px 1px;
-
-        background-color: rgba(0, 0, 0, 0.6);
-        border-top-right-radius: 2px;
-        color: white;
-        font-weight: bold;
-        font-size: 16px;
-        user-select: none;
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 28px;
+        height: 28px;
         cursor: pointer;
 
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        background-image: url('../../../assets/cancel-666.png');
+
         &:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-image: url('../../../assets/cancel-999.png');
         }
 
         &:active {
-            background-color: rgba(0, 0, 0, 1);
+            background-image: url('../../../assets/cancel-333.png');
         }
     }
 }
@@ -104,4 +105,31 @@
     padding: 18%;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.1);
     font-size: 13px;
+}
+
+@media (min-width: 992px) { 
+
+    .thumbnails {
+    
+        .thumbnail {
+            width: 160px;
+            height: 160px;
+
+            margin-bottom: 16px;
+            margin-right: 16px;
+
+            &:last-child {
+                margin-bottom: 16px;
+            }
+    
+            &:nth-child(even) {
+                margin-right: 16px;
+            }
+        }
+
+        .remove_icon {
+            width: 32px;
+            height: 32px;
+        }
+    }
 }

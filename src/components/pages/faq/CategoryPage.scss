@@ -33,3 +33,26 @@
     color: $grape_fruit;
     margin-bottom: 2px;
 }
+
+@media (min-width: 992px) { 
+
+    .content {
+        padding-top: 10px;   
+    }
+
+    .section_title {
+        padding: 0;
+    }
+
+    .section {
+        margin-bottom: 50px;
+    }
+
+    .alt_card {
+        margin-bottom: 12px;
+
+        > a > div:nth-child(2) {
+            margin-top: -2px;
+        }
+    }
+}

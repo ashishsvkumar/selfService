@@ -12,6 +12,8 @@ import { SelectOption } from "../../form/Select";
 import { Attachment } from "../../form/attachment/Attachment";
 import { Ticket, TicketType, RefundMethod } from "../../../store/ticket/types";
 import { isEmptyString, isEmptyArray } from "../../../utils/extras";
+import { WarningIcon } from "../../icons/WarningIcon";
+import { Comment } from "../../form/Comment";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, ItemLevelHelpPageState> {
 
@@ -73,19 +75,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         this.setState({ attachmentUploading: onGoing })
     }
 
-    onCommentChange = (e: any) => {
-        const value = e.target.value;
-        this.setState({ comment: value })
-    }
-
-    commentsView = () => {
-        return (
-            <div className={styles.comments}>
-                <div className={styles.title}>Additional Information  (optional)</div>
-                <div className={styles.subtext}>e.g. If concern involves a multi-pack product, please indicate the number of pieces affected.</div>
-                <textarea className={styles.comment} onChange={this.onCommentChange} />
-            </div>
-        )
+    onCommentChange = (comment: string) => {
+        this.setState({ comment: comment })
     }
 
     getBlackItems = () => {
@@ -172,14 +163,16 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
                     />
                 ))}
                 <div className={styles.link_button}>
-                    <Button text="Add More Items" style={{ width: '100%', margin: 'auto' }} onClick={() => this.togglePopup()} />
+                    <div className={styles.only_mobile}><Button text="Add More Items" style={{ width: '100%', margin: 'auto' }} onClick={() => this.togglePopup()} /></div>
+                    <div className={styles.only_desktop}><Button text="Add More Items" style={{ padding: '15px 50px' }} onClick={() => this.togglePopup()} /></div>
                 </div>
                 {helpCategory === Category.damaged && <div className={styles.attachment}><Attachment label="Add photo(s) of affected items" onChange={this.onAttachmentUpload} notifyOnProgress={this.onAttachmentUploadOnGoing} /></div>}
-                {this.commentsView()}
+                {helpCategory === Category.damaged && <Comment title="Additional Information" checkBoxTitle="The concern involves a multi-pack product." subtitle="Please indicate the number of pieces affected." onChange={this.onCommentChange}/>}
                 <div className={styles.submission}>
-                    { helpCategory === Category.damaged && !isEmptyString(this.state.warning) && <div className={styles.warning_text}>&#9888; {this.state.warning}</div> }
+                    { helpCategory === Category.damaged && !isEmptyString(this.state.warning) && <div className={styles.warning_text}><WarningIcon text={this.state.warning}/></div> }
                     <div className={styles.subtitle}>Upon verification of your claim, we will issue a refund to your original payment method within 24 business hours.</div>
-                    <Button text="Submit" isPrimary={true} style={{ padding: '12px', width: '80%', margin: 'auto' }} isDisabled={this.state.attachmentUploading || inProgress} onClick={this.attempSubmit} />
+                    <div className={styles.only_mobile}><Button text="Submit" isPrimary={true} style={{ padding: '12px', width: '80%', margin: 'auto' }} isDisabled={this.state.attachmentUploading || inProgress} onClick={this.attempSubmit} /></div>
+                    <div className={styles.only_desktop}><Button text="Submit" isPrimary={true} style={{ padding: '15px 50px', margin: 'auto' }} isDisabled={this.state.attachmentUploading || inProgress} onClick={this.attempSubmit} /></div>
                 </div>
             </div>
         )
@@ -190,14 +183,28 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
 
         const preSelected = items.map(im => im.sku).filter(sku => this.state.selectedItems.some(im => im.sku === sku))
         return (
-            <PopupPage popupStyle={Style.FULLSCREEN} show={this.state.slideInPopup}>
-                <ItemsToggleList
-                    items={items}
-                    onClose={this.togglePopup}
-                    selectedSkus={preSelected}
-                    header={this.getHeading()}
-                />
-            </PopupPage>
+            <React.Fragment>
+                <div className={styles.only_mobile}>
+                    <PopupPage popupStyle={Style.FULLSCREEN} show={this.state.slideInPopup}>
+                        <ItemsToggleList
+                            items={items}
+                            onClose={this.togglePopup}
+                            selectedSkus={preSelected}
+                            header={this.getHeading()}
+                        />
+                    </PopupPage>
+                </div>
+                <div className={styles.only_desktop}>
+                    <PopupPage popupStyle={Style.OVERLAY} show={this.state.slideInPopup}>
+                        <ItemsToggleList
+                            items={items}
+                            onClose={this.togglePopup}
+                            selectedSkus={preSelected}
+                            header={this.getHeading()}
+                        />
+                    </PopupPage>                
+                </div>
+            </React.Fragment>
         )
     }
 
@@ -206,7 +213,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
             <div className={styles.content}>
                 <div className={styles.title}>{this.getHeading()} </div>
                 {this.state.selectedItems.length > 0 && this.issuesView()}
-                {this.state.selectedItems.length === 0 && <Button text="Select Items" onClick={() => this.togglePopup()} style={{ width: '100%' }} />}
+                {this.state.selectedItems.length === 0 && <div className={styles.only_mobile}><Button text="Select Items" onClick={() => this.togglePopup()} style={{ width: '100%' }}/></div>}
+                {this.state.selectedItems.length === 0 && <div className={styles.only_desktop}><Button text="Select Items" onClick={() => this.togglePopup()} style={{ padding: '15px 50px' }}/></div>}
                 {this.itemListPopupView()}
             </div>
         )

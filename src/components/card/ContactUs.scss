@@ -77,3 +77,51 @@
     background-color: $almost_white;
     margin-bottom: 20px;
 }
+
+@media (min-width: 992px) { 
+
+    .content {
+        margin-top: 80px;
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: 200;
+    }
+
+    .btns {
+        width: auto;
+        margin-top: 20px;
+    
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .btn {
+        color: #ff330c;
+        font-size: 16px;
+        font-weight: 200;
+
+        border: 1px solid #ff330c;
+        width: 185px;
+        margin-right: 10px;
+        padding: 14px 12px 11px 12px;
+
+        &:first-child {
+            border-right: 1px solid #ff330c;
+        }
+
+        &:hover {
+            background-color: white;
+        }
+    }
+
+    .subtext {
+        background-color: transparent;
+        font-weight: 200;
+        text-align: left;
+        color: #666666;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+}

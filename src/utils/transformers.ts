@@ -1,8 +1,8 @@
-import { OrderDetails, OrderDetailsState, Item, OrderSummary, DetailInfo, ShippingInfo } from "../store/order/types";
+import { OrderDetails, OrderDetailsState, Item, OrderSummary, DetailInfo, ShippingInfo, Package } from "../store/order/types";
 import { OrderSummaryProps } from "../components/order/OrderSummary";
 import { ItemPreviewProps } from "../components/item/ItemPreview";
 import * as log from "loglevel";
-import { isEmptyArray, isEmptyObject } from "./extras";
+import { isEmptyArray, isEmptyObject, isEmptyString } from "./extras";
 
 export function extractOrderSummary(order: OrderDetails | OrderDetailsState | null): OrderSummaryProps | null {
     let data: OrderDetails;
@@ -27,7 +27,7 @@ export function extractOrderSummary(order: OrderDetails | OrderDetailsState | nu
     return {
         tradeOrderId: data.detailInfo.tradeOrderId,
         deliverySlot: getSlot(data.package.orderItems, data.detailInfo),
-        deliveryStatus: getStatus(data.package.orderItems, data.package.shippingInfo),
+        deliveryStatus: getStatus(data.package.orderItems, data.package),
         itemThumnails: data.package.orderItems.map(item => item.picUrl)
     }
 }
@@ -64,22 +64,12 @@ export function getSlot(items: Item[], detail: DetailInfo): string {
     return detail.createdAt;
 }
 
-export function getStatus(items: Item[], shippingInfo?: ShippingInfo): string {
-    if (!isEmptyObject(shippingInfo) && !isEmptyObject(shippingInfo.statusMap)) {
-        return shippingInfo.statusMap.active;
+export function getStatus(orderItems: Item[], orderPackage?: Package) {
+    if (!isEmptyObject(orderPackage) && !isEmptyString(orderPackage.status)) {
+        return orderPackage.status;
     }
 
-    const statuses: string[] = items.map(item => item.status)
-    if (isEmptyArray(statuses)) {
-        log.error('Unknown order status', items);
-        return '';
-    }
-
-    if (statuses[0] === 'cancel') {
-        return 'Payment pending';
-    }
-
-    return statuses[0];
+    return orderItems.filter(im => !isEmptyString(im.status)).map(im => im.status)[0];
 }
 
 export function blobToFile(theBlob: Blob, fileName:string): File {

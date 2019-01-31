@@ -34,6 +34,10 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         return this.props.deliverySlot.indexOf("Get by") === 0 ? this.props.deliverySlot.replace("Get by", "") : moment(this.props.deliverySlot, 'DD MMM YYYY HH:mm:ss').format('ddd DD MMM');
     }
 
+    label = () => {
+        return this.props.deliverySlot === 'Cancelled' ? "Placed On" : "Delivery Time";
+    }
+
     statusColor = () => {
         switch (this.props.deliveryStatus) {
             case "Payment pending":
@@ -56,16 +60,18 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         return (
             <React.Fragment>
                 <div className={styles.slot}>
+                    <div className={styles.label}>Delivery Time</div>
                     <div className={styles.time}>{this.trimSlot()}</div>
                     <div className={styles.status} style={{ color: this.statusColor() }}>{deliveryStatus}</div>
                     <div className={styles.clear}></div>
                 </div>
                 <div className={thumbnailClass}>
-                    {itemThumnails.slice(0, 3).map(url => this.prepareItemthumnail(url))}
+                    {itemThumnails.slice(0, 4).map(url => this.prepareItemthumnail(url))}
                     <div className={styles.arrow}><ArrowIcon /></div>
                     <div className={styles.help}>{linkTo === LinkTo.ORDER_HELP ? 'Get Help' : 'View Order'}</div>
                     <div className={styles.clear}></div>
                 </div>
+                <div className={styles.clear}></div>
             </React.Fragment>
         )
     }
@@ -95,6 +101,7 @@ export const RecentOrderCard = (props: OrderSummaryProps) => {
             <ProtectedLink className={styles.all_orders} to="/orders">
                 <div className={styles.arrow}><ArrowIcon /></div>
                 <div className={styles.help}>Need help with another order</div>
+                <div className={styles.arrow_2}><ArrowIcon /></div>
                 <div className={styles.clear}></div>
             </ProtectedLink>
         </div>
@@ -107,7 +114,9 @@ function prepareOrderHelpLink(linkTo: LinkTo, tradeOrderId: string) {
     }
     else {
         if (currentEnvironment === Environments.production) {
-            return isMobile() ? `https://my-m.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`
+            return isMobile() ? `https://my-m.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`;
+        } else if (currentEnvironment === Environments.development) {
+            return isMobile() ? `https://my-rm-p.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my-rm.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`;
         } else {
             return isMobile() ? `http://pages.lazada.test/wow/i/sg/order/order-detail?tradeOrderId=${tradeOrderId}&wh_weex=true` : `http://buyer.lazada.test/customer/order/view/?tradeOrderId=${tradeOrderId}`;
         }

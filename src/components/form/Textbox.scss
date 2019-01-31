@@ -20,3 +20,12 @@
         outline: none;
     }
 }
+
+@media (min-width: 992px) { 
+    .textbox {
+        border-radius: 5px;
+        border-color: #bdbdbd;
+
+        height: 45px;
+    }
+}

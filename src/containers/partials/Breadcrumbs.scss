@@ -1,0 +1,41 @@
+@import '../../base.scss';
+
+.content {
+    background-color: #f1f1f1;
+    padding-left: calc(12% + 1px);
+    padding-right: 12%;
+
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.link {
+    display: inline-block;
+    font-size: 13px;
+    color: #1a9cb7;
+
+    &.dark {
+        color: #202020;
+
+        &:active, &:visited {
+            color: #202020;
+        }
+    }
+
+    &:active, &:visited {
+        color: #1a9cb7;
+    }
+}
+
+.separator {
+    display: inline-block;
+    margin: 0 12px;
+    font-size: 14px;
+}
+
+@media (min-width: 1281px) { 
+    .content {
+        padding-left: calc(15% + 3px);
+        padding-right: 15%;
+    }
+}

@@ -1,4 +1,5 @@
 import { mockOrdersList } from './ordersList';
+import { userInfo } from './user';
 import { o1 } from "./o1"
 import { o2 } from "./o2"
 import { o3 } from "./o3"
@@ -6,25 +7,21 @@ import { o4 } from "./o4"
 import { o5 } from "./o5"
 import { o6 } from "./o6"
 import { o7 } from "./o7"
-import { o8 } from "./o8"
-import { o9 } from "./o9"
-import { o10 } from "./o10"
 import { isEmptyObject } from '../utils/extras';
 
-const orders = [o1, o2, o3, o4, o5, o6, o7, o8, o9, o10];
+const orders = [o1, o2, o3, o4, o5, o6, o7];
 
 export function mockOrders() {
     // @ts-ignore
-    return new Promise<any>((resolve: Function) => { 
-        console.log('aaa', mockOrdersList)
+    return new Promise<any>((resolve: Function) => {
         mockOrdersList.retType = 0;
-        resolve(mockOrdersList) 
+        resolve(mockOrdersList)
     });
 }
 
 export function mockDetails(id: string) {
     // @ts-ignore
-    return new Promise<any>((resolve: Function, reject: Function) => { 
+    return new Promise<any>((resolve: Function, reject: Function) => {
         const order = orders.filter(order => isOrder(order, id));
         if (order.length > 0) {
             order[0].retType = 0;
@@ -32,6 +29,14 @@ export function mockDetails(id: string) {
         } else {
             reject({ module: { data: {} } })
         }
+    });
+}
+
+export function mockUser() {
+    // @ts-ignore
+    return new Promise<any>((resolve: Function) => {
+        userInfo.retType = 0;
+        resolve(userInfo)
     });
 }
 

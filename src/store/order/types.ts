@@ -54,6 +54,7 @@ export interface Package {
   orderItems: Item[];
   shippingInfo: ShippingInfo;
   sellerInfo: SellerInfo;
+  status: string;
 }
 
 export interface DeliverySummary {
