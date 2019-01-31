@@ -86,11 +86,12 @@ module.exports = {
             inject: true
         }),
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             template: './desktop.html',
             inject: true
         }),
         new MiniCssExtractPlugin({
-            filename: "rm-cs-bundle-[hash:6].css",
+            filename: "./rm-cs-bundle-[hash:6].css",
             chunkFilename: "[name].css"
         }),
         new CopyWebpackPlugin([
