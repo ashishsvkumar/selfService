@@ -24,10 +24,11 @@ export function extractOrderSummary(order: OrderDetails | OrderDetailsState | nu
         return null;
     }
 
+    console.log('aaa', data);
     return {
         tradeOrderId: data.detailInfo.tradeOrderId,
         deliverySlot: getSlot(data.package.orderItems, data.detailInfo),
-        deliveryStatus: getStatus(data.package.orderItems, data.package),
+        deliveryStatus: getStatus(data.detailInfo, data.package),
         itemThumnails: data.package.orderItems.map(item => item.picUrl)
     }
 }
@@ -35,7 +36,7 @@ export function extractOrderSummary(order: OrderDetails | OrderDetailsState | nu
 export function orderSummaryToProps(order: OrderSummary): OrderSummaryProps {
     return {
         tradeOrderId: order.tradeOrderId,
-        deliveryStatus: getStatus(order.orderItems),
+        deliveryStatus: getStatus(order.orderInfo, null),
         deliverySlot: getSlot(order.orderItems, order.orderInfo),
         itemThumnails: order.orderItems.map(item => item.picUrl)
     }
@@ -64,12 +65,8 @@ export function getSlot(items: Item[], detail: DetailInfo): string {
     return detail.createdAt;
 }
 
-export function getStatus(orderItems: Item[], orderPackage?: Package) {
-    if (!isEmptyObject(orderPackage) && !isEmptyString(orderPackage.status)) {
-        return orderPackage.status;
-    }
-
-    return orderItems.filter(im => !isEmptyString(im.status)).map(im => im.status)[0];
+export function getStatus(detail: DetailInfo, orderPackage: Package) {
+    return !isEmptyObject(detail) && !isEmptyString(detail.status) ? detail.status : orderPackage.status;
 }
 
 export function blobToFile(theBlob: Blob, fileName:string): File {

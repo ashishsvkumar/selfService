@@ -22,10 +22,10 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         super(props);
     }
 
-    prepareItemthumnail = (url: string) => {        
+    prepareItemthumnail = (url: string, index: number) => {        
         return (
-            <div className={styles.thumbail_holder} key={`item-thumbnail-${url}`}>
-                <div className={styles.thumbail} style={{ backgroundImage: `url("${url}")` }} key={`item-thumbnail-${url}`}></div>
+            <div className={styles.thumbail_holder} key={`item-thumbnail-${url}-${index}`}>
+                <div className={styles.thumbail} style={{ backgroundImage: `url("${url}")` }}></div>
             </div>
         )
     }
@@ -66,7 +66,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                     <div className={styles.clear}></div>
                 </div>
                 <div className={thumbnailClass}>
-                    {itemThumnails.slice(0, 4).map(url => this.prepareItemthumnail(url))}
+                    {itemThumnails.slice(0, 4).map((url, index) => this.prepareItemthumnail(url, index))}
                     <div className={styles.arrow}><ArrowIcon /></div>
                     <div className={styles.help}>{linkTo === LinkTo.ORDER_HELP ? 'Get Help' : 'View Order'}</div>
                     <div className={styles.clear}></div>

@@ -105,6 +105,7 @@ export interface DetailInfo {
   paidAt: string;
   linkText: string;
   linkColor: string;
+  status: string
 }
 
 export interface OrderDetails {
