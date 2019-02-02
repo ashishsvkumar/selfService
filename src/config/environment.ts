@@ -1,4 +1,5 @@
 import * as log from "loglevel";
+import { isWindVandAvailable } from "../api/windvane";
 const ENV = process.env.NODE_ENV || "development";
 
 export const enum Environments {
@@ -35,7 +36,10 @@ export function getBasePath(): string {
 }
 
 export function isMobile(): boolean {
-  return location.pathname.indexOf('/m/') >= 0;
+  const words = ['android', 'iphone', 'ipad', 'ipod', 'kindle'];
+  const agent = window.navigator.userAgent.toLowerCase();
+
+  return isWindVandAvailable() || words.some(word => agent.indexOf(word) >= 0);
 }
 
 export const currentEnvironment: Environments = getCurrentEnvironment();
