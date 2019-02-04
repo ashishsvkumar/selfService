@@ -1,10 +1,13 @@
 const merge = require('webpack-merge');
 const commonConfig = require('./common.config.js');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const zopfli = require('@gfx/zopfli');
 
 module.exports = merge(commonConfig, {
-    devtool: "source-map",
+    optimization: {
+        minimizer: [new UglifyJsPlugin()],
+    },
     plugins: [
         new CompressionPlugin({
             compressionOptions: {
