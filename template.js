@@ -59,7 +59,7 @@ function prepareTemplate(head, header, footer) {
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         ${prepareInlineLibs()}
-        <script>__rm__env__=${process.env.NODE_ENV}</script>
+        <script>__rm__env__="${process.env.NODE_ENV}"</script>
         ${head}
     </head>
     <body>
