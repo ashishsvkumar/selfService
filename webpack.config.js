@@ -78,6 +78,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
+                            name: '[name]--[hash:6].[ext]',
                             outputPath: 'support/assets'
                         },
                     },
