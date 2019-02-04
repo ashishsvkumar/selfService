@@ -10,21 +10,6 @@ function prepareUrl() {
 function prepareInlineLibs() {
     const infix = devMode ? '.debug' : '';
 
-    const commonUrls = [
-        '//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js',
-        '//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js',
-        '//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js',
-        '//cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-shim.min.js',
-        '//cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-sham.min.js',
-        '//wzrd.in/standalone/es7-shim@latest',
-        '//cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js'
-    ];
-
-    const aliUrls = [
-        `//g.alicdn.com/mtb/lib-mtop/2.3.14/mtop${infix}.js`,
-        `//g.alicdn.com/mtb/lib-promise/3.1.1/polyfillB${infix}.js`
-    ];
-
     const lazUrls = [
         `//laz-g-cdn.alicdn.com/mtb/??3rd/0.0.10/require.js`,
         `//laz-g-cdn.alicdn.com/mtb/??lib-promise/3.0.1/polyfillB${infix}.js`,

@@ -6,8 +6,7 @@
   "scripts": {
     "template:alpha": "NODE_ENV=development node template.js",
     "template:prod": "NODE_ENV=production node template.js",
-    "dev": "npm run template:alpha && webpack-dev-server --config webpack/development.config.js -d --progress",
-    "prod": "npm run template:prod && webpack-dev-server --config webpack/production.config.js -p --progress",
+    "dev": "npm run template:alpha && webpack-dev-server --config webpack/local.config.js -d --progress",
     "storybook": "start-storybook -p 6006 -c .storybook",
     "build:prod": "npm run template:prod && NODE_ENV=production webpack --config webpack/production.config.js -p",
     "build:alpha": "npm run template:alpha && NODE_ENV=development webpack --config webpack/development.config.js -d",
@@ -49,6 +48,7 @@
     "tslint-config-prettier": "^1.17.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.2.2",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "url-loader": "^1.1.2",
     "watch-ignore-webpack-plugin": "^1.0.0",
     "webpack": "^4.28.3",

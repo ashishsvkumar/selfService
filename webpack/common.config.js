@@ -81,10 +81,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "./support/rm-cs-bundle-[hash:6].css",
             chunkFilename: "[name].css"
-        }),
-        new CopyWebpackPlugin([
-            { from: './lib/**/*', to: './support/' }
-        ])
+        })
     ],
 
     externals: {
