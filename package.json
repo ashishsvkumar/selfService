@@ -6,11 +6,11 @@
   "scripts": {
     "template:alpha": "NODE_ENV=development node template.js",
     "template:prod": "NODE_ENV=production node template.js",
-    "dev": "npm run template:alpha && DEBUG='express:*' webpack-dev-server -d --progress",
-    "prod": "npm run template:prod && DEBUG='express:*' webpack-dev-server -d --progress",
+    "dev": "npm run template:alpha && webpack-dev-server --config webpack/development.config.js -d --progress",
+    "prod": "npm run template:prod && webpack-dev-server --config webpack/production.config.js -p --progress",
     "storybook": "start-storybook -p 6006 -c .storybook",
-    "build:prod": "npm run template:prod && NODE_ENV=production webpack -p",
-    "build:alpha": "npm run template:alpha && NODE_ENV=development webpack -d",
+    "build:prod": "npm run template:prod && NODE_ENV=production webpack --config webpack/production.config.js -p",
+    "build:alpha": "npm run template:alpha && NODE_ENV=development webpack --config webpack/development.config.js -d",
     "build:ftr": "npm run build:alpha",
     "clean": "rm -rf dist mobile.html desktop.html",
     "lint": "tslint --project tsconfig.json --config tslint.json '{src,stories}/**/*.{ts,tsx,js}' --fix"
@@ -53,7 +53,8 @@
     "watch-ignore-webpack-plugin": "^1.0.0",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1"
   },
   "dependencies": {
     "@types/classnames": "^2.2.6",
