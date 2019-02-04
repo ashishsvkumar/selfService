@@ -1,6 +1,7 @@
 import * as log from "loglevel";
 import { isWindVandAvailable } from "../api/windvane";
-const ENV = process.env.NODE_ENV || "development";
+// @ts-ignore
+const ENV = window.__rm__env__ || "development";
 
 export const enum Environments {
   daily = "daily",
