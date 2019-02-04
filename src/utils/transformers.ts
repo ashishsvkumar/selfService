@@ -24,7 +24,6 @@ export function extractOrderSummary(order: OrderDetails | OrderDetailsState | nu
         return null;
     }
 
-    console.log('aaa', data);
     return {
         tradeOrderId: data.detailInfo.tradeOrderId,
         deliverySlot: getSlot(data.package.orderItems, data.detailInfo),
