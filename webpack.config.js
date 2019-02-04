@@ -73,11 +73,16 @@ module.exports = {
             },
 
             {
-                test: /\.(jpg|png|gif|svg|pdf|ico)$/,
+                test: /\.(jpg|jpeg|png|gif|svg|pdf|ico)$/,
                 use: [
-                    { loader: 'url-loader' }
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'support/assets'
+                        },
+                    },
                 ]
-            },
+            }
         ]
     },
 
