@@ -9,6 +9,7 @@ import { fetchUserInfo } from "./store/user/actions";
 import { ApplicationState } from "./store";
 import * as log from 'loglevel';
 import { isEmptyObject } from "./utils/extras";
+import { setupSnapEngage } from "./chat/snapengage";
 const supportsHistory = "pushState" in window.history;
 
 class App extends React.Component<AppProps, {}> {
@@ -22,6 +23,7 @@ class App extends React.Component<AppProps, {}> {
         if (!this.props.user.fetching && isEmptyObject(this.props.user.user)) {
             this.props.fetchUserInfo();
         }
+        setupSnapEngage();
     }
 
     render() {    

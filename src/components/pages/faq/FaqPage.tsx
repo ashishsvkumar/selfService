@@ -41,6 +41,13 @@ function sanitizeFaqLink(str: string): string {
         table.style = '';
     })
 
+    const images = Array.prototype.slice.call(doc.getElementsByTagName('img'));
+    images.forEach(image => {
+        image.style.maxWidth = '100%';
+        image.style.width = 'auto';
+        image.style.height = 'auto';
+    });
+
     return doc.outerHTML;
 }
 
