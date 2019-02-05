@@ -11,6 +11,8 @@ import { breadcrumbState } from "./breadcrumb/types";
 import { initialBreadcrumbState, breadcrumbReducer } from "./breadcrumb/reducer";
 import { UserInfoState } from "./user/types";
 import { initialUserInfoState, userInfoReducer } from "./user/reducer";
+import { ChatState } from "./chat/types";
+import { initialChatState, chatReducer } from "./chat/reducer"
 
 
 export interface ApplicationState {
@@ -22,7 +24,8 @@ export interface ApplicationState {
   alert: AlertState,
   ticket: TicketState,
   breadcrumbs: breadcrumbState,
-  user: UserInfoState
+  user: UserInfoState,
+  chat: ChatState
 }
 
 export const initialState: ApplicationState = {
@@ -34,7 +37,8 @@ export const initialState: ApplicationState = {
   alert: initialAlertState,
   ticket: initialTicketState,
   breadcrumbs: initialBreadcrumbState,
-  user: initialUserInfoState
+  user: initialUserInfoState,
+  chat: initialChatState
 };
 
 export const rootReducer = combineReducers<ApplicationState>({
@@ -46,5 +50,6 @@ export const rootReducer = combineReducers<ApplicationState>({
   alert: alertReducer,
   ticket: ticketReducer,
   breadcrumbs: breadcrumbReducer,
-  user: userInfoReducer
+  user: userInfoReducer,
+  chat: chatReducer
 });

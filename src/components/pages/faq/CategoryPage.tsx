@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as styles from "./CategoryPage.scss";
 import { setTitle } from '../../../utils/container'
-import { ContactUs } from "../../card/ContactUs";
+import ContactUs from "../../../containers/partials/ContactUs";
 import { Section, Article } from "../../../store/faq/types";
 import cx from 'classnames';
 import { decode, encodeSpace } from "../../../utils/extras";

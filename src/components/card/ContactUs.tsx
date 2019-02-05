@@ -1,15 +1,14 @@
 import * as React from "react";
 import * as styles from "./ContactUs.scss";
 import cx from 'classnames';
-import { startChat } from '../../chat/snapengage';
 
-export const ContactUs = () => {
+export const ContactUs = (props: ContactUsProps) => {
 
     return (
         <div className={styles.content}>
             <div className={cx([styles.only_desktop, styles.title])}>Need further help?</div>
             <div className={styles.btns}>
-                <div className={styles.btn} onClick={startChat}>
+                <div className={styles.btn} onClick={props.onChatClick}>
                     <div className={styles.chat}/>
                     <div className={styles.label}>Chat with us</div>
                 </div>
@@ -26,3 +25,6 @@ export const ContactUs = () => {
     )
 };
 
+export interface ContactUsProps {
+    onChatClick: () => void
+}

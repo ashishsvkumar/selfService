@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as styles from "./FaqPage.scss";
 import { setTitle } from '../../../utils/container'
-import { ContactUs } from "../../card/ContactUs";
+import ContactUs from "../../../containers/partials/ContactUs";
 import { decode } from "../../../utils/extras";
 import { basePath } from "../../../config/environment";
 

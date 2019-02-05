@@ -13,6 +13,7 @@ import FaqPage from "../../containers/pages/FaqPage";
 import CategoryPage from "../../containers/pages/CategoryPage";
 import { Sidebar } from "../sidebar/Sidebar";
 import Breadcrumbs from "../../containers/partials/Breadcrumbs";
+import Snapengage from "../../containers/partials/Snapengage";
 
 class MainContentHolder extends Component<any, any> {
 
@@ -35,17 +36,19 @@ class MainContentHolder extends Component<any, any> {
                 <div className={styles.only_desktop}><Breadcrumbs /></div>
                 <div className={styles.app}>
                     <div className={sidebarClassName}><Sidebar /></div>
-                    <div className={bodyClassName}>
-                        <Route path="/orders/:tradeOrderId(\d+)/faq/:id/:heading?" component={FaqPage} />
-                        <Route path="/category/:categoryId(\d+)/:categoryHeading/faq/:id/:heading?" component={FaqPage} />
-                        <Route path="/faq/:id/:heading?" component={FaqPage} />
-                        <Route exact path="/orders/:tradeOrderId/help/:category" component={ItemLevelHelpPage} />
-                        <Route exact path="/orders/:tradeOrderId" component={OrderHelpLandingPage} />
-                        <Route exact path="/category/:id/:heading" component={CategoryPage} />
-                        <Route exact path="/orders" component={OrdersPage} />
-                        <Route exact path="/query" component={QueryFormPage} />
-                        <Route exact path="/" component={LandingPage} />
-                    </div>
+                        <Snapengage>
+                            <div className={bodyClassName}>
+                                <Route path="/orders/:tradeOrderId(\d+)/faq/:id/:heading?" component={FaqPage} />
+                                <Route path="/category/:categoryId(\d+)/:categoryHeading/faq/:id/:heading?" component={FaqPage} />
+                                <Route path="/faq/:id/:heading?" component={FaqPage} />
+                                <Route exact path="/orders/:tradeOrderId/help/:category" component={ItemLevelHelpPage} />
+                                <Route exact path="/orders/:tradeOrderId" component={OrderHelpLandingPage} />
+                                <Route exact path="/category/:id/:heading" component={CategoryPage} />
+                                <Route exact path="/orders" component={OrdersPage} />
+                                <Route exact path="/query" component={QueryFormPage} />
+                                <Route exact path="/" component={LandingPage} />
+                            </div>
+                        </Snapengage>
                     <div className={styles.clear} />
                 </div>
             </React.Fragment>

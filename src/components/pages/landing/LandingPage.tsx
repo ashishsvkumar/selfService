@@ -5,8 +5,7 @@ import { NavigationCard } from '../../card/NavigationCard'
 import { ContentTitle } from "../../labels/ContentTitle"
 import { RecentOrderCard, OrderSummaryProps, LinkTo } from '../../order/OrderSummary'
 import cx from 'classnames';
-import { ContactUs } from "../../card/ContactUs";
-import { isEmptyString } from "../../../utils/extras";
+import ContactUs from "../../../containers/partials/ContactUs";
 
 export const LandingPage = (props: LandingPageProps) => {
 

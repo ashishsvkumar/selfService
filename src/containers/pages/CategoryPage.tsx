@@ -10,7 +10,7 @@ import { Spinner } from "../../components/icons/Spinner";
 import { isEmptyObject, isEmptyArray, encodeSpace, decode } from "../../utils/extras";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 
-export class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState> {
+class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState> {
 
     constructor(props: CategoryPageProps) {
         super(props);
