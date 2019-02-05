@@ -39,7 +39,7 @@ export function setupSnapEngage() {
     document.head.appendChild(script);
 }
 
-export function snapEngage(): Promise<SnapEngageStructure> {
+function snapEngage(): Promise<SnapEngageStructure> {
     // @ts-ignore
     return new Promise<SnapEngageStructure>((resolve: Function, reject: Function) => {
         if (snapEngageInstance !== null) {

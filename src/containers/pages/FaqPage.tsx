@@ -17,7 +17,7 @@ export class FaqPage extends React.Component<FaqPageProps, FaqPageState> {
     }
 
     componentWillMount() {
-        log.info('FAQ page countainer will mount ❓');
+        log.info('FAQ page countainer will mount❓');
 
         const { tradeOrderId, categoryId, categoryHeading, heading } = this.props.match.params;
         const crumbs = [{ text: decode(heading || 'FAQ'), url: location.href, needLogin: false }];
