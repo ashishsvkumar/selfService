@@ -10,7 +10,7 @@ export const ContactUs = (props: ContactUsProps) => {
             <div className={styles.btns}>
                 <div className={styles.btn} onClick={props.onChatClick}>
                     <div className={styles.chat}/>
-                    <div className={styles.label}>Chat with us</div>
+                    <div className={styles.label}>{ props.chatMessage }</div>
                 </div>
                 <a className={styles.btn} href="tel:+6562613456">
                     <div className={styles.call} />
@@ -26,5 +26,6 @@ export const ContactUs = (props: ContactUsProps) => {
 };
 
 export interface ContactUsProps {
-    onChatClick: () => void
+    onChatClick: () => void,
+    chatMessage: string
 }

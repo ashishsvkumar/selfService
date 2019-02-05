@@ -7,6 +7,7 @@ import { ContactUs as Component } from "../../components/card/ContactUs";
 import { fetchOrdersList } from '../../store/order/actions';
 import { isLoggedIn } from '../../utils/session';
 import { isEmptyObject, isEmptyArray, isEmptyString } from '../../utils/extras';
+import { getBasePath } from '../../config/environment';
 
 class ContactUs extends React.Component<ContactUsProps, {}> {
     constructor(props: ContactUsProps) {
@@ -18,6 +19,14 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
     }
 
     onChatClick = () => {
+        if (!this.props.chat.loaded || this.props.chat.isOffline) {
+            this.onLeaveMessage();
+        } else {
+            this.onChat();
+        }
+    }
+
+    onChat = () => {
         if (this.props.chat.loaded) {
             if (!isEmptyString(this.props.recentOrder)) {
                 this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
@@ -26,9 +35,14 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
         }
     }
 
+    onLeaveMessage = () => {
+        // @ts-ignore
+        window.location = `${getBasePath()}query`;
+    }
+
     render() {
         return (
-            <Component onChatClick={this.onChatClick} />
+            <Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Leave a message' : 'Chat with us'} />
         );
     }
 }

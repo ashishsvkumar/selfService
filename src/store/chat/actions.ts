@@ -5,6 +5,8 @@ import { currentEnvironment, Environments } from "../../config/environment";
 
 const initChat = () => action(ChatActionTypes.INIT);
 const chatReady = (instance: SnapEngageApi) => action(ChatActionTypes.READY, instance);
+const turnOffline = () => action(ChatActionTypes.OFFLINE);
+const turnOnline = () => action(ChatActionTypes.ONLINE);
 
 export function setup() {
     return function (dispatch: (param: any) => any) {
@@ -36,6 +38,7 @@ export function setup() {
                 const se: SnapEngageApi = window.SnapEngage;
                 se.hideButton();
                 se.allowChatSound(false);
+                setupPing(se, dispatch);
                 dispatch(chatReady(se));
             }
         }
@@ -50,4 +53,21 @@ function getSnapEngageScriptSource() {
     } else {
         return '//storage.googleapis.com/code.snapengage.com/js/e8b139d3-0051-4b76-81a4-dc61a4639da4.js';
     }
+}
+
+function setupPing(se: SnapEngageApi, dispatch: (param: any) => any) {
+    ping(se, dispatch);
+    setInterval(() => ping(se, dispatch), 5000);
+}
+
+function ping(se: SnapEngageApi, dispatch: (param: any) => any) {
+    se.getAgentStatusAsync((isOnline: boolean) => {
+        if (isOnline) {
+            log.info('Agent(s) available. Enabling chat');
+            dispatch(turnOnline());
+        } else {
+            log.warn('Agents not available. Disabling chat');
+            dispatch(turnOffline());
+        }
+    });
 }

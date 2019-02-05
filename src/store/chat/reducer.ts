@@ -4,7 +4,8 @@ import { ChatActionTypes, ChatState } from "./types";
 export const initialChatState: ChatState = {
     loading: false,
     loaded: false,
-    snapEngageInstance: undefined
+    snapEngageInstance: undefined,
+    isOffline: true
 };
 
 export const chatReducer: Reducer<ChatState> = (state = initialChatState, action: any) => {
@@ -14,6 +15,12 @@ export const chatReducer: Reducer<ChatState> = (state = initialChatState, action
         }
         case ChatActionTypes.READY: {
             return { ...state, loading: false, loaded: true, snapEngageInstance: action.payload }
+        }
+        case ChatActionTypes.ONLINE: {
+            return { ...state, isOffline: false }
+        }
+        case ChatActionTypes.OFFLINE: {
+            return { ...state, isOffline: true }
         }
         default: {
             return state;
