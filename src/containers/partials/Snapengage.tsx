@@ -7,6 +7,7 @@ import { ApplicationState } from '../../store';
 import { UserInfoState } from '../../store/user/types';
 import { fetchOrdersList } from "../../store/order/actions";
 import { isEmptyObject, isEmptyArray, isEmptyString } from '../../utils/extras';
+import { isLoggedIn } from '../../utils/session';
 
 class Chat extends React.Component<ChatProps, {}> { 
     constructor(props: ChatProps) {
@@ -67,7 +68,7 @@ const mapDispatchToProps = {
 }
 
 const maptStateToProps = ({ chat, user, ordersList }: ApplicationState) => {
-    const shouldFetch = !ordersList.loading && isEmptyObject(ordersList.data);
+    const shouldFetch = isLoggedIn() && !ordersList.loading && isEmptyObject(ordersList.data);
     const orders = isEmptyObject(ordersList.data) ? [] : ordersList.data.orders;
 
     return {
