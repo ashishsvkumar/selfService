@@ -3,6 +3,9 @@ import { OrderActionTypes, OrderList, OrderDetails } from "./types";
 import { orderList, orderDetails } from '../../api/mtop'
 import * as log from "loglevel";
 import { deflattener, errorCode } from "../../utils/mtop-utils";
+import { clearSession } from "../../utils/session";
+import { getBasePath } from "../../config/environment";
+import { showAlert, hideAlert } from "../alert/actions"
 
 const ordersListRequest = () => action(OrderActionTypes.ORDERS_LIST_REQUEST);
 const ordersListSuccess = (data: OrderList) => action(OrderActionTypes.ORDERS_LIST_SUCCESS, data);
@@ -36,6 +39,7 @@ export function fetchOrdersList() {
             err = errorCode(err)
             log.error('Unexpected error while fetching list of orders:', err)
             dispatch(ordersListError(err))
+            handleSessionExpire(err, dispatch)
             return err
         })
     }
@@ -65,6 +69,7 @@ export function fetchOrderDetails(tradeOrderId: string) {
             err = errorCode(err)
             log.error(`Unexpected error while fetching of order-${tradeOrderId}:`, err)
             dispatch(orderDetailsError(tradeOrderId, err))
+            handleSessionExpire(err, dispatch)
             return err;
         })
     }
@@ -80,5 +85,18 @@ export function fetchAllOrderDetails(limit: number = 24) {
                 }
             }
         })
+    }
+}
+
+function handleSessionExpire(err, dispatch: any) {
+    if (err === 'FAIL_SYS_SESSION_EXPIRED') {
+        clearSession();
+        dispatch(showAlert({
+            show: true,
+            title: 'Session expired',
+            message: 'Your session has expired. Please login again.',
+            btnText: 'Close',
+            onClick: () => { location.reload() }
+        }));
     }
 }

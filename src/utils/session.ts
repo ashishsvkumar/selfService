@@ -12,7 +12,7 @@ function cookieDomain() {
   if (location.hostname.indexOf('.test') >= 0) domain = '.lazada.test';
   else domain = '.lazada.sg';
 
-  return { domain }
+  return { domain, path: '/' }
 }
 
 export function isLoggedIn() {

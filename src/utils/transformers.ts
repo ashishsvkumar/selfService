@@ -27,7 +27,7 @@ export function extractOrderSummary(order: OrderDetails | OrderDetailsState | nu
     return {
         tradeOrderId: data.detailInfo.tradeOrderId,
         deliverySlot: getSlot(data.package.orderItems, data.detailInfo),
-        deliveryStatus: getStatus(data.detailInfo, data.package),
+        deliveryStatus: getStatus(data.detailInfo, data.package, null),
         itemThumnails: data.package.orderItems.map(item => item.picUrl)
     }
 }
@@ -35,7 +35,7 @@ export function extractOrderSummary(order: OrderDetails | OrderDetailsState | nu
 export function orderSummaryToProps(order: OrderSummary): OrderSummaryProps {
     return {
         tradeOrderId: order.tradeOrderId,
-        deliveryStatus: getStatus(order.orderInfo, null),
+        deliveryStatus: getStatus(order.orderInfo, null, order.orderItems),
         deliverySlot: getSlot(order.orderItems, order.orderInfo),
         itemThumnails: order.orderItems.map(item => item.picUrl)
     }
@@ -64,11 +64,21 @@ export function getSlot(items: Item[], detail: DetailInfo): string {
     return detail.createdAt;
 }
 
-export function getStatus(detail: DetailInfo, orderPackage: Package) {
-    return !isEmptyObject(detail) && !isEmptyString(detail.status) ? detail.status : orderPackage.status;
+export function getStatus(detail: DetailInfo, orderPackage: Package, items: Item[]) {
+    if (!isEmptyObject(detail) && !isEmptyString(detail.status)) {
+        return detail.status;
+    }
+    if (!isEmptyObject(orderPackage) && !isEmptyString(orderPackage.status)) {
+        return orderPackage.status;
+    }
+    if (!isEmptyArray(items) && items.some(im => !isEmptyString(im.status))) {
+        return items.filter(im => !isEmptyString(im.status)).map(im => im.status)[0];
+    }
+
+    return '';
 }
 
-export function blobToFile(theBlob: Blob, fileName:string): File {
+export function blobToFile(theBlob: Blob, fileName: string): File {
     var blob: any = theBlob;
     blob.lastModifiedDate = new Date();
     blob.name = fileName;

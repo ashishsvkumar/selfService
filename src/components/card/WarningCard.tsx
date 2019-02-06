@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as styles from "./WarningCard.scss";
 import { clearSession, reLogin } from "../../utils/session";
-import { ProtectedLink } from "../wrappers/AuthWrapper";
 import { refresh } from "../../utils/extras";
 import { setTitle } from "../../utils/container";
 import { Button } from "../form/Button";
@@ -45,7 +44,8 @@ function onNetworkTimeout(message: string) {
         return (
             <div>
                 Your request has timed-out. Please check you network connection and try again.
-                <Button text="↻ Retry" style={btnStyle} onClick={refresh}/>
+                <div className={styles.only_mobile}><Button text="↻ Retry" style={btnStyle} onClick={refresh}/></div>
+                <div className={styles.only_desktop}><Button text="↻ Retry" style={btnStyleDesktop} onClick={refresh}/></div>
             </div>
         )
     }
@@ -59,7 +59,8 @@ function onSessionExpire(message: string) {
         return (
             <div>
                 Your session has expired. Please click below to login again.
-                <Button text="Login" style={btnStyle} onClick={reLogin} isPrimary={true}/>
+                <div className={styles.only_mobile}><Button text="Login" style={btnStyle} onClick={reLogin} isPrimary={true}/></div>
+                <div className={styles.only_desktop}><Button text="Login" style={btnStyleDesktop} onClick={reLogin} isPrimary={true}/></div>
             </div>
         )
     }
@@ -69,6 +70,11 @@ const btnStyle = {
     margin: '15px auto',
     padding: '16px',
     width: '100%'
+}
+
+const btnStyleDesktop = {
+    margin: '15px 0',
+    padding: '16px 40px'
 }
 
 export interface WarningCardProps {
