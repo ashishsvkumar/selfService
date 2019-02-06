@@ -115,7 +115,7 @@ export class QueryFormPage extends React.Component<QueryFormPageProps, QueryForm
                 <div className={styles.submit}>
                     <div className={styles.only_mobile}><Button text="Submit" isPrimary={true} style={{ padding: '12px', width: '80%', margin: 'auto' }} isDisabled={this.props.inProgress} onClick={this.attemptSubmit} /></div>
                     <div className={styles.only_desktop}><Button text="Submit" isPrimary={true} style={{ padding: '12px 50px', margin: 'auto 0 auto auto' }} isDisabled={this.props.inProgress} onClick={this.attemptSubmit} /></div>
-                    <div className={styles.contact}><ContactUs /></div>
+                    {/* <div className={styles.contact}><ContactUs /></div> */}
                 </div>
             </div>
         );

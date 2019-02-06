@@ -14,6 +14,7 @@ import CategoryPage from "../../containers/pages/CategoryPage";
 import { Sidebar } from "../sidebar/Sidebar";
 import Breadcrumbs from "../../containers/partials/Breadcrumbs";
 import Snapengage from "../../containers/partials/Snapengage";
+import RMHelpPage from "../../containers/pages/RMHelpPage";
 
 class MainContentHolder extends Component<any, any> {
 
@@ -45,6 +46,7 @@ class MainContentHolder extends Component<any, any> {
                                 <Route exact path="/orders/:tradeOrderId" component={OrderHelpLandingPage} />
                                 <Route exact path="/category/:id/:heading" component={CategoryPage} />
                                 <Route exact path="/orders" component={OrdersPage} />
+                                <Route exact path="/contact" component={RMHelpPage}/>
                                 <Route exact path="/query" component={QueryFormPage} />
                                 <Route exact path="/" component={LandingPage} />
                             </div>

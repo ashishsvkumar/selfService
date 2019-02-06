@@ -29,13 +29,18 @@ function prepareStrip(link: HelpLink) {
 }
 
 function prepareCard(link: HelpLink) {
+    if (link.hideInDesktop === true) {
+        return null;
+    }
+
     return <div className={styles.only_desktop} style={{marginBottom: '10px'}} key={`desktop-${link.text}`}><NavigationCard text={link.text} to={link.url} theme={Theme.CARD}/></div>;
 }
 
 interface HelpLink {
     text: string,
     url: string,
-    enableOn: string[]
+    enableOn: string[],
+    hideInDesktop?: boolean
 }
 
 const helpLinks = (tradeOrderId: string): HelpLink[] => [
@@ -52,7 +57,6 @@ const helpLinks = (tradeOrderId: string): HelpLink[] => [
     { text: "Can I return products to RedMart", url: `/orders/${tradeOrderId}/faq/200376804`, enableOn: ["Delivered"] },
     { text: "Why didn't I receive a free gift with my purchase?", url: `/orders/${tradeOrderId}/faq/217926027`, enableOn: ["Delivered"] },
     { text: "Why did the item I received looks different from the website?", url: `/orders/${tradeOrderId}/faq/203052204`, enableOn: ["Delivered"] },
-    { text: "Feedback for this delivery", url: 'https://redmart.typeform.com/to/A3SPs0', enableOn: ["Delivered"] },
     /* For all */
-    { text: "Something else?", url: '/query', enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"] },
+    { text: "Need more help", url: '/contact', enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"], hideInDesktop: true },
 ]
