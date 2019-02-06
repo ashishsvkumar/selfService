@@ -11,7 +11,6 @@ import { ProtectedPage } from "../../components/wrappers/AuthWrapper"
 import { extractOrderSummary } from "../../utils/transformers";
 import { isEmptyArray } from "../../utils/extras";
 import { OrderDetailsState } from "../../store/order/types";
-import { WarningCard } from "../../components/card/WarningCard";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 
 export class OrderHelpLandingPage extends React.Component<OrderHelpPageProps, OrderHelpPageState> {
@@ -35,9 +34,11 @@ export class OrderHelpLandingPage extends React.Component<OrderHelpPageProps, Or
     render() {
         if (this.props.order === null || this.props.loading) {
             return <ProtectedPage><Spinner /></ProtectedPage>
-        } else if (this.props.order.errors) {
-            return <WarningCard message={this.props.order.errors === 'LZD_ORDER_OMG_RENDER_005' ? 'NOT_FOUND' : this.props.order.errors} />
-        } else {
+        }
+        else if (this.props.order.errors) {
+            return <Spinner />;
+        }
+        else {
             return <Component order={extractOrderSummary(this.props.order)} />
         }
     }

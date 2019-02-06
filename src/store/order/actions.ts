@@ -93,9 +93,18 @@ function handleSessionExpire(err, dispatch: any) {
         clearSession();
         dispatch(showAlert({
             show: true,
-            title: 'Session expired',
+            title: 'Session expired!',
             message: 'Your session has expired. Please login again.',
             btnText: 'Close',
+            onClick: () => { location.reload() }
+        }));
+    }
+    else if (err = 'FAIL_SYS_HSF_ASYNC_TIMEOUT') {
+        dispatch(showAlert({
+            show: true,
+            title: 'Network Issue',
+            message: 'We encountered a problem while connecting to our servers. Please check your network connection, then try again.',
+            btnText: 'Retry',
             onClick: () => { location.reload() }
         }));
     }
