@@ -1,7 +1,7 @@
 export interface Alert {
     show: boolean,
     title: string,
-    message: string,
+    message: any,
     btnText: string,
     onClick: () => void
 }

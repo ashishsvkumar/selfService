@@ -3,8 +3,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { ChatState } from '../../store/chat/types';
 import { ApplicationState } from '../../store';
-import { ContactUs as Component } from "../../components/card/ContactUs";
+import { ContactUs as Component, PopupText } from "../../components/card/ContactUs";
 import { fetchOrdersList } from '../../store/order/actions';
+import { showMessage } from "../../store/alert/actions";
 import { isLoggedIn } from '../../utils/session';
 import { isEmptyObject, isEmptyArray, isEmptyString } from '../../utils/extras';
 import { getBasePath } from '../../config/environment';
@@ -40,15 +41,20 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
         window.location = `${getBasePath()}query`;
     }
 
+    onMore = () => {
+        this.props.showMessage('Contact Us', PopupText(), 'Close');
+    }
+
     render() {
         return (
-            <Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Leave a message' : 'Chat with us'} />
+            <Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Leave a message' : 'Chat with us'} onMoreClick={this.onMore}/>
         );
     }
 }
 
 interface PropsFromDispatch {
-    fetchOrdersList: () => void
+    fetchOrdersList: () => void,
+    showMessage: (title: string, message: any, btnText: string) => void
 }
 
 interface PropsFromState {
@@ -61,7 +67,8 @@ interface PropsFromState {
 type ContactUsProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
-    fetchOrdersList: fetchOrdersList
+    fetchOrdersList: fetchOrdersList,
+    showMessage: showMessage
 }
 
 const maptStateToProps = ({ chat, ordersList }: ApplicationState) => {
