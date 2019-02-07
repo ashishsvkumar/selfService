@@ -1,6 +1,9 @@
-export interface RedMartPackage {
-    readonly traderOrderId: string;
+export interface RedMartOrder {
+    readonly tradeOrderId: string;
+    readonly userId: string;
+    readonly email: string;
     readonly status: string;
+    readonly isAsap: boolean;
     readonly createdAt: string;
     readonly deliverySlot: string;
     readonly items: RedMartItem[]
@@ -18,14 +21,14 @@ export interface RedMartItem {
     readonly isFreeSample: boolean;
 }
 
-export const enum RedMartPackageActionTypes {
+export const enum RedMartOrderActionTypes {
     FETCH = "rm/package/fetch",
     SUCCESS = "rm/package/success",
     FAILURE = "rm/package/failure"
 }
 
-export interface RedMartPackageState {
+export interface RedMartOrderState {
     readonly fetching: boolean;
     readonly error?: string;
-    readonly packages: RedMartPackage[];
+    readonly orders: RedMartOrder[];
 }

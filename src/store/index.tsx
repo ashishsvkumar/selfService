@@ -1,7 +1,5 @@
 import { combineReducers } from "redux";
-import { initialOrderListState, initialOrdersDetailsState, ordersDetailsReducer, ordersListReducer } from "./order/reducer";
 import { initialArticlesState, initialSectionsState, initialCategoriesState, articleReducer, sectionReducer, cateogryReducer } from "./faq/reducer";
-import { OrdersDetailsState, OrdersListState } from "./order/types";
 import { ArticlesState, SectionsState, CategoriesState } from "./faq/types";
 import { AlertState } from "./alert/types";
 import { initialAlertState, alertReducer } from "./alert/reducer";
@@ -13,13 +11,11 @@ import { UserInfoState } from "./user/types";
 import { initialUserInfoState, userInfoReducer } from "./user/reducer";
 import { ChatState } from "./chat/types";
 import { initialChatState, chatReducer } from "./chat/reducer"
-import { RedMartPackageState } from "./package/types";
-import { initialRedMartPackageState, packageReducer } from "./package/reducer";
+import { RedMartOrderState } from "./package/types";
+import { initialRedMartOrderState, redmartOrderReducer } from "./package/reducer";
 
 
 export interface ApplicationState {
-  ordersList: OrdersListState;
-  ordersDetails: OrdersDetailsState;
   articles: ArticlesState,
   sections: SectionsState,
   categories: CategoriesState,
@@ -28,12 +24,10 @@ export interface ApplicationState {
   breadcrumbs: breadcrumbState,
   user: UserInfoState,
   chat: ChatState,
-  package: RedMartPackageState
+  redmartOrders: RedMartOrderState
 }
 
 export const initialState: ApplicationState = {
-  ordersList: initialOrderListState,
-  ordersDetails: initialOrdersDetailsState,
   articles: initialArticlesState,
   sections: initialSectionsState,
   categories: initialCategoriesState,
@@ -42,12 +36,10 @@ export const initialState: ApplicationState = {
   breadcrumbs: initialBreadcrumbState,
   user: initialUserInfoState,
   chat: initialChatState,
-  package: initialRedMartPackageState
+  redmartOrders: initialRedMartOrderState
 };
 
 export const rootReducer = combineReducers<ApplicationState>({
-  ordersList: ordersListReducer,
-  ordersDetails: ordersDetailsReducer,
   articles: articleReducer,
   sections: sectionReducer,
   categories: cateogryReducer,
@@ -56,5 +48,5 @@ export const rootReducer = combineReducers<ApplicationState>({
   breadcrumbs: breadcrumbReducer,
   user: userInfoReducer,
   chat: chatReducer,
-  package: packageReducer
+  redmartOrders: redmartOrderReducer
 });

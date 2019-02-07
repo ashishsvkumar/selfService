@@ -1,8 +1,7 @@
 import * as React from "react";
 import { OrderHelpPage } from "./OrderHelpPage"
 import { Button } from "../../form/Button";
-import { OrderDetails, Item } from "../../../store/order/types";
-import { extractOrderSummary, itemDetailsToItemPreviewProps } from "../../../utils/transformers";
+import { itemDetailsToItemPreviewProps } from "../../../utils/transformers";
 import { ItemsToggleList, Closed } from "../../item/ItemsToggleList"
 import * as styles from "./ItemLevelHelpPage.scss";
 import { PopupPage, Style } from "../PopupPage"
@@ -14,6 +13,7 @@ import { Ticket, TicketType, RefundMethod } from "../../../store/ticket/types";
 import { isEmptyString, isEmptyArray } from "../../../utils/extras";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { Comment } from "../../form/Comment";
+import { RedMartOrder } from "../../../store/package/types";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, ItemLevelHelpPageState> {
 
@@ -24,7 +24,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
 
     togglePopup = (selectedSku?: string[], status?: Closed) => {
         if (selectedSku !== undefined) {
-            const selected = this.props.order.package.orderItems.filter(im => selectedSku.indexOf(im.skuId) >= 0).map(itemDetailsToItemPreviewProps)
+            const selected = this.props.order.items.filter(im => selectedSku.indexOf(im.skuId) >= 0).map(itemDetailsToItemPreviewProps)
             this.setState({ slideInPopup: !this.state.slideInPopup, selectedItems: selected })
         } else {
             this.setState({ slideInPopup: !this.state.slideInPopup })
@@ -130,9 +130,9 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         const ticket: Ticket = {
             type: TicketType.ORDER,
             forLazada: true,
-            publicId: this.props.order.detailInfo.tradeOrderId,
-            memberId: this.props.order.buyerId,
-            email: this.props.order.package.orderItems.map(item => item.buyerEmail)[0],
+            publicId: this.props.order.tradeOrderId,
+            memberId: this.props.order.userId,
+            email: this.props.order.email,
             comment: this.state.comment,
             attachments: this.state.attachments.map(url => { return { link: url, name: null } }),
             rpc: this.state.selectedItems.map(item => { return { id: item.sku, quantity: item.selectedQuantity, reasonCodeId: item.selectedIssue } }),
@@ -179,7 +179,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     itemListPopupView = () => {
-        const items: ItemPreviewProps[] = this.props.order.package.orderItems.map(itemDetailsToItemPreviewProps)
+        const items: ItemPreviewProps[] = this.props.order.items.map(itemDetailsToItemPreviewProps)
 
         const preSelected = items.map(im => im.sku).filter(sku => this.state.selectedItems.some(im => im.sku === sku))
         return (
@@ -221,7 +221,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     render() {
-        return <OrderHelpPage title={this.getTitle()} body={this.body()} order={extractOrderSummary({ data: this.props.order, loading: false })} />
+        return <OrderHelpPage title={this.getTitle()} body={this.body()} order={this.props.order} />
     }
 }
 
@@ -241,7 +241,7 @@ export const enum Category {
 }
 
 export interface ItemLevelHelpPageProps {
-    order: OrderDetails,
+    order: RedMartOrder,
     helpCategory: Category,
     createTicket: (ticket: Ticket) => void,
     inProgress: boolean

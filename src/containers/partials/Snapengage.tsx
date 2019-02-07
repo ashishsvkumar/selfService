@@ -5,22 +5,17 @@ import { ChatState } from '../../store/chat/types';
 import { setup } from "../../store/chat/actions";
 import { ApplicationState } from '../../store';
 import { UserInfoState } from '../../store/user/types';
-import { fetchOrdersList } from "../../store/order/actions";
-import { isEmptyObject, isEmptyArray, isEmptyString } from '../../utils/extras';
-import { isLoggedIn } from '../../utils/session';
+import { isEmpty } from 'lodash';
 
-class Chat extends React.Component<ChatProps, {}> { 
+class SnapEngageWrapper extends React.Component<ChatProps, {}> {
     constructor(props: ChatProps) {
         super(props);
     }
 
     componentDidMount() {
-        log.info('Chat container will mount');
+        log.info('SnapEngage container will mount');
         if (!this.props.chat.loading && !this.props.chat.loaded) {
             this.props.setup();
-        }
-        if (this.props.shouldFetchOrders) {
-            this.props.fetchOrdersList();
         }
     }
 
@@ -29,15 +24,10 @@ class Chat extends React.Component<ChatProps, {}> {
 
             const se = nextProps.chat.snapEngageInstance;
 
-            if (!isEmptyObject(nextProps.user.user)) {
+            if (!isEmpty(nextProps.user.user)) {
                 se.setUserName(nextProps.user.user.name);
                 se.setUserEmail(nextProps.user.user.email, false);
             }
-
-            if (!isEmptyString(nextProps.recentOrder)) {
-                se.setCustomField('OrderNumber', `${nextProps.recentOrder}`);
-            }
-
         }
     }
 
@@ -49,34 +39,25 @@ class Chat extends React.Component<ChatProps, {}> {
 }
 
 interface PropsFromDispatch {
-    setup: () => void,
-    fetchOrdersList: () => void
+    setup: () => void
 }
 
 interface PropsFromState {
     chat: ChatState,
-    user: UserInfoState,
-    shouldFetchOrders: boolean,
-    recentOrder?: string
+    user: UserInfoState
 }
 
 type ChatProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
-    setup: setup,
-    fetchOrdersList: fetchOrdersList
+    setup: setup
 }
 
-const maptStateToProps = ({ chat, user, ordersList }: ApplicationState) => {
-    const shouldFetch = isLoggedIn() && !ordersList.loading && isEmptyObject(ordersList.data);
-    const orders = isEmptyObject(ordersList.data) ? [] : ordersList.data.orders;
-
+const maptStateToProps = ({ chat, user }: ApplicationState) => {
     return {
-        chat: chat,
-        user: user,
-        shouldFetchOrders: shouldFetch,
-        recentOrder: isEmptyArray(orders) ? undefined : '' + orders[0].tradeOrderId
+        chat,
+        user
     };
 }
 
-export default connect(maptStateToProps, mapDispatchToProps)(Chat);
+export default connect(maptStateToProps, mapDispatchToProps)(SnapEngageWrapper);

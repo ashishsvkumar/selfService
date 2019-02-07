@@ -7,7 +7,7 @@ import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { CategoriesState, SectionsState, Category } from "../../store/faq/types";
 import { Spinner } from "../../components/icons/Spinner";
-import { isEmptyObject, isEmptyArray, encodeSpace, decode } from "../../utils/extras";
+import { isEmptyObject, isEmptyArray, decode } from "../../utils/extras";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 
 class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState> {

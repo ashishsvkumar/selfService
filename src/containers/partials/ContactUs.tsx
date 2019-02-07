@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import { ChatState } from '../../store/chat/types';
 import { ApplicationState } from '../../store';
 import { ContactUs as Component, PopupText } from "../../components/card/ContactUs";
-import { fetchOrdersList } from '../../store/order/actions';
+import { isEmpty } from 'lodash';
 import { showMessage } from "../../store/alert/actions";
 import { isLoggedIn } from '../../utils/session';
-import { isEmptyObject, isEmptyArray, isEmptyString } from '../../utils/extras';
 import { getBasePath } from '../../config/environment';
 
 class ContactUs extends React.Component<ContactUsProps, {}> {
@@ -29,7 +28,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     onChat = () => {
         if (this.props.chat.loaded) {
-            if (!isEmptyString(this.props.recentOrder)) {
+            if (!isEmpty(this.props.recentOrder)) {
                 this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
             }
             this.props.chat.snapEngageInstance.startLink();
@@ -53,7 +52,6 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 }
 
 interface PropsFromDispatch {
-    fetchOrdersList: () => void,
     showMessage: (title: string, message: any, btnText: string) => void
 }
 
@@ -67,18 +65,17 @@ interface PropsFromState {
 type ContactUsProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
-    fetchOrdersList: fetchOrdersList,
     showMessage: showMessage
 }
 
-const maptStateToProps = ({ chat, ordersList }: ApplicationState) => {
-    const shouldFetch = isLoggedIn() && !ordersList.loading && isEmptyObject(ordersList.data);
-    const orders = isEmptyObject(ordersList.data) ? [] : ordersList.data.orders;
+const maptStateToProps = ({ chat, redmartOrders }: ApplicationState) => {
+    const shouldFetchOrders = isLoggedIn() && !redmartOrders.fetching && isEmpty(redmartOrders.orders);
+    const orders = isEmpty(redmartOrders.orders) ? [] : redmartOrders.orders;
 
     return {
         chat: chat,
-        shouldFetchOrders: shouldFetch,
-        recentOrder: isEmptyArray(orders) ? undefined : '' + orders[0].tradeOrderId
+        shouldFetchOrders: shouldFetchOrders,
+        recentOrder: isEmpty(orders) ? undefined : '' + orders[0].tradeOrderId
     };
 }
 

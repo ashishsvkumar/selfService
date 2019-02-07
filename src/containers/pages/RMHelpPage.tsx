@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { ChatState } from '../../store/chat/types';
 import { ApplicationState } from '../../store';
 import { RMHelpPage as Component } from "../../components/pages/contact/RMHelpPage";
-import { fetchOrdersList } from '../../store/order/actions';
+import { fetchRedMartOrders } from "../../store/package/actions";
+import { isEmpty } from 'lodash';
 import { isLoggedIn } from '../../utils/session';
-import { isEmptyObject, isEmptyArray } from '../../utils/extras';
 import { getBasePath } from '../../config/environment';
 
 class RMHelpPage extends React.Component<RMHelpPageProps, {}> {
@@ -15,7 +15,7 @@ class RMHelpPage extends React.Component<RMHelpPageProps, {}> {
     }
 
     componentDidMount() {
-        log.info('Contact us container will mount');
+        log.info('RM Help container will mount');
     }
 
     onLeaveMessage = () => {
@@ -31,7 +31,7 @@ class RMHelpPage extends React.Component<RMHelpPageProps, {}> {
 }
 
 interface PropsFromDispatch {
-    fetchOrdersList: () => void
+    fetchRedMartOrders: () => void
 }
 
 interface PropsFromState {
@@ -40,21 +40,29 @@ interface PropsFromState {
     recentOrder?: string
 }
 
-
-type RMHelpPageProps = PropsFromDispatch & PropsFromState;
-
-const mapDispatchToProps = {
-    fetchOrdersList: fetchOrdersList
+interface PropsFromRoute {
+    match: { 
+        params: { 
+            tradeOrderId?: string
+        } 
+    }
 }
 
-const maptStateToProps = ({ chat, ordersList }: ApplicationState) => {
-    const shouldFetch = isLoggedIn() && !ordersList.loading && isEmptyObject(ordersList.data);
-    const orders = isEmptyObject(ordersList.data) ? [] : ordersList.data.orders;
+type RMHelpPageProps = PropsFromDispatch & PropsFromState & PropsFromRoute;
+
+const mapDispatchToProps = {
+    fetchRedMartOrders: fetchRedMartOrders
+}
+
+const maptStateToProps = ({ chat, redmartOrders }: ApplicationState, ownProps: RMHelpPageProps) => {
+    const forOrder = ownProps.match.params.tradeOrderId;
+    const shouldFetchOrders = isLoggedIn() && !redmartOrders.fetching && isEmpty(redmartOrders.orders);
+    const orders = isEmpty(redmartOrders.orders) ? [] : redmartOrders.orders;
 
     return {
         chat: chat,
-        shouldFetchOrders: shouldFetch,
-        recentOrder: isEmptyArray(orders) ? undefined : '' + orders[0].tradeOrderId
+        shouldFetchOrders: shouldFetchOrders,
+        recentOrder: forOrder || (isEmpty(orders) ? undefined : '' + orders[0].tradeOrderId)
     };
 }
 

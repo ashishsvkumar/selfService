@@ -6,7 +6,7 @@ import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { Ticket } from "../../store/ticket/types";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
-import { isEmptyObject } from "../../utils/extras";
+import { isEmpty } from 'lodash';
 import * as log from 'loglevel';
 
 export class QueryFormPage extends React.Component<QueryFormPageProps, QueryFormPageState> {
@@ -49,7 +49,7 @@ const mapDispatchToProps = {
 const maptStateToProps = ({ ticket, user }: ApplicationState) => {
     return {
         ticketInProgress: ticket.inProgress,
-        userEmail: !user.fetching && !isEmptyObject(user.user) ? user.user.email : null
+        userEmail: !user.fetching && !isEmpty(user.user) ? user.user.email : null
     };
 }
 

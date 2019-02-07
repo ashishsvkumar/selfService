@@ -2,14 +2,12 @@ import * as React from "react";
 import * as log from "loglevel";
 import { connect } from "react-redux";
 import { LandingPage as Component } from "../../components/pages/landing/LandingPage"
-import { fetchOrdersList } from "../../store/order/actions";
-import { fetchRedMartPackages } from "../../store/package/actions";
+import { fetchRedMartOrders } from "../../store/package/actions";
 import { clearBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
-import { isLoggedIn } from '../../utils/session'
-import { OrderSummaryProps } from "../../components/order/OrderSummary";
-import { isEmptyArray, isEmptyObject } from "../../utils/extras";
-import { orderSummaryToProps } from "../../utils/transformers";
+import { isLoggedIn } from '../../utils/session';
+import { isEmpty } from 'lodash';
+import { RedMartOrder } from "../../store/package/types";
 
 export class LandingPage extends React.Component<LandingPageProps, LandingPageState> {
 
@@ -20,20 +18,14 @@ export class LandingPage extends React.Component<LandingPageProps, LandingPageSt
     componentWillMount() {
         log.info('Landing page countainer will mount');
         this.props.clearBreadcrumbs();
-        this.props.fetchRedMartPackages();
-        // if (isLoggedIn()) {
-        //     if (isLoggedIn()) {
-        //         if (this.props.shouldFetch) {
-        //             log.info('Will fetch recent orders');
-        //             this.props.fetchOrdersList();
-        //         }
-        //     }
-        // }
+        if (isLoggedIn() && !this.props.fetching && isEmpty(this.props.recentOrder)) {
+            log.info('Will fetch recent orders');
+            this.props.fetchRedMartOrders();
+        }
     }
 
     render() {
-
-        if (this.props.shouldFetch || this.props.fetching) {
+        if (isEmpty(this.props.recentOrder) || this.props.fetching) {
             return <Component isLoggedIn={false} userName={null}/>;
         } else {
             return <Component isLoggedIn={isLoggedIn()} recentOrder={this.props.recentOrder} userName={this.props.userName}/>
@@ -46,36 +38,30 @@ interface LandingPageState {
 }
 
 interface PropsFromDispatch {
-    fetchOrdersList: () => void,
-    clearBreadcrumbs: () => void,
-    fetchRedMartPackages: () => void
+    fetchRedMartOrders: () => void,
+    clearBreadcrumbs: () => void
 }
 
 interface PropsFromState {
-    shouldFetch: boolean,
     fetching: boolean,
-    recentOrder?: OrderSummaryProps,
+    recentOrder?: RedMartOrder,
     userName: string
 }
 
 type LandingPageProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
-    fetchOrdersList: fetchOrdersList,
-    clearBreadcrumbs: clearBreadcrumbs,
-    fetchRedMartPackages: fetchRedMartPackages
+    fetchRedMartOrders: fetchRedMartOrders,
+    clearBreadcrumbs: clearBreadcrumbs
 }
 
-const maptStateToProps = ({ ordersList, user }: ApplicationState) => {
-    const fetching = ordersList.loading;
-    const shouldFetch = ordersList.data === undefined;
-    const orders = shouldFetch || fetching ? null : (isEmptyArray(ordersList.data.orders) ? [] : ordersList.data.orders.map(orderSummaryToProps))
-
+const maptStateToProps = ({ redmartOrders, user }: ApplicationState) => {
+    const fetching = redmartOrders.fetching;
+    const recentOrder = isEmpty(redmartOrders.orders) ? null : redmartOrders.orders[0];
     return {
-        shouldFetch: shouldFetch,
-        fetching: fetching,
-        recentOrder: orders === null || orders.length === 0 ? null : orders[0],
-        userName: !user.fetching && !isEmptyObject(user.user) ? user.user.name : null
+        fetching,
+        recentOrder,
+        userName: !user.fetching && !isEmpty(user.user) ? user.user.name : null
     };
 }
 

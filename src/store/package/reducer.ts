@@ -1,21 +1,21 @@
 import { Reducer } from "redux";
-import { RedMartPackageActionTypes, RedMartPackageState } from "./types";
+import { RedMartOrderActionTypes, RedMartOrderState } from "./types";
 
-export const initialRedMartPackageState: RedMartPackageState = {
+export const initialRedMartOrderState: RedMartOrderState = {
   fetching: false,
-  packages: [],
+  orders: [],
   error: undefined,
 };
 
-export const packageReducer: Reducer<RedMartPackageState> = (state = initialRedMartPackageState, action: any) => {
+export const redmartOrderReducer: Reducer<RedMartOrderState> = (state = initialRedMartOrderState, action: any) => {
   switch (action.type) {
-    case RedMartPackageActionTypes.FETCH: {
+    case RedMartOrderActionTypes.FETCH: {
       return { ...state, fetching: true };
     }
-    case RedMartPackageActionTypes.SUCCESS: {
-      return { ...state, packages: action.payload, fetching: false };
+    case RedMartOrderActionTypes.SUCCESS: {
+      return { ...state, orders: action.payload, fetching: false };
     }
-    case RedMartPackageActionTypes.FAILURE: {
+    case RedMartOrderActionTypes.FAILURE: {
       return { ...state, error: action.payload, fetching: false };
     }
     default: {
