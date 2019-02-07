@@ -51,3 +51,5 @@ if (currentEnvironment === Environments.production) {
 } else {
   log.setLevel("INFO");
 }
+
+export const RM_SELLER_ID: string = '1000008313';

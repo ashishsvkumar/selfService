@@ -13,6 +13,8 @@ import { UserInfoState } from "./user/types";
 import { initialUserInfoState, userInfoReducer } from "./user/reducer";
 import { ChatState } from "./chat/types";
 import { initialChatState, chatReducer } from "./chat/reducer"
+import { RedMartPackageState } from "./package/types";
+import { initialRedMartPackageState, packageReducer } from "./package/reducer";
 
 
 export interface ApplicationState {
@@ -25,7 +27,8 @@ export interface ApplicationState {
   ticket: TicketState,
   breadcrumbs: breadcrumbState,
   user: UserInfoState,
-  chat: ChatState
+  chat: ChatState,
+  package: RedMartPackageState
 }
 
 export const initialState: ApplicationState = {
@@ -38,7 +41,8 @@ export const initialState: ApplicationState = {
   ticket: initialTicketState,
   breadcrumbs: initialBreadcrumbState,
   user: initialUserInfoState,
-  chat: initialChatState
+  chat: initialChatState,
+  package: initialRedMartPackageState
 };
 
 export const rootReducer = combineReducers<ApplicationState>({
@@ -51,5 +55,6 @@ export const rootReducer = combineReducers<ApplicationState>({
   ticket: ticketReducer,
   breadcrumbs: breadcrumbReducer,
   user: userInfoReducer,
-  chat: chatReducer
+  chat: chatReducer,
+  package: packageReducer
 });

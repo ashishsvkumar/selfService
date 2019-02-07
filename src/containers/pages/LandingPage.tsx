@@ -3,6 +3,7 @@ import * as log from "loglevel";
 import { connect } from "react-redux";
 import { LandingPage as Component } from "../../components/pages/landing/LandingPage"
 import { fetchOrdersList } from "../../store/order/actions";
+import { fetchRedMartPackages } from "../../store/package/actions";
 import { clearBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { isLoggedIn } from '../../utils/session'
@@ -19,14 +20,15 @@ export class LandingPage extends React.Component<LandingPageProps, LandingPageSt
     componentWillMount() {
         log.info('Landing page countainer will mount');
         this.props.clearBreadcrumbs();
-        if (isLoggedIn()) {
-            if (isLoggedIn()) {
-                if (this.props.shouldFetch) {
-                    log.info('Will fetch recent orders');
-                    this.props.fetchOrdersList();
-                }
-            }
-        }
+        this.props.fetchRedMartPackages();
+        // if (isLoggedIn()) {
+        //     if (isLoggedIn()) {
+        //         if (this.props.shouldFetch) {
+        //             log.info('Will fetch recent orders');
+        //             this.props.fetchOrdersList();
+        //         }
+        //     }
+        // }
     }
 
     render() {
@@ -45,7 +47,8 @@ interface LandingPageState {
 
 interface PropsFromDispatch {
     fetchOrdersList: () => void,
-    clearBreadcrumbs: () => void
+    clearBreadcrumbs: () => void,
+    fetchRedMartPackages: () => void
 }
 
 interface PropsFromState {
@@ -59,7 +62,8 @@ type LandingPageProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
     fetchOrdersList: fetchOrdersList,
-    clearBreadcrumbs: clearBreadcrumbs
+    clearBreadcrumbs: clearBreadcrumbs,
+    fetchRedMartPackages: fetchRedMartPackages
 }
 
 const maptStateToProps = ({ ordersList, user }: ApplicationState) => {
