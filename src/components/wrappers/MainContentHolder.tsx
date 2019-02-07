@@ -13,7 +13,7 @@ import FaqPage from "../../containers/pages/FaqPage";
 import CategoryPage from "../../containers/pages/CategoryPage";
 import { Sidebar } from "../sidebar/Sidebar";
 import Breadcrumbs from "../../containers/partials/Breadcrumbs";
-import Snapengage from "../../containers/partials/Snapengage";
+import SnapEngageWrapper from "../../containers/partials/Snapengage";
 import RMHelpPage from "../../containers/pages/RMHelpPage";
 
 class MainContentHolder extends Component<any, any> {
@@ -37,8 +37,10 @@ class MainContentHolder extends Component<any, any> {
                 <div className={styles.only_desktop}><Breadcrumbs /></div>
                 <div className={styles.app}>
                     <div className={sidebarClassName}><Sidebar /></div>
-                        <Snapengage>
+                        <SnapEngageWrapper>
                             <div className={bodyClassName}>
+                                <Route exact path="/contact" component={RMHelpPage}/>
+                                <Route exact path="/orders/:tradeOrderId/contact" component={RMHelpPage}/>
                                 <Route path="/orders/:tradeOrderId(\d+)/faq/:id/:heading?" component={FaqPage} />
                                 <Route path="/category/:categoryId(\d+)/:categoryHeading/faq/:id/:heading?" component={FaqPage} />
                                 <Route path="/faq/:id/:heading?" component={FaqPage} />
@@ -46,11 +48,10 @@ class MainContentHolder extends Component<any, any> {
                                 <Route exact path="/orders/:tradeOrderId" component={OrderHelpLandingPage} />
                                 <Route exact path="/category/:id/:heading" component={CategoryPage} />
                                 <Route exact path="/orders" component={OrdersPage} />
-                                <Route exact path="/contact" component={RMHelpPage}/>
                                 <Route exact path="/query" component={QueryFormPage} />
                                 <Route exact path="/" component={LandingPage} />
                             </div>
-                        </Snapengage>
+                        </SnapEngageWrapper>
                     <div className={styles.clear} />
                 </div>
             </React.Fragment>

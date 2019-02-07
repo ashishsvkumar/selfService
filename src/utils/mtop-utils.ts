@@ -12,7 +12,7 @@ function deflattenerHelper(json: any, key: string) {
     const subdocuments: any[] = childrenKeys.map((childKey: string) => deflattenerHelper(json, childKey));
 
     subdocuments.forEach((doc: any) => {
-      if (doc.hasOwnProperty('sequence')) {
+      if (doc.hasOwnProperty('sequence') || isArray(doc, subdocuments)) {
         const childArrayName = `${doc.tag}s`
 
         if (!out.hasOwnProperty(childArrayName) || !(out[childArrayName] instanceof Array)) {
@@ -27,6 +27,10 @@ function deflattenerHelper(json: any, key: string) {
   }
 
   return out;
+}
+
+function isArray(doc: any, subdocuments: any[]): boolean {
+  return subdocuments.map((d: any): number => d.tag === doc.tag ? 1 : 0).reduce((a, b) => a + b) > 1;
 }
 
 export function errorCode(response: any): string {

@@ -5,6 +5,7 @@ import { ArrowIcon } from "../icons/ArrowIcon";
 import * as moment from "moment";
 import cx from "classnames";
 import { currentEnvironment, Environments, isMobile } from '../../config/environment'
+import { RedMartOrder } from "../../store/package/types";
 
 export const enum LinkTo {
     ORDER_HELP = "order-help",
@@ -39,7 +40,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     statusColor = () => {
-        switch (this.props.deliveryStatus) {
+        switch (this.props.status) {
             case "Payment pending":
                 return "#f29d38";
             case "Delivered":
@@ -54,19 +55,19 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     render() {
-        const {deliveryStatus, itemThumnails, linkTo} = this.props;
-        const thumbnailClass = cx({ [styles.thumbnails]: true, [styles.greyscale]: deliveryStatus === 'Cancelled' })
+        const {status, items, linkTo} = this.props;
+        const thumbnailClass = cx({ [styles.thumbnails]: true, [styles.greyscale]: status === 'Cancelled' })
 
         return (
             <React.Fragment>
                 <div className={styles.slot}>
                     <div className={styles.label}>Delivery Time</div>
                     <div className={styles.time}>{this.trimSlot()}</div>
-                    <div className={styles.status} style={{ color: this.statusColor() }}>{deliveryStatus}</div>
+                    <div className={styles.status} style={{ color: this.statusColor() }}>{status}</div>
                     <div className={styles.clear}></div>
                 </div>
                 <div className={thumbnailClass}>
-                    {itemThumnails.slice(0, 4).map((url, index) => this.prepareItemthumnail(url, index))}
+                    {items.slice(0, 4).map(im => im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
                     <div className={styles.arrow}><ArrowIcon /></div>
                     <div className={styles.help}>{linkTo === LinkTo.ORDER_HELP ? 'Get Help' : 'View Order'}</div>
                     <div className={styles.clear}></div>
@@ -127,11 +128,8 @@ interface OrderSummaryState {
 
 }
 
-export interface OrderSummaryProps {
-    tradeOrderId: string,
-    deliverySlot: string,
-    deliveryStatus: string,
-    itemThumnails?: string[],
-    isAsap?: boolean,
+interface ExtraProps {
     linkTo?: LinkTo
 }
+
+export type OrderSummaryProps = RedMartOrder & ExtraProps;

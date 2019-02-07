@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as log from "loglevel";
 import { connect } from "react-redux";
-import { FaqPage as Component, FaqPageProps as ComponentProps } from "../../components/pages/faq/FaqPage"
+import { FaqPage as Component } from "../../components/pages/faq/FaqPage"
 import { fetchArticleDetails } from "../../store/faq/actions";
 import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";

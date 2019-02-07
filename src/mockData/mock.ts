@@ -7,6 +7,7 @@ import { o4 } from "./o4"
 import { o5 } from "./o5"
 import { o6 } from "./o6"
 import { o7 } from "./o7"
+import { o8 } from "./o8"
 import { isEmptyObject } from '../utils/extras';
 
 const orders = [o1, o2, o3, o4, o5, o6, o7];

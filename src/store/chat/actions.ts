@@ -57,7 +57,7 @@ function getSnapEngageScriptSource() {
 
 function setupPing(se: SnapEngageApi, dispatch: (param: any) => any) {
     ping(se, dispatch);
-    setInterval(() => ping(se, dispatch), 5000);
+    setInterval(() => ping(se, dispatch), 60000);
 }
 
 function ping(se: SnapEngageApi, dispatch: (param: any) => any) {

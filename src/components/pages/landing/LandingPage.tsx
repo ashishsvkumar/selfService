@@ -3,9 +3,10 @@ import * as styles from "./LandingPage.scss";
 import { setTitle } from '../../../utils/container'
 import { NavigationCard } from '../../card/NavigationCard'
 import { ContentTitle } from "../../labels/ContentTitle"
-import { RecentOrderCard, OrderSummaryProps, LinkTo } from '../../order/OrderSummary'
+import { RecentOrderCard, LinkTo } from '../../order/OrderSummary'
 import cx from 'classnames';
 import ContactUs from "../../../containers/partials/ContactUs";
+import { RedMartOrder } from "../../../store/package/types";
 
 export const LandingPage = (props: LandingPageProps) => {
 
@@ -46,6 +47,6 @@ LandingPage.defaultProps = {
 
 export interface LandingPageProps {
     isLoggedIn: boolean,
-    recentOrder?: OrderSummaryProps,
+    recentOrder?: RedMartOrder,
     userName: string
 }
