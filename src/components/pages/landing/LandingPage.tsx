@@ -23,11 +23,12 @@ export const LandingPage = (props: LandingPageProps) => {
                 {props.userName && <div className={styles.callout}>{`Hi ${props.userName}, what can we help you with?`}</div>}
                 {!props.userName && <div className={styles.callout}>Hi, what can we help you with?</div>}
             </div>
-            <div className={styles.title}><ContentTitle text="What can we help you with?" /></div>
+            <div className={styles.title}><ContentTitle text="Get help for your RedMart orders" /></div>
             <div className={cardsClass}>
                 <div className={styles.first_card}>
                     {isLoggedIn && recentOrder ? <RecentOrderCard {...recentOrder} linkTo={LinkTo.ORDER_HELP} /> : <NavigationCard text="Past Orders" to="/orders" needLogin={true} />}
                 </div>
+                <div className={styles.title}><ContentTitle text="Non-Order Related" /></div>
                 <div className={styles.other_cards}>
                     <NavigationCard text="About RedMart & Lazada Integration" to="/category/202592837/About+RedMart+&+Lazada+Integration" />
                     <NavigationCard text="Placing an Order" to="/category/202592867/Placing+an+Order" />
