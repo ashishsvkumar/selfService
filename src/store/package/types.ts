@@ -30,6 +30,7 @@ export const enum RedMartOrderActionTypes {
 export interface RedMartOrderState {
     readonly fetching: boolean;
     readonly error?: string;
+    readonly fetched: boolean,
     readonly orders: RedMartOrder[];
     readonly noOrders: boolean
 }
