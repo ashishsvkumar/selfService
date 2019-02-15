@@ -18,7 +18,7 @@ export const OrdersPage = (props: OrdersPageProps) => {
                 {props.orders.map(order => prepareOrderCard(order))}
             </div>}
             {
-                !hasOrders && <div className={styles.empty_order_page}>There are no orders placed yet.</div>
+                !hasOrders && <div className={styles.empty_order_page}>You don't have any RedMart orders in past week.</div>
             }
         </div>
     );

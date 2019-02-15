@@ -22,7 +22,7 @@ export class OrdersPage extends React.Component<OrdersPageProps, OrdersPageState
         log.info('Orders page countainer will mount 📖');
         this.props.setBreadcrumbs([ { text: 'Past Orders', url: location.href, needLogin: true } ]);
 
-        if (isLoggedIn() && isEmpty(this.props.orders) && !this.props.fetching) {
+        if (isLoggedIn() && isEmpty(this.props.orders) && !this.props.fetching && !this.props.noOrders) {
             log.info('Will fetch recent orders');
             this.props.fetchRedMartOrders();
         }
@@ -48,6 +48,7 @@ interface PropsFromDispatch {
 
 interface PropsFromState {
     fetching: boolean,
+    noOrders: boolean,
     orders: RedMartOrder[]
 }
 
@@ -61,7 +62,8 @@ const mapDispatchToProps = {
 const maptStateToProps = ({ redmartOrders }: ApplicationState) => {
     return {
         fetching: redmartOrders.fetching,
-        orders:  isEmpty(redmartOrders.orders) ? null : redmartOrders.orders
+        noOrders: redmartOrders.noOrders,
+        orders: redmartOrders.noOrders ? [] : isEmpty(redmartOrders.orders) ? null : redmartOrders.orders
     };
 }
 

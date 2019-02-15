@@ -18,7 +18,7 @@ export class LandingPage extends React.Component<LandingPageProps, LandingPageSt
     componentWillMount() {
         log.info('Landing page countainer will mount');
         this.props.clearBreadcrumbs();
-        if (isLoggedIn() && !this.props.fetching && isEmpty(this.props.recentOrder)) {
+        if (isLoggedIn() && !this.props.fetching && isEmpty(this.props.recentOrder) && !this.props.noOrders) {
             log.info('Will fetch recent orders');
             this.props.fetchRedMartOrders();
         }
@@ -44,6 +44,7 @@ interface PropsFromDispatch {
 
 interface PropsFromState {
     fetching: boolean,
+    noOrders: boolean,
     recentOrder?: RedMartOrder,
     userName: string
 }
@@ -61,6 +62,7 @@ const maptStateToProps = ({ redmartOrders, user }: ApplicationState) => {
     return {
         fetching,
         recentOrder,
+        noOrders: redmartOrders.noOrders,
         userName: !user.fetching && !isEmpty(user.user) ? user.user.name : null
     };
 }

@@ -21,7 +21,7 @@ export function fetchRedMartOrders() {
 
         return orderList().then((response) => {
             if (response.retType === 0) {
-                const tradeOrderIds: string[] = deflattener(response).orders.filter(filterForRedMartOrders).map(order => get(order, 'tradeOrderId'));
+                const tradeOrderIds: string[] = (deflattener(response).orders || []).filter(filterForRedMartOrders).map(order => get(order, 'tradeOrderId'));
                 log.info('Fetched traderOrderIds of RedMart Orders 📦', tradeOrderIds);
                 fetchAllDetails(tradeOrderIds, dispatch)
             } else {

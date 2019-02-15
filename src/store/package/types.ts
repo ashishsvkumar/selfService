@@ -31,4 +31,5 @@ export interface RedMartOrderState {
     readonly fetching: boolean;
     readonly error?: string;
     readonly orders: RedMartOrder[];
+    readonly noOrders: boolean
 }
