@@ -45,7 +45,7 @@ interface HelpLink {
 
 const helpLinks = (tradeOrderId: string): HelpLink[] => [
     /* TEMPORARY */
-    { text: "I want to check my order details", url: prepareOrderDetailsLink(tradeOrderId), enableOn: ["All"], hide: !isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0) },
+    { text: "I want to check my order details", url: prepareOrderDetailsLink(tradeOrderId), enableOn: ["All"], hide: !isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0), hideInDesktop: true },
     { text: "I have missing items", url: `/orders/${tradeOrderId}/help/missing`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"] },
     { text: "I have problem with the received items", url: `/orders/${tradeOrderId}/help/damaged`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"] },
 
