@@ -5,7 +5,7 @@ import { isWindVandAvailable, initiateLogin } from "../api/windvane";
 
 const USER_ID_KEY = "lzd_uid";
 const SESSION_ID_KEY = "lzd_sid";
-const useMock: boolean = location.host.indexOf('local') >= 0 || location.host.indexOf('redmart.com') > 0;
+const useMock: boolean = false;
 
 function cookieDomain() {
   let domain;

@@ -1,5 +1,5 @@
 import { mockOrders, mockDetails, mockUser } from "../mockData/mock";
-const useMock: boolean = location.host.indexOf('local') >= 0 || location.search.indexOf('mock=true') >= 0 || location.host.indexOf('redmart.com') > 0;
+const useMock: boolean = location.search.indexOf('mock=true') >= 0;
 
 // @ts-ignore
 const Mtop = window.lib.mtop;
