@@ -40,16 +40,16 @@ function fetchComponent() {
 }
 
 fetchComponent().then(result => {
-    const desktopTemplate = prepareTemplate(result.desktop.head, result.desktop.header, result.desktop.footer);
+    const desktopTemplate = prepareTemplate(result.desktop.head, result.desktop.header, result.desktop.footer, false);
     fs.writeFileSync('desktop.html', desktopTemplate);
     log.info('[TEMPLATE] Desktop template ready');
 
-    const mobileTemplate = prepareTemplate(result.mobile.head, result.mobile.header, result.mobile.footer);
+    const mobileTemplate = prepareTemplate(result.mobile.head, result.mobile.header, result.mobile.footer, true);
     fs.writeFileSync('mobile.html', mobileTemplate);
     log.info('[TEMPLATE] MOBILE template ready');
 });
 
-function prepareTemplate(head, header, footer) {
+function prepareTemplate(head, header, footer, isMobile) {
     return `<!DOCTYPE html>
 <html lang="en">
     <head>
@@ -65,7 +65,7 @@ function prepareTemplate(head, header, footer) {
     <body>
         ${header}
         <div id="rm-cs-app"></div>    
-        ${footer}
+        ${isMobile ? '' : footer}
     </body>
 </html>`;
 }
