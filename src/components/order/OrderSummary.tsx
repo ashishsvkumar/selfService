@@ -6,6 +6,7 @@ import * as moment from "moment";
 import cx from "classnames";
 import { currentEnvironment, Environments, isMobile } from '../../config/environment'
 import { RedMartOrder } from "../../store/package/types";
+import { isEmpty } from 'lodash';
 
 export const enum LinkTo {
     ORDER_HELP = "order-help",
@@ -36,7 +37,14 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     trimSlot = () => {
-        return this.props.deliverySlot.indexOf("Get by") === 0 ? this.props.deliverySlot.replace("Get by", "") : moment(this.props.deliverySlot, 'DD MMM YYYY HH:mm:ss').format('ddd DD MMM');
+        let out = this.props.deliverySlot.indexOf("Get by") === 0 ? this.props.deliverySlot.replace("Get by", "") : moment(this.props.deliverySlot, 'DD MMM YYYY HH:mm:ss').format('ddd DD MMM');
+        out = out.replace('-', ' - ');
+        try {
+            return out.replace('-', ' - ').replace(/([0-9]{2} [A-Za-z]{3}), ([0-9]{2})/, '$1 · $2');
+        } catch(err) {
+            // Cause I don't trust myself
+            return out;
+        }
     }
 
     label = () => {
