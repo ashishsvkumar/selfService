@@ -40,7 +40,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         let out = this.props.deliverySlot.indexOf("Get by") === 0 ? this.props.deliverySlot.replace("Get by", "") : moment(this.props.deliverySlot, 'DD MMM YYYY HH:mm:ss').format('ddd DD MMM');
         out = out.replace('-', ' - ');
         try {
-            return out.replace('-', ' – ').replace(/([0-9]{2} [A-Za-z]{3}), ([0-9]{2})/, '$1 · $2');
+            return out.replace('-', ' – ').replace(/(\d{2} [A-Za-z]{3}), (\d{2})/, '$1 · $2').replace(/0(\d{1})/g, '$1');
         } catch(err) {
             // Cause I don't trust myself
             return out;
