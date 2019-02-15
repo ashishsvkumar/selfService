@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component } from "react";
-import { withRouter, Route } from "react-router";
+import { withRouter, Route, Switch } from "react-router";
 import * as styles from "../../App.scss";
 import { basePath } from "../../config/environment";
 import cx from 'classnames';
@@ -15,6 +15,7 @@ import { Sidebar } from "../sidebar/Sidebar";
 import Breadcrumbs from "../../containers/partials/Breadcrumbs";
 import SnapEngageWrapper from "../../containers/partials/Snapengage";
 import RMHelpPage from "../../containers/pages/RMHelpPage";
+import { NotFound } from "../pages/notFound/NotFound";
 
 class MainContentHolder extends Component<any, any> {
 
@@ -39,17 +40,20 @@ class MainContentHolder extends Component<any, any> {
                     <div className={sidebarClassName}><Sidebar /></div>
                         <SnapEngageWrapper>
                             <div className={bodyClassName}>
-                                <Route exact path="/contact" component={RMHelpPage}/>
-                                <Route exact path="/orders/:tradeOrderId/contact" component={RMHelpPage}/>
-                                <Route path="/orders/:tradeOrderId(\d+)/faq/:id/:heading?" component={FaqPage} />
-                                <Route path="/category/:categoryId(\d+)/:categoryHeading/faq/:id/:heading?" component={FaqPage} />
-                                <Route path="/faq/:id/:heading?" component={FaqPage} />
-                                <Route exact path="/orders/:tradeOrderId/help/:category" component={ItemLevelHelpPage} />
-                                <Route exact path="/orders/:tradeOrderId" component={OrderHelpLandingPage} />
-                                <Route exact path="/category/:id/:heading" component={CategoryPage} />
-                                <Route exact path="/orders" component={OrdersPage} />
-                                <Route exact path="/query" component={QueryFormPage} />
-                                <Route exact path="/" component={LandingPage} />
+                                <Switch>
+                                    <Route path="/contact" component={RMHelpPage}/>
+                                    <Route path="/orders/:tradeOrderId(\d+)/contact" component={RMHelpPage}/>
+                                    <Route path="/orders/:tradeOrderId(\d+)/faq/:id/:heading?" component={FaqPage} />
+                                    <Route path="/category/:categoryId(\d+)/:categoryHeading/faq/:id/:heading?" component={FaqPage} />
+                                    <Route path="/faq/:id/:heading?" component={FaqPage} />
+                                    <Route path="/orders/:tradeOrderId(\d+)/help/:category" component={ItemLevelHelpPage} />
+                                    <Route path="/orders/:tradeOrderId(\d+)" component={OrderHelpLandingPage} />
+                                    <Route path="/category/:id/:heading" component={CategoryPage} />
+                                    <Route path="/orders" component={OrdersPage} />
+                                    <Route path="/query" component={QueryFormPage} />
+                                    <Route exact path="/" component={LandingPage} />
+                                    <Route path="*" component={NotFound}/>
+                                </Switch>
                             </div>
                         </SnapEngageWrapper>
                     <div className={styles.clear} />

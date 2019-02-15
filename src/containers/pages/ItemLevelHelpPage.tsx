@@ -13,6 +13,7 @@ import { Ticket } from "../../store/ticket/types";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
 import { isEmpty } from 'lodash';
+import { NotFound } from "../../components/pages/notFound/NotFound";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {}> {
 
@@ -35,9 +36,20 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
         }
     }
 
+    unknownHelp = () => {
+        const category = this.props.match.params.category;
+        return !(category === Category.damaged || category === Category.missing);
+    }
+
     render() {
         const { fetching, order } = this.props;
-        if (fetching || order === null) {
+        if (this.unknownHelp()) {
+            return <NotFound />;
+        }
+        else if (this.props.notFound) {
+            return <NotFound message="Sorry, the order you are looking for could not be found."/>;
+        }
+        else if (fetching || order === null) {
             return <ProtectedPage><Spinner /></ProtectedPage>
         } else {
             return <Component order={order} helpCategory={this.props.match.params.category} createTicket={this.props.createTicket} inProgress={this.props.ticketInProgress} />
@@ -54,7 +66,8 @@ interface PropsFromDispatch {
 interface PropsFromState {
     fetching: boolean,
     order: RedMartOrder,
-    ticketInProgress: boolean
+    ticketInProgress: boolean,
+    notFound: boolean
 }
 
 interface PropsFromRoute {
@@ -72,8 +85,10 @@ const mapDispatchToProps = {
 const maptStateToProps = ({ redmartOrders, ticket }: ApplicationState, ownProps: ItemLevelHelpPageProps) => {
     const orderId = ownProps.match.params.tradeOrderId;
     const orders = isEmpty(redmartOrders.orders) ? null : redmartOrders.orders.filter(o => o.tradeOrderId == orderId);
+    const notFound = !redmartOrders.fetching && (redmartOrders.orders || []).filter(o => o.tradeOrderId == orderId).length === 0;
 
     return {
+        notFound,
         feching: redmartOrders.fetching,
         order: isEmpty(orders) ? null : orders[0],
         ticketInProgress: ticket.inProgress

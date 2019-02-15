@@ -5,7 +5,6 @@ import { setTitle } from '../../../utils/container'
 import { getUserId } from "../../../utils/session"
 import { Button } from "../../form/Button";
 import { isEmptyString } from "../../../utils/extras";
-import ContactUs from "../../../containers/partials/ContactUs";
 import { Ticket, TicketType } from "../../../store/ticket/types";
 import { WarningIcon } from "../../icons/WarningIcon";
 

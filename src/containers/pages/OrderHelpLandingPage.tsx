@@ -11,6 +11,7 @@ import { ProtectedPage } from "../../components/wrappers/AuthWrapper"
 import { isEmpty } from 'lodash';
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
+import { NotFound } from "../../components/pages/notFound/NotFound";
 
 export class OrderHelpLandingPage extends React.Component<OrderHelpPageProps, OrderHelpPageState> {
 
@@ -32,7 +33,10 @@ export class OrderHelpLandingPage extends React.Component<OrderHelpPageProps, Or
     }
 
     render() {
-        if (this.props.fetching || this.props.order === null) {
+        if (this.props.notFound) {
+            return <NotFound message="Sorry, the order you are looking for could not be found."/>;
+        }
+        else if (this.props.fetching || this.props.order === null) {
             return <ProtectedPage><Spinner /></ProtectedPage>
         }
         else {
@@ -52,7 +56,8 @@ interface PropsFromDispatch {
 
 interface PropsFromState {
     fetching: boolean,
-    order: RedMartOrder
+    order: RedMartOrder,
+    notFound: boolean
 }
 
 interface PropsFromRoute {
@@ -69,9 +74,11 @@ const mapDispatchToProps = {
 const maptStateToProps = ({ redmartOrders }: ApplicationState, ownProps: OrderHelpPageProps) => {
     const orderId = ownProps.match.params.tradeOrderId;
     const orders = isEmpty(redmartOrders.orders) ? null : redmartOrders.orders.filter(o => o.tradeOrderId == orderId);
+    const notFound = !redmartOrders.fetching && (redmartOrders.orders || []).filter(o => o.tradeOrderId == orderId).length === 0;
 
     return {
         fetching: redmartOrders.fetching,
+        notFound,
         order: isEmpty(orders) ? null : orders[0],
     };
 }
