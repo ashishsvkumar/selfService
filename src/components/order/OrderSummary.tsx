@@ -40,7 +40,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         let out = this.props.deliverySlot.indexOf("Get by") === 0 ? this.props.deliverySlot.replace("Get by", "") : moment(this.props.deliverySlot, 'DD MMM YYYY HH:mm:ss').format('ddd DD MMM');
         out = out.replace('-', ' - ');
         try {
-            return out.replace('-', ' - ').replace(/([0-9]{2} [A-Za-z]{3}), ([0-9]{2})/, '$1 · $2');
+            return out.replace('-', ' – ').replace(/([0-9]{2} [A-Za-z]{3}), ([0-9]{2})/, '$1 · $2');
         } catch(err) {
             // Cause I don't trust myself
             return out;
@@ -112,7 +112,7 @@ export const RecentOrderCard = (props: OrderSummaryProps) => {
             <OrderSummarySubcard {...props} />
             <ProtectedLink className={styles.all_orders} to="/orders">
                 <div className={styles.arrow}><ArrowIcon /></div>
-                <div className={styles.help}>Need help with another order</div>
+                <div className={styles.help}><span>View More Orders</span></div>
                 <div className={styles.arrow_2}><ArrowIcon /></div>
                 <div className={styles.clear}></div>
             </ProtectedLink>
