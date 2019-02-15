@@ -85,7 +85,7 @@ const mapDispatchToProps = {
 const maptStateToProps = ({ redmartOrders, ticket }: ApplicationState, ownProps: ItemLevelHelpPageProps) => {
     const orderId = ownProps.match.params.tradeOrderId;
     const orders = isEmpty(redmartOrders.orders) ? null : redmartOrders.orders.filter(o => o.tradeOrderId == orderId);
-    const notFound = !redmartOrders.fetching && (redmartOrders.orders || []).filter(o => o.tradeOrderId == orderId).length === 0;
+    const notFound = redmartOrders.fetched && (redmartOrders.noOrders || (redmartOrders.orders || []).filter(o => o.tradeOrderId == orderId).length === 0);
 
     return {
         notFound,
