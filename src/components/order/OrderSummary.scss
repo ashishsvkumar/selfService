@@ -68,16 +68,14 @@
     }
 }
 
+.status {
+    float: right;
+    font-style: italic;
+    text-transform: capitalize;
+}
+
 .slot {
     font-size: 13px;
-
-    .label {
-        float: left;
-        color: $light_grey;
-        margin-left: 12px;
-        margin-right: 12px;
-        display: none;
-    }
     .time {
         float: left;
         color: $almost_black;
@@ -88,11 +86,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         direction: rtl;
-    }
-    .status {
-        float: right;
-        font-style: italic;
-        text-transform: capitalize;
     }
 }
 
@@ -122,9 +115,18 @@
         height: 40px;
         z-index: 1;
 
-        margin-left: 10px;
+        margin-left: 4px;
         &:first-child {
             margin-left: 0;
+        }
+
+        &:nth-child(3) {
+            display: none;
+        }
+
+        &.fodder {
+            background-color: transparent;
+            background-image: none;
         }
     }
 
@@ -187,14 +189,43 @@
     
     .help {
         font-size: 14px;
-        color: $brownish_grey;
+        color: $grape_fruit;
         margin-right: 3px;
         margin-top: 23px;
     }
 }
 
+@media (min-width: 330px) { 
+    .thumbnails {
+        .thumbail_holder, .thumbail {
+            margin-left: 10px;
+
+            &:nth-child(3) {
+                display: block;
+            }
+        }
+    }
+}
+
+@media (min-width: 400px) { 
+    .thumbnails {
+        .thumbail_holder, .thumbail {
+            margin-left: 16px;
+        }
+    }
+}
 
 @media (min-width: 992px) { 
+
+    .help_btn {
+        border-color: #1a9cb7;
+        color: #1a9cb7;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding: 12px 15px 10px;
+        box-shadow: none;
+        margin-top: 0;
+    }
 
     .card {
         border-radius: 5px;
@@ -209,30 +240,35 @@
     .slot {
         float: left;
         margin-top: 13px;
+        margin-left: 8px;
         font-size: 14px;
-        width: 50%;
+        width: 220px;
 
         .time {
             font-weight: 400;
             color: #212121;
         }
-        .status {
-            font-size: 12px;
-            font-weight: 400;
-            margin-top: 2px;
-        }
+    }
+
+    .status {
+        font-size: 12px;
+        font-weight: 400;
+        margin-top: 14px;
+        float: left;
+        margin-left: 12px;
+        margin-right: 12px;
     }
 
     .thumbnails {
         margin-top: 0;
         float: right;
-        width: calc(50% - 60px);
+        min-width: calc(100% - 300px);
         margin-right: 8px;
 
         .thumbail_holder, .thumbail {
             width: 40px;
             height: 40px;
-            margin-right: 8px;
+            margin-right: 12px;
 
             &:nth-child(4) {
                 display: block;
@@ -243,7 +279,6 @@
             margin-top: 11px; 
             margin-right: 8px;
         }
-
 
         .arrow, .arrow_2 {
             margin-top: 13px;
@@ -291,22 +326,14 @@
     }
 }
 
-@media (min-width: 1460px) { 
-    .slot {
-        width: 40%;
-        .label {
-            color: #757575;
-            display: block;
-            max-width: 84px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+@media (min-width: 1200px) { 
+    .status {
+        margin-left: 30x;
     }
+}
 
-    .thumbnails {
-        float: right;
-        width: calc(50% - 60px);
-        margin-right: 8px;
+@media (min-width: 1400px) { 
+    .status {
+        margin-left: 50px;
     }
 }

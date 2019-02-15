@@ -4,9 +4,7 @@ import * as styles from "./OrderSummary.scss";
 import { ArrowIcon } from "../icons/ArrowIcon";
 import * as moment from "moment";
 import cx from "classnames";
-import { currentEnvironment, Environments, isMobile } from '../../config/environment'
 import { RedMartOrder } from "../../store/package/types";
-import { isEmpty } from 'lodash';
 
 export const enum LinkTo {
     ORDER_HELP = "order-help",
@@ -26,6 +24,12 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
 
     prepareItemthumnail = (url: string, index: number) => {
         const showCount: boolean = index === 3 && index < this.props.items.length - 1;
+        if (url === null) {
+            return (
+                <div className={cx({[styles.thumbail_holder]: true, [styles.fodder]: true})} key={`item-thumbnail-${url}-${index}`} />
+            );
+        }
+
         return (
             <div className={styles.thumbail_holder} key={`item-thumbnail-${url}-${index}`}>
                 <div className={styles.thumbail} style={{ backgroundImage: `url("${url}")` }}>
@@ -69,18 +73,20 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     render() {
         const { status, items, linkTo } = this.props;
         const thumbnailClass = cx({ [styles.thumbnails]: true, [styles.greyscale]: status === 'Cancelled' })
+        const itemsForThumbnail = items.concat([null, null, null]).slice(0, 4)
 
         return (
             <React.Fragment>
                 <div className={styles.slot}>
-                    <div className={styles.label}>Delivery Time</div>
                     <div className={styles.time}>{this.trimSlot()}</div>
-                    <div className={styles.status} style={{ color: this.statusColor() }}>{status}</div>
+                    <div className={cx([styles.status, styles.only_mobile])} style={{ color: this.statusColor() }}>{status}</div>
                     <div className={styles.clear}></div>
                 </div>
                 <div className={thumbnailClass}>
-                    {items.slice(0, 5).map(im => im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
+                    {itemsForThumbnail.map(im => im === null ? null : im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
                     {linkTo === LinkTo.ORDER_HELP && <div className={styles.help_btn}>Get Help</div>}
+                    {linkTo === LinkTo.NONE && <div className={cx([styles.help, styles.only_desktop])}>View Order Details</div>}
+                    <div className={cx([styles.status, styles.only_desktop])} style={{ color: this.statusColor() }}>{status}</div>
                     <div className={styles.clear}></div>
                 </div>
                 <div className={styles.clear}></div>
@@ -109,7 +115,7 @@ export const RecentOrderCard = (props: OrderSummaryProps) => {
     return (
         <div className={cx([styles.content, styles.card, styles.pack])}>
             <div className={styles.recent}>Most Recent Order</div>
-            <OrderSummarySubcard {...props} />
+            <OrderSummarySubcard {...props}/>
             <ProtectedLink className={styles.all_orders} to="/orders">
                 <div className={styles.arrow}><ArrowIcon /></div>
                 <div className={styles.help}><span>View More Orders</span></div>
@@ -123,15 +129,8 @@ export const RecentOrderCard = (props: OrderSummaryProps) => {
 function prepareOrderHelpLink(linkTo: LinkTo, tradeOrderId: string) {
     if (linkTo === LinkTo.ORDER_HELP) {
         return `/orders/${tradeOrderId}`;
-    }
-    else {
-        if (currentEnvironment === Environments.production) {
-            return isMobile() ? `https://my-m.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`;
-        } else if (currentEnvironment === Environments.development) {
-            return isMobile() ? `https://my-rm-p.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my-rm.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`;
-        } else {
-            return isMobile() ? `http://pages.lazada.test/wow/i/sg/order/order-detail?tradeOrderId=${tradeOrderId}&wh_weex=true` : `http://buyer.lazada.test/customer/order/view/?tradeOrderId=${tradeOrderId}`;
-        }
+    } else {
+        return null;
     }
 }
 

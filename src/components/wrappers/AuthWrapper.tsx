@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { isWindVandAvailable, initiateLogin } from "../../api/windvane";
 import { basePath } from "../../config/environment";
 import { refresh } from "../../utils/extras";
+import { isEmpty } from 'lodash';
 
 
 export const ProtectedPage: React.StatelessComponent<{}> = ({ children }) => {
@@ -42,6 +43,10 @@ export const ProtectedLink: React.StatelessComponent<ProtectedLinkProps> = (prop
 
     to = loginFrom(`${location.origin}${basePath.replace(/\/$/g, '')}${to}`)
     useAnchor = true;
+  }
+
+  if (to === null) {
+    return <div {...otherProps}>{children}</div>;
   }
 
   return useAnchor ? <a href={to} {...otherProps}>{children}</a> : <Link to={to} {...otherProps}>{children}</Link>

@@ -31,8 +31,16 @@
     // Medium devices (tablets, 768px and up)
 }
 
-
 @media (min-width: 992px) { 
+    .main_content {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+@media (min-width: 1200px) { 
     // Large devices (desktops, 992px and up)
     .app {
         min-height: 70vh;
