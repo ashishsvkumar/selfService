@@ -9,7 +9,7 @@
     border-bottom: 1px solid $border_grey;
     background-color: white;
 
-    > div > a {
+    > div > div {
         padding-top: 10px;
         padding-bottom: 10px;
     }
@@ -37,7 +37,7 @@
         border-bottom: none;
         margin-bottom: 20px;
 
-        > div > a {
+        > div > div {
             background-color: $almost_white;
             border-radius: 5px;
             padding-top: 16px;

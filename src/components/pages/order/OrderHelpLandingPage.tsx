@@ -3,18 +3,20 @@ import { NavigationCard, Theme } from "../../card/NavigationCard";
 import { OrderHelpPage } from "./OrderHelpPage"
 import * as styles from "../../../base.scss";
 import { RedMartOrder } from "../../../store/package/types";
+import { currentEnvironment, Environments, isMobile } from "../../../config/environment";
+import { isEmpty } from "lodash";
 
 export const OrderHelpLandingPage = (props: OrderHelpLandingPageProps) => {
-    return <OrderHelpPage title="Order Help" body={prepareHelpLinks(props)} order={props}/>
+    return <OrderHelpPage title="Order Help" body={prepareHelpLinks(props)} order={props} />
 }
 
 export type OrderHelpLandingPageProps = RedMartOrder;
 
 function prepareHelpLinks(props: OrderHelpLandingPageProps) {
-    const links = helpLinks(props.tradeOrderId).filter(link => link.enableOn.indexOf(props.status) >= 0)
+    const links = helpLinks(props.tradeOrderId).filter(link => link.enableOn.indexOf(props.status) >= 0 || link.enableOn[0] === 'All').filter(link => !link.hide)
 
     return (
-        <div style={{marginTop: '-2px'}}>
+        <div style={{ marginTop: '-2px' }}>
             {links.map(prepareStrip)}
             {links.map(prepareCard)}
         </div>
@@ -22,7 +24,7 @@ function prepareHelpLinks(props: OrderHelpLandingPageProps) {
 }
 
 function prepareStrip(link: HelpLink) {
-    return <div className={styles.only_mobile} key={`mobile-${link.url}`}><NavigationCard text={link.text} to={link.url} theme={Theme.STRIP}/></div>;
+    return <div className={styles.only_mobile} key={`mobile-${link.url}`}><NavigationCard text={link.text} to={link.url} theme={Theme.STRIP} /></div>;
 }
 
 function prepareCard(link: HelpLink) {
@@ -30,18 +32,20 @@ function prepareCard(link: HelpLink) {
         return null;
     }
 
-    return <div className={styles.only_desktop} style={{marginBottom: '10px'}} key={`desktop-${link.text}`}><NavigationCard text={link.text} to={link.url} theme={Theme.CARD}/></div>;
+    return <div className={styles.only_desktop} style={{ marginBottom: '10px' }} key={`desktop-${link.text}`}><NavigationCard text={link.text} to={link.url} theme={Theme.CARD} /></div>;
 }
 
 interface HelpLink {
     text: string,
     url: string,
     enableOn: string[],
-    hideInDesktop?: boolean
+    hideInDesktop?: boolean,
+    hide?: boolean
 }
 
 const helpLinks = (tradeOrderId: string): HelpLink[] => [
     /* TEMPORARY */
+    { text: "I want to check my order details", url: prepareOrderDetailsLink(tradeOrderId), enableOn: ["All"], hide: !isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0), hideInDesktop: true },
     { text: "I have missing items", url: `/orders/${tradeOrderId}/help/missing`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"] },
     { text: "I have problem with the received items", url: `/orders/${tradeOrderId}/help/damaged`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"] },
 
@@ -57,3 +61,14 @@ const helpLinks = (tradeOrderId: string): HelpLink[] => [
     /* For all */
     { text: "Need more help", url: `/orders/${tradeOrderId}/contact`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"], hideInDesktop: true },
 ]
+
+export function prepareOrderDetailsLink(tradeOrderId: string) {
+    if (currentEnvironment === Environments.production) {
+        return isMobile() ? `https://my-m.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`;
+    } else if (currentEnvironment === Environments.development) {
+        return isMobile() ? `https://my-rm-p.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my-rm.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`;
+    } else {
+        return isMobile() ? `http://pages.lazada.test/wow/i/sg/order/order-detail?tradeOrderId=${tradeOrderId}&wh_weex=true` : `http://buyer.lazada.test/customer/order/view/?tradeOrderId=${tradeOrderId}`;
+    }
+}
+
