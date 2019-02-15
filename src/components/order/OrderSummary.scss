@@ -96,24 +96,53 @@
     .thumbail_holder, .thumbail {
         position: relative;
     
+        border-radius: 4px;
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         z-index: 1;
 
-        margin-left: 6px;
+        margin-left: 10px;
         &:first-child {
             margin-left: 0;
         }
+    }
+
+    .count_holder {
+        border-radius: 4px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 3;
+
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .count {
+        color: white;
+
+        text-align: center;
+        font-size: 16px;
+        font-weight: 300;
+        padding-top: 10px;
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 3;
     }
 
     .thumbail_holder {
         background-image: url('https://img.alicdn.com/tfs/TB13yWDDMHqK1RjSZJnXXbNLpXa-240-240.png');
         float: left;
 
-        &:nth-child(4) {
+        &:nth-child(5) {
             display: none;
         }
     }

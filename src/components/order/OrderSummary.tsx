@@ -23,10 +23,14 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         super(props);
     }
 
-    prepareItemthumnail = (url: string, index: number) => {        
+    prepareItemthumnail = (url: string, index: number) => {
+        const showCount: boolean = index === 3;
         return (
             <div className={styles.thumbail_holder} key={`item-thumbnail-${url}-${index}`}>
-                <div className={styles.thumbail} style={{ backgroundImage: `url("${url}")` }}></div>
+                <div className={styles.thumbail} style={{ backgroundImage: `url("${url}")` }}>
+                 {showCount && <div className={styles.count_holder}></div>}
+                 {showCount && <div className={styles.count}>+{this.props.items.length - 3}</div>}
+                </div>
             </div>
         )
     }
@@ -46,7 +50,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
             case "Delivered":
                 return "#89a836";
             case "Cancelled":
-                return "#999";    
+                return "#999";
             case "Processing":
             case "Shipped":
             default:
@@ -55,7 +59,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     render() {
-        const {status, items, linkTo} = this.props;
+        const { status, items, linkTo } = this.props;
         const thumbnailClass = cx({ [styles.thumbnails]: true, [styles.greyscale]: status === 'Cancelled' })
 
         return (
@@ -67,7 +71,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                     <div className={styles.clear}></div>
                 </div>
                 <div className={thumbnailClass}>
-                    {items.slice(0, 4).map(im => im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
+                    {items.slice(0, 5).map(im => im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
                     <div className={styles.arrow}><ArrowIcon /></div>
                     <div className={styles.help}>{linkTo === LinkTo.ORDER_HELP ? 'Get Help' : 'View Order'}</div>
                     <div className={styles.clear}></div>
