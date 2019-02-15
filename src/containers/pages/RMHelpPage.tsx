@@ -7,7 +7,6 @@ import { RMHelpPage as Component } from "../../components/pages/contact/RMHelpPa
 import { fetchRedMartOrders } from "../../store/package/actions";
 import { isEmpty } from 'lodash';
 import { isLoggedIn } from '../../utils/session';
-import { getBasePath } from '../../config/environment';
 
 class RMHelpPage extends React.Component<RMHelpPageProps, {}> {
     constructor(props: RMHelpPageProps) {
@@ -19,8 +18,7 @@ class RMHelpPage extends React.Component<RMHelpPageProps, {}> {
     }
 
     onLeaveMessage = () => {
-        // @ts-ignore
-        window.location = `${getBasePath()}query`;
+        this.props.history.push('/query');
     }
 
     render() {
@@ -45,6 +43,9 @@ interface PropsFromRoute {
         params: { 
             tradeOrderId?: string
         } 
+    },
+    history: {
+        push: (path: string) => void
     }
 }
 
