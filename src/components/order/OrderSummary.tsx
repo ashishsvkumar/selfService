@@ -9,7 +9,7 @@ import { RedMartOrder } from "../../store/package/types";
 
 export const enum LinkTo {
     ORDER_HELP = "order-help",
-    ORDER_DETAILS = "order-details"
+    NONE = "none"
 }
 
 export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummaryState> {
@@ -24,7 +24,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     prepareItemthumnail = (url: string, index: number) => {
-        const showCount: boolean = index === 3;
+        const showCount: boolean = index === 3 && index < this.props.items.length - 1;
         return (
             <div className={styles.thumbail_holder} key={`item-thumbnail-${url}-${index}`}>
                 <div className={styles.thumbail} style={{ backgroundImage: `url("${url}")` }}>
@@ -72,8 +72,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                 </div>
                 <div className={thumbnailClass}>
                     {items.slice(0, 5).map(im => im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
-                    <div className={styles.arrow}><ArrowIcon /></div>
-                    <div className={styles.help}>{linkTo === LinkTo.ORDER_HELP ? 'Get Help' : 'View Order'}</div>
+                    {linkTo === LinkTo.ORDER_HELP && <div className={styles.help_btn}>Get Help</div>}
                     <div className={styles.clear}></div>
                 </div>
                 <div className={styles.clear}></div>

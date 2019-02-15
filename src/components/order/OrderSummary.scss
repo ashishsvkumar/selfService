@@ -90,6 +90,18 @@
     }
 }
 
+.help_btn {
+    color: $grape_fruit;
+    border: 1px solid $grape_fruit;
+    text-align: center;
+    padding: 7px 15px;
+    border-radius: 2px;
+    float: right;
+    margin-top: 4px;
+    font-size: 12px;
+    box-shadow: 0 1px #ddd;
+}
+
 .thumbnails {
     margin-top: 14px;
 

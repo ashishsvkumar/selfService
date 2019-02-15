@@ -22,13 +22,13 @@ function prepareOrderCard(order: OrderSummaryProps) {
             <div className={styles.only_mobile}>
                 <OrderSummarySubcard
                     {...order}
-                    linkTo={LinkTo.ORDER_DETAILS}
+                    linkTo={LinkTo.NONE}
                 />
             </div>
             <div className={styles.only_desktop}>
                 <OrderSummaryCard
                     {...order}
-                    linkTo={LinkTo.ORDER_DETAILS}
+                    linkTo={LinkTo.NONE}
                 />
             </div>
         </React.Fragment>
