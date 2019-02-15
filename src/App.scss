@@ -2,8 +2,7 @@
 
 :global(#rm-cs-app) {
     width: 100%;
-    // min-height: calc(100vh - (48px + 137px));
-    min-height: calc(100vh - 88px);
+    min-height: 100vh;
     background-color: $almost_white;
     margin-bottom: -40px;
     padding-bottom: 40px;
