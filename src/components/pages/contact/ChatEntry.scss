@@ -158,13 +158,16 @@ b {
     .cards {
         margin: 15px auto 12px 0;
         max-width: 847px;
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .card {
         border-color: #dadada;
-        width: calc(50% - 44px);
         margin-right: 12px;
-        padding: 14px 16px 12px 14px; 
+        padding: 14px 16px 12px 14px;
+        align-items: stretch;
+        width: calc(50% - 44px);
     }
 
     .card_title {
@@ -181,19 +184,5 @@ b {
 
     .timings {
         text-align: left;
-    }
-}
-
-@media (max-width: 1506px) { 
-    .card {
-        min-height: 20px;
-        min-height: 58px;
-        vertical-align: top;
-    }
-}
-
-@media (max-width: 1366px) { 
-    .card {
-        min-height: 78px;
     }
 }
