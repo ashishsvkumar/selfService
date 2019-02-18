@@ -6,6 +6,7 @@ import { ChatState } from "../../../store/chat/types";
 import { isEmptyString } from "../../../utils/extras";
 import { ArrowIcon, Direction } from "../../icons/ArrowIcon";
 import { getBasePath } from "../../../config/environment";
+import { Constants } from "../../../config/constants";
 
 export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState> {
 
@@ -48,7 +49,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                             <div className={styles.btn_text}>Call us</div>
                         </div>
                     </a>
-                    <div className={styles.timings}>7am - 11pm SGT daily.</div>
+                    <div className={styles.timings}>{Constants.OPERATION_TIME}.</div>
                 </div>
             );
         }
@@ -61,7 +62,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                         <div className={styles.btn_text}>Chat with us</div>
                     </div>
                 </div>
-                <div className={styles.timings}>We are online 7am - 11pm SGT daily.</div>
+                <div className={styles.timings}>We are online {Constants.OPERATION_TIME}.</div>
             </div>
         );
     }

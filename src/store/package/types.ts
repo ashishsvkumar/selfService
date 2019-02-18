@@ -19,6 +19,7 @@ export interface RedMartItem {
     readonly thumbnail: string;
     readonly isFreeGift: boolean;
     readonly isFreeSample: boolean;
+    readonly status?: string
 }
 
 export const enum RedMartOrderActionTypes {

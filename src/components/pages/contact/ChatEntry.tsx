@@ -15,6 +15,7 @@ import { ApplicationState } from "../../../store";
 import { isLoggedIn } from "../../../utils/session";
 import { isEmpty } from 'lodash';
 import { fetchRedMartOrders } from "../../../store/package/actions"
+import { Constants } from "../../../config/constants";
 
 
 class ChatEntry extends React.Component<ChatEntryProps, {}> {
@@ -97,7 +98,7 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                             <div className={styles.clear}/>
                         </div>
                     </div>
-                    <div className={styles.timings}>7am - 11pm SGT daily.</div>
+                    <div className={styles.timings}>{Constants.OPERATION_TIME}</div>
                     <br/>
                     <div className={styles.card_subtitle}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Click here.</span></div>
                 </div>
