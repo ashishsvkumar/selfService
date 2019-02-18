@@ -45,6 +45,8 @@ interface HelpLink {
 
 const helpLinks = (tradeOrderId: string): HelpLink[] => [
     { text: "I want to check my order details", url: prepareOrderDetailsLink(tradeOrderId), enableOn: ["All"], hide: !isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0), hideInDesktop: true },
+    { text: "I have missing items", url: `/orders/${tradeOrderId}/help/missing`, enableOn: ["Delivered"] },
+    { text: "I have problem with the received items", url: `/orders/${tradeOrderId}/help/damaged`, enableOn: ["Delivered"] },
 
     /* For not delivered */
     { text: "Can I add or remove items from the order?", url: `/orders/${tradeOrderId}/faq/200376704`, enableOn: ["Payment pending", "Processing", "Shipped"] },
@@ -52,8 +54,6 @@ const helpLinks = (tradeOrderId: string): HelpLink[] => [
     { text: "How do I track the status of my order?", url: `/orders/${tradeOrderId}/faq/200389390`, enableOn: ["Payment pending", "Processing", "Shipped"] },
     { text: "Can I cancel the order?", url: `/orders/${tradeOrderId}/faq/216795548`, enableOn: ["Payment pending", "Processing", "Shipped"] },
     /* For delivered */
-    { text: "I have missing items", url: `/orders/${tradeOrderId}/help/missing`, enableOn: ["Delivered"] },
-    { text: "I have problem with the received items", url: `/orders/${tradeOrderId}/help/damaged`, enableOn: ["Delivered"] },
     { text: "Can I return products to RedMart", url: `/orders/${tradeOrderId}/faq/200376804`, enableOn: ["Delivered"] },
     { text: "Why didn't I receive a free gift with my purchase?", url: `/orders/${tradeOrderId}/faq/217926027`, enableOn: ["Delivered"] },
     { text: "Why did the item I received looks different from the website?", url: `/orders/${tradeOrderId}/faq/203052204`, enableOn: ["Delivered"] },
