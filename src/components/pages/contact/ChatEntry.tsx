@@ -10,6 +10,11 @@ import { PopupText } from "../../../components/card/ContactUs";
 import { setBreadcrumbs } from "../../../store/breadcrumb/actions";
 import { BreadcrumbEntry } from "../../../store/breadcrumb/types";
 import { ContentTitle } from "../../labels/ContentTitle";
+import { ChatState } from "../../../store/chat/types";
+import { ApplicationState } from "../../../store";
+import { isLoggedIn } from "../../../utils/session";
+import { isEmpty } from 'lodash';
+import { fetchRedMartOrders } from "../../../store/package/actions"
 
 
 class ChatEntry extends React.Component<ChatEntryProps, {}> {
@@ -23,6 +28,10 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
         this.props.setBreadcrumbs([
             { text: 'Contact RedMart', url: location.href, needLogin: false }
         ]);
+
+        if (this.props.shouldFetchOrders) {
+            this.props.fetchRedMartOrders();
+        }
     }
 
     ordersLink = () => {
@@ -45,6 +54,16 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
             return <Link className={styles.card} to={url}>{frag}</Link>;
         } else {
             return <a className={styles.card} href={url}>{frag}</a>
+        }
+    }
+
+    onChat = () => {
+        console.log('aaa', this.props.recentOrder);
+        if (this.props.chat.loaded) {
+            if (!isEmpty(this.props.recentOrder)) {
+                this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
+            }
+            this.props.chat.snapEngageInstance.startLink();
         }
     }
 
@@ -72,7 +91,7 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                 <div className={styles.content}>
                     <div className={styles.title}>Contact Us</div>
                     <div className={styles.card_subtitle}>Can't find the answer you are looking for? Contact us through <b>Live Chat</b> and we will assist you.</div>
-                    <div className={styles.btn} onClick={this.onMore}>
+                    <div className={styles.btn} onClick={this.onChat}>
                         <div className={styles.center}>
                             <div className={styles.icon}/>
                             <div className={styles.btn_text}>Chat Now</div>
@@ -90,14 +109,33 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
 
 interface PropsFromDispatch {
     showMessage: (title: string, message: any, btnText: string) => void,
-    setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
+    setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void,
+    fetchRedMartOrders: () => void
 }
 
-type ChatEntryProps = PropsFromDispatch;
+interface PropsFromState {
+    chat: ChatState,
+    shouldFetchOrders: boolean,
+    recentOrder?: string
+}
+
+type ChatEntryProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
     showMessage: showMessage,
-    setBreadcrumbs: setBreadcrumbs
+    setBreadcrumbs: setBreadcrumbs,
+    fetchRedMartOrders: fetchRedMartOrders
 }
 
-export default connect(null, mapDispatchToProps)(ChatEntry);
+const maptStateToProps = ({ chat, redmartOrders }: ApplicationState) => {
+    const shouldFetchOrders = isLoggedIn() && !redmartOrders.fetching && isEmpty(redmartOrders.orders);
+    const orders = isEmpty(redmartOrders.orders) ? [] : redmartOrders.orders;
+
+    return {
+        chat: chat,
+        shouldFetchOrders: shouldFetchOrders,
+        recentOrder: isEmpty(orders) ? undefined : '' + orders[0].tradeOrderId
+    };
+}
+
+export default connect(maptStateToProps, mapDispatchToProps)(ChatEntry);

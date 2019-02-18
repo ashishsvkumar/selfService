@@ -19,11 +19,12 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
     }
 
     onChatClick = () => {
-        if (!this.props.chat.loaded || this.props.chat.isOffline) {
-            this.onLeaveMessage();
-        } else {
-            this.onChat();
-        }
+        // if (!this.props.chat.loaded || this.props.chat.isOffline) {
+        //     this.onLeaveMessage();
+        // } else {
+        //     this.onChat();
+        // }
+        this.onChat();
     }
 
     onChat = () => {
@@ -46,7 +47,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     render() {
         return (
-            <Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Leave a message' : 'Chat with us'} onMoreClick={this.onMore}/>
+            <Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Chat with us' : 'Chat with us'} onMoreClick={this.onMore}/>
         );
     }
 }

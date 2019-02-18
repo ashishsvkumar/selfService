@@ -132,6 +132,7 @@ b {
 }
 
 .more {
+    cursor: pointer;
     color: $grape_fruit;
 }
 
@@ -150,13 +151,14 @@ b {
 
     .cards {
         margin: 15px auto 12px 0;
-        max-width: 835px;
+        max-width: 847px;
     }
 
     .card {
         border-color: #dadada;
-        width: calc(50% - 38px);
+        width: calc(50% - 44px);
         margin-right: 12px;
+        padding: 14px 16px 12px 14px; 
     }
 
     .card_title {
