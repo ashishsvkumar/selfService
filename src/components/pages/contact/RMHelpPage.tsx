@@ -21,7 +21,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
     handleChatClick = () => {
         const { chat, recentOrder } = this.props;
 
-        if (!chat.isOffline) {
+        if (!chat.isOffline || true) {
             if (chat.loaded) {
                 if (!isEmptyString(recentOrder)) {
                     chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
@@ -58,7 +58,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                 <div className={styles.btn} onClick={this.handleChatClick}>
                     <div className={styles.center}>
                         <div className={cx([styles.chat, styles.icon])} />
-                        <div className={styles.btn_text}>{this.props.chat.isOffline ? 'Leave a message' : 'Chat with us'}</div>
+                        <div className={styles.btn_text}>Chat with us</div>
                     </div>
                 </div>
                 <div className={styles.timings}>We are online 7am - 11pm SGT daily.</div>

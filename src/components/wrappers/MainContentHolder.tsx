@@ -16,6 +16,7 @@ import Breadcrumbs from "../../containers/partials/Breadcrumbs";
 import SnapEngageWrapper from "../../containers/partials/Snapengage";
 import RMHelpPage from "../../containers/pages/RMHelpPage";
 import { NotFound } from "../pages/notFound/NotFound";
+import { ChatEntry } from "../pages/contact/ChatEntry";
 
 class MainContentHolder extends Component<any, any> {
 
@@ -41,6 +42,7 @@ class MainContentHolder extends Component<any, any> {
                         <SnapEngageWrapper>
                             <div className={bodyClassName}>
                                 <Switch>
+                                    <Route path="/contact-us" component={ChatEntry}/>
                                     <Route path="/contact" component={RMHelpPage}/>
                                     <Route path="/orders/:tradeOrderId(\d+)/contact" component={RMHelpPage}/>
                                     <Route path="/orders/:tradeOrderId(\d+)/faq/:id/:heading?" component={FaqPage} />

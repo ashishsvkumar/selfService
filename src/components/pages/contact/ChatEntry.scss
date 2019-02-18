@@ -1,0 +1,132 @@
+@import '../../../base.scss';
+
+.container {
+    padding-top: 12px;
+    font-size: 14px;
+    color: $almost_black;
+}
+
+.content {
+    background-color: white;
+    border-top: 1px solid $border_grey;
+    border-bottom: 1px solid $border_grey;
+
+    padding: 14px 12px;
+    margin-bottom: 12px;
+}
+
+.title {
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.cards {
+    margin: 15px auto 12px;
+}
+
+.card {
+    display: inline-block;
+    border: 1px solid $border_grey;
+    border-radius: 2px;
+    cursor: pointer;
+
+    font-size: 12px;
+    padding: 12px 12px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100% - 28px);
+
+    &:hover {
+        box-shadow: 1px 1px 2px #ddd;
+    }
+
+    &:active {
+        box-shadow: inset 1px 1px 2px #ddd;
+    }
+}
+
+.card_title {
+    color: #1A9CB7;
+    text-transform: uppercase;
+}
+
+.card_subtitle {
+    color: $almost_black;
+    font-weight: 200;
+
+    margin-top: 8px;
+}
+
+.others {
+    > div:first-child {
+        margin-bottom: 8px;
+    }
+    .link_back {
+        color: #1A9CB7;
+        opacity: 0.9;
+        text-transform: uppercase;
+        font-size: 13px;
+
+        &:visited, &:active {
+            color: #1A9CB7;
+            opacity: 0.1;
+        }
+    }
+}
+
+b {
+    font-weight: 400;
+    color: $almost_black;
+}
+
+.center {
+    position: absolute;
+    padding-top: 4px;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    margin-left: -6px;
+}
+
+.btn {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    border: 1px solid #ec472a;
+    text-align: center;
+
+    height: 48px;
+    color: #ec472a;
+    margin: 20px 0 10px;
+
+    &:hover {
+        box-shadow: 1px 1px 2px #ddd;
+    }
+
+    &:active {
+        box-shadow: inset 1px 1px 2px #ddd;
+    }
+}
+
+.icon {
+    float: left;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+    margin-top: -2px;
+    background-image: url('../../../assets/chat-medium.png');
+}
+
+.btn_text {
+    float: left;
+}
+
+.timings {
+    color: #666666;
+    text-align: center;
+}
