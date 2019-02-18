@@ -84,7 +84,7 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                         {this.prepareCard('I have a question about a product or RedMart', 'Ask us about RedMart product features here', '/')}
                     </div>
                     <div className={styles.others}>
-                        <div>I have another question</div>
+                        <span>I have another question</span>
                         <Link to="/" className={styles.link_back}>Browse Help Center &nbsp;&nbsp;❯</Link>
                     </div>
                 </div>
