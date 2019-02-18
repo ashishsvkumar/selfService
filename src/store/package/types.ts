@@ -19,7 +19,12 @@ export interface RedMartItem {
     readonly thumbnail: string;
     readonly isFreeGift: boolean;
     readonly isFreeSample: boolean;
-    readonly status?: string
+    readonly status?: string,
+    readonly reversible?: Reversible
+}
+
+export interface Reversible {
+    readonly desc: string
 }
 
 export const enum RedMartOrderActionTypes {

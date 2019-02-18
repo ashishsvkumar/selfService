@@ -14,6 +14,8 @@ const failure = (error: string) => action(RedMartOrderActionTypes.FAILURE, error
 
 type Dispatch = (param: any) => any;
 
+const IGNORABLE_ITEM_STATUSES: string[] = ['refunded', 'pending refund', 'refund initiated'];
+
 export function fetchRedMartOrders() {
     return function (dispatch: Dispatch) {
         log.info('Fetching RedMart packages 📦');
@@ -84,7 +86,8 @@ function digestOrder(order: any): RedMartOrder {
             thumbnail: im.picUrl,
             isFreeGift: im.isFreeGift,
             isFreeSample: im.isFreeSample,
-            status: im.status
+            status: im.status,
+            reversible: im.reversible
         };
     });
 
@@ -117,8 +120,8 @@ function showItem(item: RedMartItem): boolean {
         return true;
     }
 
-    const status = item.status.toLowerCase();
-    return ['refunded', 'pending refund', 'refund initiated'].indexOf(status) < 0;
+    const status: string = get(item, 'reversible.desc', item.status).toLowerCase();
+    return IGNORABLE_ITEM_STATUSES.indexOf(status) < 0;
 }
 
 function fetchDetails(id: string) {
