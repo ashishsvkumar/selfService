@@ -58,7 +58,6 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
     }
 
     onChat = () => {
-        console.log('aaa', this.props.recentOrder);
         if (this.props.chat.loaded) {
             if (!isEmpty(this.props.recentOrder)) {
                 this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
