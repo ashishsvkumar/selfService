@@ -87,12 +87,11 @@ function digestOrder(order: any): RedMartOrder {
             status: im.status
         };
     });
-    out.items = out.items.filter(im => isEmpty(im.status) || (im.status.indexOf('refund') < 0 && im.status.indexOf('return') < 0))
+    out.items = out.items.filter(im => isEmpty(im.status) || !(im.status.indexOf('refund') >= 0 || im.status.indexOf('return') >= 0))
 
-    if (isEmpty(out.orderItems)) {
+    if (isEmpty(out.items)) {
         return null;
     }
-
 
     if (has(order, 'detailInfo.createdAt')) {
         out.createdAt = order.detailInfo.createdAt;
