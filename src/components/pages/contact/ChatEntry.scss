@@ -130,3 +130,48 @@ b {
     color: #666666;
     text-align: center;
 }
+
+.more {
+    color: $grape_fruit;
+}
+
+
+@media (min-width: 992px) {  
+    .container {
+        padding-top: 8px;
+    }
+
+    .content {
+        border-top: 0;
+        border-bottom: 0;
+
+        padding: 20px 0;
+    }
+
+    .cards {
+        margin: 15px auto 12px 0;
+        max-width: 835px;
+    }
+
+    .card {
+        border-color: #dadada;
+        width: calc(50% - 38px);
+        margin-right: 12px;
+    }
+
+    .card_title {
+        font-size: 15px;
+    }
+
+    .card_subtitle {
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 200px;
+    }
+
+    .timings {
+        text-align: left;
+    }
+}

@@ -16,7 +16,7 @@ import Breadcrumbs from "../../containers/partials/Breadcrumbs";
 import SnapEngageWrapper from "../../containers/partials/Snapengage";
 import RMHelpPage from "../../containers/pages/RMHelpPage";
 import { NotFound } from "../pages/notFound/NotFound";
-import { ChatEntry } from "../pages/contact/ChatEntry";
+import ChatEntry from "../pages/contact/ChatEntry";
 
 class MainContentHolder extends Component<any, any> {
 

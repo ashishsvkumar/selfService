@@ -4,9 +4,15 @@ import cx from 'classnames';
 import { currentEnvironment, Environments, isMobile } from "../../../config/environment";
 import { setTitle } from "../../../utils/container";
 import { Link } from "react-router-dom";
-import { startsWith } from "lodash";
+import { connect } from "react-redux";
+import { showMessage } from "../../../store/alert/actions";
+import { PopupText } from "../../../components/card/ContactUs";
+import { setBreadcrumbs } from "../../../store/breadcrumb/actions";
+import { BreadcrumbEntry } from "../../../store/breadcrumb/types";
+import { ContentTitle } from "../../labels/ContentTitle";
 
-export class ChatEntry extends React.Component<ChatEntryProps, {}> {
+
+class ChatEntry extends React.Component<ChatEntryProps, {}> {
     
     constructor(props: ChatEntryProps) {
         super(props);
@@ -14,6 +20,9 @@ export class ChatEntry extends React.Component<ChatEntryProps, {}> {
 
     componentWillMount() {
         setTitle('Contact RedMart');
+        this.props.setBreadcrumbs([
+            { text: 'Contact RedMart', url: location.href, needLogin: false }
+        ]);
     }
 
     ordersLink = () => {
@@ -38,10 +47,15 @@ export class ChatEntry extends React.Component<ChatEntryProps, {}> {
             return <a className={styles.card} href={url}>{frag}</a>
         }
     }
+
+    onMore = () => {
+        this.props.showMessage('Contact Us', PopupText(), 'Close');
+    }
     
     render() {
         return (
             <div className={styles.container}>
+                <div className={cx([styles.only_desktop])}><ContentTitle text="Contact RedMart"/></div>
                 <div className={styles.content}>
                     <div className={styles.title}>Hi, how can we help you?</div>
                     <div className={styles.cards}>
@@ -58,7 +72,7 @@ export class ChatEntry extends React.Component<ChatEntryProps, {}> {
                 <div className={styles.content}>
                     <div className={styles.title}>Contact Us</div>
                     <div className={styles.card_subtitle}>Can't find the answer you are looking for? Contact us through <b>Live Chat</b> and we will assist you.</div>
-                    <div className={styles.btn}>
+                    <div className={styles.btn} onClick={this.onMore}>
                         <div className={styles.center}>
                             <div className={styles.icon}/>
                             <div className={styles.btn_text}>Chat Now</div>
@@ -66,15 +80,24 @@ export class ChatEntry extends React.Component<ChatEntryProps, {}> {
                         </div>
                     </div>
                     <div className={styles.timings}>7am - 11pm SGT daily.</div>
+                    <br/>
+                    <div className={styles.card_subtitle}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Click here.</span></div>
                 </div>
             </div>
         )
     }
 }
 
-export interface ChatEntryProps {
-
+interface PropsFromDispatch {
+    showMessage: (title: string, message: any, btnText: string) => void,
+    setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 
-// Desktop My orders (https://my-rm.lazada.sg/customer/order/index)
-// Mobile My orders https://my-rm-p.lazada.sg/order/order-management
+type ChatEntryProps = PropsFromDispatch;
+
+const mapDispatchToProps = {
+    showMessage: showMessage,
+    setBreadcrumbs: setBreadcrumbs
+}
+
+export default connect(null, mapDispatchToProps)(ChatEntry);
