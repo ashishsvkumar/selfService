@@ -1,9 +1,9 @@
 import { action } from "typesafe-actions";
-import { RedMartOrderActionTypes, RedMartOrder } from "./types";
+import { RedMartOrderActionTypes, RedMartOrder, RedMartItem } from "./types";
 import { orderList, orderDetails } from '../../api/mtop'
 import { deflattener, errorCode } from "../../utils/mtop-utils";
 import { RM_SELLER_ID } from "../../config/environment";
-import { get, isEmpty, has } from 'lodash';
+import { get, isEmpty, has, groupBy, reduce, values, flatMap } from 'lodash';
 import * as log from "loglevel";
 import { clearSession } from "../../utils/session";
 
@@ -70,7 +70,7 @@ function digestOrder(order: any): RedMartOrder {
     out.status = rmPackages[0].status;
     out.userId = order.buyerId;
     out.isAsap = false;
-    out.items = rmPackages[0].orderItems.map(im => {
+    const items = rmPackages[0].orderItems.map(im => {
         out.tradeOrderId = im.tradeOrderId;
         out.deliverySlot = has(im, 'delivery.desc') ? im.delivery.desc : null;
         out.email = im.buyerEmail;
@@ -87,7 +87,19 @@ function digestOrder(order: any): RedMartOrder {
             status: im.status
         };
     });
-    out.items = out.items.filter(im => isEmpty(im.status) || !(im.status.indexOf('refund') >= 0 || im.status.indexOf('return') >= 0))
+
+    const itemGroups = groupBy(items.filter(im => !isEmpty(im)).filter(showItem), (item: RedMartItem) => item.skuId);
+    out.items = values(itemGroups).map((list: RedMartItem[]) => {
+        if (list.length === 1) {
+            return list;
+        } else {
+            return [reduce(list, (e1, e2) => {
+                return {...e1, quantity: e1.quantity + e2.quantity}
+            })]
+        }
+    }).map(list => {
+        return list[0];
+    });
 
     if (isEmpty(out.items)) {
         return null;
@@ -98,6 +110,15 @@ function digestOrder(order: any): RedMartOrder {
     }
 
     return out;
+}
+
+function showItem(item: RedMartItem): boolean {
+    if (isEmpty(item.status)) {
+        return true;
+    }
+
+    const status = item.status.toLowerCase();
+    return ['refunded', 'pending refund', 'refund initiated'].indexOf(status) < 0;
 }
 
 function fetchDetails(id: string) {

@@ -41,6 +41,10 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     trimSlot = () => {
+        if (this.props.deliverySlot.indexOf('Delivered on') === 0) {
+            return this.props.deliverySlot;
+        }
+
         let out = this.props.deliverySlot.indexOf("Get by") === 0 ? this.props.deliverySlot.replace("Get by", "") : moment(this.props.deliverySlot, 'DD MMM YYYY HH:mm:ss').format('ddd DD MMM');
         out = out.replace('-', ' - ');
         try {
