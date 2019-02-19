@@ -28,7 +28,7 @@ function prepareOrderCard(order: OrderSummaryProps) {
             <div className={styles.only_desktop}>
                 <OrderSummaryCard
                     {...order}
-                    linkTo={LinkTo.NONE}
+                    linkTo={LinkTo.ORDER_DETAIL}
                 />
             </div>
         </React.Fragment>

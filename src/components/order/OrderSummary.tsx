@@ -5,10 +5,12 @@ import { ArrowIcon } from "../icons/ArrowIcon";
 import * as moment from "moment";
 import cx from "classnames";
 import { RedMartOrder } from "../../store/package/types";
+import { prepareOrderDetailsLink } from "../pages/order/OrderHelpLandingPage";
 
 export const enum LinkTo {
     ORDER_HELP = "order-help",
-    NONE = "none"
+    NONE = "none",
+    ORDER_DETAIL = "order-details"
 }
 
 export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummaryState> {
@@ -89,7 +91,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                 <div className={thumbnailClass}>
                     {itemsForThumbnail.map(im => im === null ? null : im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
                     {linkTo === LinkTo.ORDER_HELP && <div className={styles.help_btn}>Get Help</div>}
-                    {linkTo === LinkTo.NONE && <div className={cx([styles.help, styles.only_desktop])}>View Order Details</div>}
+                    {linkTo === LinkTo.ORDER_DETAIL && <div className={cx([styles.help, styles.only_desktop])}>View Order Details</div>}
                     <div className={cx([styles.status, styles.only_desktop])} style={{ color: this.statusColor() }}>{status}</div>
                     <div className={styles.clear}></div>
                 </div>
@@ -133,6 +135,8 @@ export const RecentOrderCard = (props: OrderSummaryProps) => {
 function prepareOrderHelpLink(linkTo: LinkTo, tradeOrderId: string) {
     if (linkTo === LinkTo.ORDER_HELP) {
         return `/orders/${tradeOrderId}`;
+    } else if (linkTo === LinkTo.ORDER_DETAIL) {
+        return prepareOrderDetailsLink(tradeOrderId);
     } else {
         return null;
     }

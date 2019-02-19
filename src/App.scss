@@ -41,6 +41,11 @@
 
 
 @media (min-width: 1200px) { 
+
+    :global(#rm-cs-app) {
+        min-height: auto;
+    }
+
     // Large devices (desktops, 992px and up)
     .app {
         min-height: 70vh;

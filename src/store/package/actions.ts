@@ -3,9 +3,10 @@ import { RedMartOrderActionTypes, RedMartOrder, RedMartItem } from "./types";
 import { orderList, orderDetails } from '../../api/mtop'
 import { deflattener, errorCode } from "../../utils/mtop-utils";
 import { RM_SELLER_ID } from "../../config/environment";
-import { get, isEmpty, has, groupBy, reduce, values, flatMap } from 'lodash';
+import { get, isEmpty, has, groupBy, reduce, values } from 'lodash';
 import * as log from "loglevel";
 import { clearSession } from "../../utils/session";
+import { showAlert, hideAlert } from "../alert/actions";
 
 const request = () => action(RedMartOrderActionTypes.FETCH);
 const success = (data: RedMartOrder[]) => action(RedMartOrderActionTypes.SUCCESS, data);
@@ -41,6 +42,14 @@ function onError(err: any, dispatch: Dispatch) {
     if (err === 'FAIL_SYS_SESSION_EXPIRED') {
         clearSession();
         location.reload();
+    } else {
+        dispatch(showAlert({
+            show: true, 
+            title: 'Failure',
+            message: 'Something went wrong. Please try again later',
+            onClick: () => dispatch(hideAlert()),
+            btnText: 'Close'
+        }));
     }
 }
 
