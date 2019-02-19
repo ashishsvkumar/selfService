@@ -38,10 +38,7 @@ export function uploadFile(name: string, file: File,
             onUploadProgress: (event: any) => onProgress(name, event.loaded, event.total)
         };
 
-        var data = new FormData();
-        data.append('file', file);
-
-        return axios.put(url, data, config).then(response => {
+        return axios.put(url, file, config).then(response => {
             if (response.status === 200) {
                 log.info('File uploaded', response.statusText);
                 return url.split('?')[0];
