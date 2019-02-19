@@ -1,3 +1,5 @@
 export const enum Constants {
-    OPERATION_TIME = '8am - 11pm SGT Daily'
+    OPERATION_TIME = '8am - 11pm SGT Daily',
+    MISSING_REASON_CODE_PRIMARY = '1456125006589',
+    MISSING_REASON_CODE_SECONDARY = '1456125006489'
 }

@@ -14,6 +14,7 @@ import { isEmptyString, isEmptyArray } from "../../../utils/extras";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { Comment } from "../../form/Comment";
 import { RedMartOrder } from "../../../store/package/types";
+import { Constants } from "../../../config/constants";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, ItemLevelHelpPageState> {
 
@@ -110,7 +111,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         const { helpCategory } = this.props;
 
         if (helpCategory === Category.missing) {
-            return "1456125006589";
+            return Constants.MISSING_REASON_CODE_PRIMARY;
         } else {
             return issueList.filter(option => option.value === this.state.selectedItems[0].selectedIssue).map(option => option.primaryRC)[0];
         }
@@ -120,7 +121,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         const { helpCategory } = this.props;
 
         if (helpCategory === Category.missing) {
-            return "1456125006489";
+            return Constants.MISSING_REASON_CODE_SECONDARY;
         } else {
             return issueList.filter(option => option.value === this.state.selectedItems[0].selectedIssue).map(option => option.value)[0];
         }
@@ -135,7 +136,10 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
             email: this.props.order.email,
             comment: this.state.comment,
             attachments: this.state.attachments.map(url => { return { link: url, name: null } }),
-            rpc: this.state.selectedItems.map(item => { return { id: item.sku, quantity: item.selectedQuantity, reasonCodeId: item.selectedIssue } }),
+            rpc: this.state.selectedItems.map(item => { 
+                return { id: item.sku, quantity: item.selectedQuantity, reasonCodeId: item.selectedIssue || Constants.MISSING_REASON_CODE_SECONDARY 
+                } 
+            }),
             primaryReasonCodeId: this.getPrimaryReasonCode(),
             secondaryReasonCodeId: this.getSecondaryReasonCode(),
             refundMethod: RefundMethod.CC_PAYPAL
@@ -255,10 +259,12 @@ const issueList: IssueReasonCode[] = [
     { displayText: 'Item was broken', value: '1456125006689', primaryRC: '1456125006989' },
     { displayText: 'Item was dented', value: '1456125006789', primaryRC: '1456125006989' },
     { displayText: 'Item was leaking', value: '1456125006889', primaryRC: '1456125006989' },
+    { displayText: 'Item had torn packaging', value: '1512095387602', primaryRC: '1456125006989' },
     { displayText: 'The item is expired', value: '1456125007889', primaryRC: '1456125007989' },
     { displayText: 'The item is close to Expiry', value: '1456125008089', primaryRC: '1456125007989' },
     { displayText: 'The item was rotten or moldy', value: '1456125007289', primaryRC: '1456125007489' },
+    { displayText: 'Item taste is not good', value: '1456125007389', primaryRC: '1456125007489' },
     { displayText: 'The item may be contaminated', value: '1456125007189', primaryRC: '1456125007489' },
-    { displayText: 'Frozen item was thawed', value: '1456125007589', primaryRC: '1456125007789' },
-    { displayText: 'Fresh item was frozen', value: '1456125007689', primaryRC: '1456125007789' },
+    { displayText: 'Fresh Food was frozen', value: '1456125007689', primaryRC: '1456125007789' },
+    { displayText: 'Item not cold at receiving / Melted', value: '1456125007589', primaryRC: '1456125007789' }
 ];
