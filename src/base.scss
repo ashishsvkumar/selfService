@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i');
 
 $font_family: 'Lato', sans-serif;
 
@@ -23,7 +24,7 @@ $lz_orange_lighter: #f08c6a;
 $grape_fruit: #FF330C;
 
 body {
-    font-family: $font_family;
+    font-family: 'Lato', sans-serif;
 
     &.modal-open {
         overflow: hidden;
@@ -66,14 +67,9 @@ body, html {
     display: none;
 }
 
-@media (min-width: 992px) { 
-    @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i');
-    
-    $font_family: 'Roboto', sans-serif !important;
-    $border_grey: #dadada !important;
-
+@media (min-width: 992px) {     
     body {
-        font-family: $font_family;
+        font-family: 'Roboto', sans-serif !important;
     }
 
     .only_desktop {

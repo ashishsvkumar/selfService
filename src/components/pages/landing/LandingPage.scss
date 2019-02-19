@@ -23,29 +23,32 @@
 @media (min-width: 992px) { 
     // Large devices (desktops, 992px and up)
     .title {
-        display: none;
+        margin: 20px 0;
+
+        > h3 {
+            font-size: 30px;
+            font-weight: 100;
+        }
     }
 
     .hue_box {
         position: relative;
         display: block;
-        background-image: url('../../../assets/orange-hue.jpg');
+        // background-image: url('../../../assets/orange-hue.jpg');
+        background-image: linear-gradient(to top, rgb(227, 111, 91), rgb(222, 77, 85));
+        border: 1px solid #ed612b;
         background-repeat: no-repeat;
         background-size: cover;
-        height: 200px;
+        height: 100px;
         text-align: center;
         font-size: 36px;
         color: white;
 
         padding-top: 47px;
-
-        &.shorten {
-            height: 95px;
-        }
     }
 
     .first_card {
-        margin-bottom: 20px;
+        margin-bottom: 36px;
     }
     
     .card {
@@ -56,14 +59,10 @@
         margin-left: auto;
         margin-right: auto;
         width: calc(100% - 2*76px);
+        margin-top: 36px;
 
         position: relative;
-        margin-top: -32px;
         border-radius: 5px;
-
-        &.pull_up {
-            margin-top: -142px;
-        }
 
         .other_cards {
             a {

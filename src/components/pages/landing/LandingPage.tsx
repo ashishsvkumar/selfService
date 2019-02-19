@@ -13,18 +13,16 @@ export const LandingPage = (props: LandingPageProps) => {
     const { isLoggedIn, recentOrder } = props;
     setTitle('RedMart Help Center')
 
-    const cardsClass = cx({ [styles.cards]: true, [styles.pull_up]: isLoggedIn })
-    const hueBoxClass = cx({ [styles.hue_box]: true, [styles.shorten]: !isLoggedIn })
-
     return (
     
         <div className={styles.content}>
-            <div className={hueBoxClass}>
+            <div className={styles.hue_box}>
                 {props.userName && <div className={styles.callout}>{`Hi ${props.userName}, what can we help you with?`}</div>}
                 {!props.userName && <div className={styles.callout}>Hi, what can we help you with?</div>}
             </div>
-            <div className={styles.title}><ContentTitle text="Get help for your RedMart orders" /></div>
-            <div className={cardsClass}>
+            <div className={cx([styles.title, styles.only_mobile])}><ContentTitle text="Get help for your RedMart orders" /></div>
+            <div className={styles.cards}>
+                <div className={cx([styles.title, styles.only_desktop])}><ContentTitle text="Get help for your RedMart orders" /></div>
                 <div className={styles.first_card}>
                     {isLoggedIn && recentOrder ? <RecentOrderCard {...recentOrder} linkTo={LinkTo.ORDER_HELP} /> : <NavigationCard text="Past Orders" to="/orders" needLogin={true} />}
                 </div>
