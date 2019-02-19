@@ -52,7 +52,7 @@ class MainContentHolder extends Component<any, any> {
                                     <Route path="/orders/:tradeOrderId(\d+)" component={OrderHelpLandingPage} />
                                     <Route path="/category/:id/:heading" component={CategoryPage} />
                                     <Route path="/orders" component={OrdersPage} />
-                                    <Route path="/query" component={QueryFormPage} />
+                                    {/* <Route path="/query" component={QueryFormPage} /> */}
                                     <Route exact path="/" component={LandingPage} />
                                     <Route path="*" component={NotFound}/>
                                 </Switch>
