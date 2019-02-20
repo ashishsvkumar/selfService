@@ -24,7 +24,7 @@ export const LandingPage = (props: LandingPageProps) => {
             <div className={styles.cards}>
                 <div className={cx([styles.title, styles.only_desktop])}><ContentTitle text="Get help for your RedMart orders" /></div>
                 <div className={styles.first_card}>
-                    {isLoggedIn && recentOrder ? <RecentOrderCard {...recentOrder} linkTo={LinkTo.ORDER_HELP} /> : <NavigationCard text="Past Orders" to="/orders" needLogin={true} />}
+                    {isLoggedIn && recentOrder ? <RecentOrderCard {...recentOrder} linkTo={LinkTo.ORDER_HELP} /> : <NavigationCard text="Login to view your orders" to="/orders" needLogin={true} />}
                 </div>
                 <div className={styles.title}><ContentTitle text="Non-Order Related" /></div>
                 <div className={styles.other_cards}>

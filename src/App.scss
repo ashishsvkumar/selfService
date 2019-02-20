@@ -32,25 +32,29 @@
 }
 
 @media (min-width: 992px) { 
+    :global(#rm-cs-app) {
+        min-height: auto;
+        background-color: white;
+    }
+
     .main_content {
         width: 100%;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .app {
+        padding-left: 40px;
+        padding-right: 40px;
     }
 }
 
 
 @media (min-width: 1200px) { 
 
-    :global(#rm-cs-app) {
-        min-height: auto;
-    }
-
     // Large devices (desktops, 992px and up)
     .app {
         min-height: 70vh;
-        padding-left: 12%;
-        padding-right: 12%;
         background-color: white;
 
         padding-top: 20px;
@@ -77,11 +81,16 @@
     }
 }
 
+@media (min-width: 1600px) { 
 
-@media (min-width: 1281px) { 
-    // Extra large devices (large desktops, 1200px and up)
+    :global(#rm-cs-app) {
+        background-color: white;
+    }
+
+
     .app {
-        padding-left: 15%;
-        padding-right: 15%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

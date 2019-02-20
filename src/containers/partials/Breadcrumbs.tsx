@@ -9,8 +9,10 @@ import { ProtectedLink } from "../../components/wrappers/AuthWrapper";
 const Breadcrumbs = (props: BreadcrumbProps) => {
     return (
         <div className={styles.content}>
-            <a href="https://lazada.sg" className={cx([styles.link])} key="link-home">Home</a>
-            {prepareBreadcrumbs(props)}
+            <div>
+                <a href="https://lazada.sg" className={cx([styles.link])} key="link-home">Home</a>
+                {prepareBreadcrumbs(props)}
+            </div>
         </div>
     )
 };
