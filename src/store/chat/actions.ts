@@ -2,6 +2,7 @@ import { action } from "typesafe-actions";
 import { ChatActionTypes, SnapEngageApi } from "./types";
 import * as log from 'loglevel';
 import { currentEnvironment, Environments } from "../../config/environment";
+import { isEmpty } from 'lodash';
 
 const initChat = () => action(ChatActionTypes.INIT);
 const chatReady = (instance: SnapEngageApi) => action(ChatActionTypes.READY, instance);
@@ -38,12 +39,32 @@ export function setup() {
                 const se: SnapEngageApi = window.SnapEngage;
                 se.hideButton();
                 se.allowChatSound(false);
+
+                se.setCallback('Close', removeSnapEngageStyle);
+                se.setCallback('Minimize', removeSnapEngageStyle);
+
                 setupPing(se, dispatch);
                 dispatch(chatReady(se));
             }
         }
 
         document.head.appendChild(script);
+    }
+}
+
+function removeSnapEngageStyle() {
+    const elements = document.getElementsByTagName('style');
+
+    if (!isEmpty(elements)) {
+        // getElementsByTagName returns a collection which cannot be iterated over. Converting it to an array.
+        const styleElements = Array.prototype.slice.call(elements);
+
+        styleElements.filter(element => !isEmpty(element.innerText))                // no point removing empty styles
+            .filter(element => element.innerText.indexOf('designstudio') >= 0)      // only remove style element if it contains SnapEngage style
+            .forEach(element => {
+                document.head.appendChild(element);
+                element.remove();
+            });
     }
 }
 

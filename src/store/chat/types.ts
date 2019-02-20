@@ -8,7 +8,8 @@ export interface SnapEngageApi {
     setUserEmail: (email: string, readonly: boolean) => void,
     setUserName: (name: string) => void,
     setCustomField: (name: string, value: string) => void,
-    getAgentStatusAsync: (statusCallback) => void
+    getAgentStatusAsync: (statusCallback) => void,
+    setCallback: (event: string, callback: () => void) => void
 }
 
 export interface ChatState {
