@@ -52,13 +52,14 @@ module.exports = {
             {
                 test: /\.(jpg|jpeg|png|gif|svg|pdf|ico)$/,
                 use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name]--[hash:6].[ext]',
-                            outputPath: 'support/assets'
-                        },
-                    },
+                    { loader: 'url-loader' }
+                    // {
+                    //     loader: 'file-loader',
+                    //     options: {
+                    //         name: '[name]--[hash:6].[ext]',
+                    //         outputPath: 'support/assets'
+                    //     },
+                    // },
                 ]
             }
         ]
