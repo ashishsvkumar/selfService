@@ -1,15 +1,15 @@
 {
   "name": "service-app-v3",
   "description": "",
-"version": "0.0.5-0",
+  "version": "0.0.5",
   "main": "index.js",
   "scripts": {
     "template:alpha": "NODE_ENV=development node template.js",
     "template:prod": "NODE_ENV=production node template.js",
     "dev": "npm run template:alpha && NODE_ENV=development webpack-dev-server --config webpack/local.config.js -d --progress",
     "storybook": "start-storybook -p 6006 -c .storybook",
-    "prelive":  "npm run template:prod && NODE_ENV=production webpack --config webpack/production.config.js -p",
-    "rmTest":  "npm run template:alpha && NODE_ENV=development webpack --config webpack/development.config.js -p",
+    "prelive": "npm run template:prod && NODE_ENV=production webpack --config webpack/production.config.js -p",
+    "rmTest": "npm run template:alpha && NODE_ENV=development webpack --config webpack/development.config.js -p",
     "build:prod": "npm run rmTest",
     "build:alpha": "npm run rmTest",
     "build:ftr": "npm run build:alpha",
