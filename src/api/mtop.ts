@@ -1,12 +1,19 @@
 import { mockOrders, mockDetails, mockUser } from "../mockData/mock";
+import { currentEnvironment, Environments } from "../config/environment";
 const useMock: boolean = location.search.indexOf('mock=true') >= 0;
 
 // @ts-ignore
 const Mtop = window.lib.mtop;
 
-Mtop.config.prefix = "";
-Mtop.config.subDomain = "acs-wapa-rm";
-Mtop.config.mainDomain = "lazada.sg";
+if (currentEnvironment === Environments.production) {
+  Mtop.config.prefix = "";
+  Mtop.config.subDomain = "acs-wapa";
+  Mtop.config.mainDomain = "lazada.sg";
+} else {
+  Mtop.config.prefix = "";
+  Mtop.config.subDomain = "acs-wapa-rm";
+  Mtop.config.mainDomain = "lazada.sg";
+}
 
 const DEFAULT_CONFIG = {
   "v": "1.0",
