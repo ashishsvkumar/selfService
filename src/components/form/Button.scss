@@ -1,7 +1,7 @@
 @import '../../base.scss';
 
 .content {
-    font-family: $font_family;
+    font-family: 'Lato', sans-serif;
     font-weight: normal;
     display: block;
     border-radius: 3px;
@@ -71,6 +71,10 @@
 
 @media (min-width: 992px) { 
 
+    .content {
+        font-family: 'Roboto', sans-serif;
+    }
+    
     .default { 
         border-color: #dddddd;
     }

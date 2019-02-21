@@ -58,6 +58,7 @@ function prepareTemplate(head, header, footer, isMobile) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        ${isMobile ? '<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">' : '<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">'}
         ${prepareInlineLibs()}
         <script>__rm__env__="${process.env.NODE_ENV}"</script>
         ${head}
