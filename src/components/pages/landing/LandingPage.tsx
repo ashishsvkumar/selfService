@@ -7,10 +7,12 @@ import { RecentOrderCard, LinkTo } from '../../order/OrderSummary'
 import cx from 'classnames';
 import ContactUs from "../../../containers/partials/ContactUs";
 import { RedMartOrder } from "../../../store/package/types";
+import {isEmpty} from 'lodash';
+import { isLoggedIn } from "../../../utils/session";
 
 export const LandingPage = (props: LandingPageProps) => {
 
-    const { isLoggedIn, recentOrder } = props;
+    const { recentOrder } = props;
     setTitle('RedMart Help Center')
 
     return (
@@ -24,7 +26,7 @@ export const LandingPage = (props: LandingPageProps) => {
             <div className={styles.cards}>
                 <div className={cx([styles.title, styles.only_desktop])}><ContentTitle text="Get help for your RedMart orders" /></div>
                 <div className={styles.first_card}>
-                    {isLoggedIn && recentOrder ? <RecentOrderCard {...recentOrder} linkTo={LinkTo.ORDER_HELP} /> : <NavigationCard text="Login to view your orders" to="/orders" needLogin={true} />}
+                    {getFirstCard(recentOrder)}
                 </div>
                 <div className={styles.title}><ContentTitle text="Non-Order Related" /></div>
                 <div className={styles.other_cards}>
@@ -38,6 +40,16 @@ export const LandingPage = (props: LandingPageProps) => {
             </div>
         </div>
     );
+}
+
+function getFirstCard(recentOrder: RedMartOrder = null) {
+    if (!isLoggedIn()) {
+        return <NavigationCard text="Login to view your orders" to="/orders" needLogin={true} />
+    } else if (isEmpty(recentOrder)) {
+        return <NavigationCard text="Past orders" to="/orders" needLogin={true} />
+    } else {
+        return <RecentOrderCard {...recentOrder} linkTo={LinkTo.ORDER_HELP} />
+    }
 }
 
 LandingPage.defaultProps = {
