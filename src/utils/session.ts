@@ -31,7 +31,7 @@ export function clearSession() {
 
 export function getUserId() {
   if (useMock) {
-    return '103498013';
+    return '1904097086';
   }
 
   const id = getCookie(USER_ID_KEY);

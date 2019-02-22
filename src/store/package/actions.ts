@@ -78,13 +78,14 @@ function digestOrder(order: any): RedMartOrder {
     }
 
     const out: any = {};
-    out.status = rmPackages[0].status;
     out.userId = order.buyerId;
     out.isAsap = false;
     const items = rmPackages[0].orderItems.map(im => {
         out.tradeOrderId = im.tradeOrderId;
         out.deliverySlot = has(im, 'delivery.desc') ? im.delivery.desc : null;
         out.email = im.buyerEmail;
+        out.status = im.status;
+
         return {
             name: im.title,
             quantity: im.quantity,
@@ -99,6 +100,8 @@ function digestOrder(order: any): RedMartOrder {
             reversible: im.reversible
         };
     });
+
+    out.status = rmPackages[0].status || out.status;
 
     const itemGroups = groupBy(items.filter(im => !isEmpty(im)).filter(showItem), (item: RedMartItem) => item.skuId);
     out.items = values(itemGroups).map((list: RedMartItem[]) => {
@@ -119,6 +122,7 @@ function digestOrder(order: any): RedMartOrder {
 
     if (has(order, 'detailInfo.createdAt')) {
         out.createdAt = order.detailInfo.createdAt;
+        out.deliverySlot = out.deliverySlot || order.detailInfo.createdAt;
     }
 
     return out;
