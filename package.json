@@ -10,7 +10,7 @@
     "storybook": "start-storybook -p 6006 -c .storybook",
     "prelive": "npm run template:prod && NODE_ENV=production webpack --config webpack/production.config.js -p",
     "rmTest": "npm run template:alpha && NODE_ENV=development webpack --config webpack/development.config.js -p",
-    "build:prod": "npm run rmTest",
+    "build:prod": "npm run prelive",
     "build:alpha": "npm run rmTest",
     "build:ftr": "npm run build:alpha",
     "clean": "rm -rf dist mobile.html desktop.html",
