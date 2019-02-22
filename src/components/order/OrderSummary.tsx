@@ -69,6 +69,8 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                 return "#89a836";
             case "Cancelled":
                 return "#999";
+            case "Cancellation initiated":
+                return "#999";
             case "Processing":
             case "Shipped":
             default:

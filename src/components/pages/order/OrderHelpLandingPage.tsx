@@ -58,7 +58,7 @@ const helpLinks = (tradeOrderId: string): HelpLink[] => [
     { text: "Why didn't I receive a free gift with my purchase?", url: `/orders/${tradeOrderId}/faq/217926027`, enableOn: ["Delivered"] },
     { text: "Why did the item I received looks different from the website?", url: `/orders/${tradeOrderId}/faq/203052204`, enableOn: ["Delivered"] },
     /* For all */
-    { text: "Need more help", url: `/orders/${tradeOrderId}/contact`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled"], hideInDesktop: true },
+    { text: "Need more help", url: `/orders/${tradeOrderId}/contact`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled", "Cancellation initiated"], hideInDesktop: true },
 ]
 
 export function prepareOrderDetailsLink(tradeOrderId: string) {
