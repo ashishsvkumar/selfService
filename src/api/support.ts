@@ -4,6 +4,7 @@ import { supportBase } from '../config/endpoints';
 const CancelToken = axios.CancelToken;
 import * as log from 'loglevel';
 import { Ticket } from '../store/ticket/types';
+import { compress } from './compress';
 
 function getUploadUrl(): Promise<String> {
     return fetch(`${supportBase}/ticket/attachment`).then((response: any) => {
@@ -16,15 +17,13 @@ function getUploadUrl(): Promise<String> {
     }).catch(err => null);
 }
 
-export function uploadFile(name: string, file: File,
+export function uploadFile(name: string, fileUncompressed: File,
     onProgress: (name: string, done: number, total: number) => void,
-    cancel: (name: string, callback: Function) => void
-): Promise<string> {
-    return getUploadUrl().then((url: string) => {
-        if (url === null) {
-            log.error('Could not upload file. No url to upload to.');
-            return null;
-        }
+    cancel: (name: string, callback: Function) => void,
+    callback: (url: string) => void
+) {
+    compress(fileUncompressed, (file) => {
+        const url = `${supportBase}/ticket/attachment?originalSize=${fileUncompressed.size}`;
 
         const config: any = {
             // headers: {
@@ -38,17 +37,20 @@ export function uploadFile(name: string, file: File,
             onUploadProgress: (event: any) => onProgress(name, event.loaded, event.total)
         };
 
-        return axios.put(url, file, config).then(response => {
-            if (response.status === 200) {
+        const data = new FormData();
+        data.append('file', file);
+
+        axios.post(url, data, config).then(response => {
+            if (response.status === 201) {
                 log.info('File uploaded', response.statusText);
-                return url.split('?')[0];
+                callback(response.data.token);
             } else {
                 log.error('File uploade failed', response);
-                return null;
+                callback(null);
             }
         }).catch(err => {
             log.error('Error while uploading the file', err);
-            return 'NA';
+            callback('NA');
         })
     });
 }

@@ -108,7 +108,7 @@ export class Attachment extends React.Component<AttachmentProps, AttachmentState
         this.setState({
             images: [...this.state.images, { name: name, type: file.type, progress: 0, failed: false, uploaded: false, thumbnail: URL.createObjectURL(file), fileObject: file, addedOn: now }]
         }, () => {
-            uploadFile(name, file, this.onProgress, this.onCancelCallbackReady).then((url) => this.onComplete(name, url));
+            uploadFile(name, file, this.onProgress, this.onCancelCallbackReady, (url) => this.onComplete(name, url));
         })
     }
 
