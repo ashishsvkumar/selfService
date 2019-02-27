@@ -26,6 +26,8 @@ const DEFAULT_CONFIG = {
   "timeout": 5000,
   "x-i18n-language": "en",
   "x-i18n-regionID": "sg",
+  isSec: 1,
+  AntiCreep: true
 };
 
 export function orderList(): Promise<any> {
@@ -39,7 +41,7 @@ export function orderList(): Promise<any> {
       api: "mtop.lazada.om.orderlist",
       "data": {
         sellerId: 1000008313,
-        ultronVersion: 2.2
+        "ultronVersion": "2.2"
       }
     });
 }
@@ -54,8 +56,8 @@ export function orderDetails(id: string): Promise<any> {
       ...DEFAULT_CONFIG,
       api: "mtop.lazada.om.orderdetail",
       data: {
-        tradeOrderId: parseInt(id, 10),
-        ultronVersion: 2.2
+        tradeOrderId: id,
+        "ultronVersion": "2.1"
       }
     });
 }

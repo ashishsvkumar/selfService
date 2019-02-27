@@ -14,7 +14,7 @@ function prepareInlineLibs() {
         `//laz-g-cdn.alicdn.com/mtb/??3rd/0.0.10/require.js`,
         `//laz-g-cdn.alicdn.com/mtb/??lib-promise/3.0.1/polyfillB${infix}.js`,
         `//laz-g-cdn.alicdn.com/mtb/??lib-env/1.9.9/env${infix}.js`,
-        `//laz-g-cdn.alicdn.com/mtb/??lib-mtop/2.4.5/mtop${infix}.js`,
+        `//laz-g-cdn.alicdn.com/mtb/??lib-mtop/2.4.11/mtop${infix}.js`,
         `//laz-g-cdn.alicdn.com/mtb/??lib-mtop/1.6.3/middleware${infix}.js`,
         `//laz-g-cdn.alicdn.com/mtb/??lib-windvane/2.1.8/windvane${infix}.js`
     ];
