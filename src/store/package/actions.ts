@@ -84,7 +84,7 @@ function digestOrder(order: any): RedMartOrder {
         out.tradeOrderId = im.tradeOrderId;
         out.deliverySlot = has(im, 'delivery.desc') ? im.delivery.desc : null;
         out.email = im.buyerEmail;
-        out.status = im.status;
+        out.status = get(im, 'reversible.desc', im.status);
 
         return {
             name: im.title,
@@ -96,7 +96,7 @@ function digestOrder(order: any): RedMartOrder {
             thumbnail: im.picUrl,
             isFreeGift: im.isFreeGift,
             isFreeSample: im.isFreeSample,
-            status: im.status,
+            status: get(im, 'reversible.desc', im.status),
             reversible: im.reversible
         };
     });
