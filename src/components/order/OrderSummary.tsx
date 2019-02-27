@@ -74,7 +74,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
             case "Processing":
             case "Shipped":
             default:
-                return "#7fc6d8";
+                return "#008996";
         }
     }
 
