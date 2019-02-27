@@ -2,6 +2,7 @@ import * as React from "react";
 import { ProtectedLink } from "../wrappers/AuthWrapper";
 import * as styles from "./OrderSummary.scss";
 import { ArrowIcon } from "../icons/ArrowIcon";
+import * as moment from "moment";
 import cx from "classnames";
 import { RedMartOrder } from "../../store/package/types";
 import { prepareOrderDetailsLink } from "../pages/order/OrderHelpLandingPage";
@@ -42,6 +43,11 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     trimSlot = () => {
+
+        if (this.props.deliverySlot.indexOf('Placed on') === 0) {
+            return  moment(this.props.deliverySlot, 'DD MMM YYYY HH:mm:ss').format('ddd DD MMM');
+        }
+
         return this.props.deliverySlot.replace('Get by', '').replace('Delivered on', '');
     }
 
