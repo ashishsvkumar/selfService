@@ -2,7 +2,7 @@ import * as React from "react";
 import * as log from "loglevel";
 import { connect } from "react-redux";
 import { ItemLevelHelpPage as Component, Category } from "../../components/pages/order/ItemLevelHelpPage"
-import { fetchRedMartOrders } from "../../store/package/actions";
+import { fetchRedMartOrder } from "../../store/package/actions";
 import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { Spinner } from "../../components/icons/Spinner";
@@ -12,7 +12,7 @@ import { createTicket } from "../../store/ticket/actions";
 import { Ticket } from "../../store/ticket/types";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import { NotFound } from "../../components/pages/notFound/NotFound";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {}> {
@@ -32,7 +32,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
         ]);
 
         if (isLoggedIn() && this.props.order === null && !this.props.fetching) {
-            this.props.fetchRedMartOrders();
+            this.props.fetchRedMartOrder(this.props.match.params.tradeOrderId);
         }
     }
 
@@ -58,7 +58,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
 }
 
 interface PropsFromDispatch {
-    fetchRedMartOrders: () => void,
+    fetchRedMartOrder: (tradeOrderId: string) => void,
     createTicket: (ticket: Ticket) => void,
     setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
@@ -77,21 +77,21 @@ interface PropsFromRoute {
 type ItemLevelHelpPageProps = PropsFromDispatch & PropsFromState & PropsFromRoute;
 
 const mapDispatchToProps = {
-    fetchRedMartOrders: fetchRedMartOrders,
+    fetchRedMartOrder: fetchRedMartOrder,
     createTicket: createTicket,
     setBreadcrumbs: setBreadcrumbs
 }
 
 const maptStateToProps = ({ redmartOrders, ticket }: ApplicationState, ownProps: ItemLevelHelpPageProps) => {
     const orderId = ownProps.match.params.tradeOrderId;
-    const orders = isEmpty(redmartOrders.orders) ? null : redmartOrders.orders.filter(o => o.tradeOrderId == orderId);
-    const notFound = redmartOrders.fetched && (redmartOrders.noOrders || (redmartOrders.orders || []).filter(o => o.tradeOrderId == orderId).length === 0);
+    const fetching =  get(redmartOrders, `details[${orderId}].fetching`, false);
+    const notFound = !isEmpty(get(redmartOrders, `details[${orderId}].error`))
+    const order = get(redmartOrders, `details[${orderId}].order`, null);
 
     return {
+        fetching,
         notFound,
-        feching: redmartOrders.fetching,
-        order: isEmpty(orders) ? null : orders[0],
-        ticketInProgress: ticket.inProgress
+        order
     };
 }
 

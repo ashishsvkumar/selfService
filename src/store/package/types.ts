@@ -30,7 +30,16 @@ export interface Reversible {
 export const enum RedMartOrderActionTypes {
     FETCH = "rm/package/fetch",
     SUCCESS = "rm/package/success",
-    FAILURE = "rm/package/failure"
+    FAILURE = "rm/package/failure",
+    DETAILS_FETCH = "rm/package/details/fetch",
+    DETAILS_SUCCESS = "rm/package/details/success",
+    DETAILS_FAILURE = "rm/package/details/failure",
+}
+
+export interface RedMartOrderState {
+    readonly fetching: boolean;
+    readonly error?: string;
+    readonly order?: RedMartOrder;
 }
 
 export interface RedMartOrderState {
@@ -38,5 +47,8 @@ export interface RedMartOrderState {
     readonly error?: string;
     readonly fetched: boolean,
     readonly orders: RedMartOrder[];
-    readonly noOrders: boolean
+    readonly noOrders: boolean,
+    readonly details: {
+        [tradeOrderId: string]: RedMartOrderState
+    }
 }

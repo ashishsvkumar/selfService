@@ -1,3 +1,5 @@
+import {get} from 'lodash';
+
 export function deflattener(json: any) {
   return deflattenerHelper(json, json.data.hierarchy.root);
 }
@@ -34,6 +36,7 @@ function isArray(doc: any, subdocuments: any[]): boolean {
 }
 
 export function errorCode(response: any): string {
-  const error: string[] = response.ret[0].split("::")
+  const str = get(response, 'ret[0]', 'EXCEPTION::UNKNOWN')
+  const error: string[] = str.split("::")
   return error[0]
 }

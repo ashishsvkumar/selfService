@@ -12,6 +12,9 @@ const request = () => action(RedMartOrderActionTypes.FETCH);
 const success = (data: RedMartOrder[]) => action(RedMartOrderActionTypes.SUCCESS, data);
 const failure = (error: string) => action(RedMartOrderActionTypes.FAILURE, error);
 
+const requestDetails = (tradeOrderId: string) => action(RedMartOrderActionTypes.DETAILS_FETCH, tradeOrderId);
+const successDetails = (tradeOrderId: string, data: RedMartOrder) => action(RedMartOrderActionTypes.DETAILS_SUCCESS, {tradeOrderId, data});
+const failureDetails = (tradeOrderId: string, error: string) => action(RedMartOrderActionTypes.DETAILS_FAILURE, {tradeOrderId, error});
 
 type Dispatch = (param: any) => any;
 
@@ -24,13 +27,49 @@ export function fetchRedMartOrders() {
 
         return orderList().then((response) => {
             if (response.retType === 0) {
-                const tradeOrderIds: string[] = (deflattener(response).orders || []).filter(filterForRedMartOrders).map(order => get(order, 'tradeOrderId'));
+                const tradeOrderIds: string[] = (deflattener(response).orders || []).filter(filterForRedMartOrders).map(order => get(order, 'tradeOrderId'))//.filter(id => id != 8495707897086);
                 log.info('Fetched traderOrderIds of RedMart Orders 📦', tradeOrderIds);
                 fetchAllDetails(tradeOrderIds, dispatch)
             } else {
                 onError(response, dispatch);
             }
         }).catch(err => onError(err, dispatch))
+    }
+}
+
+export function fetchRedMartOrder(traderOrderId: string) {
+    return function(dispatch: Dispatch) {
+        log.info('Fetching RedMart package 📦', traderOrderId);
+        dispatch(requestDetails(traderOrderId));
+       
+        fetchDetails(traderOrderId)
+            .then(response => {
+                try {
+                    dispatch(successDetails(traderOrderId, digestOrder(response)));
+                } catch (err) {
+                    onDetailsError(traderOrderId, err, dispatch);
+                }
+            })
+            .catch(err => onDetailsError(traderOrderId, err, dispatch));
+    }
+}
+
+function onDetailsError(traderOrderId: string, err: any, dispatch: Dispatch) {
+    err = errorCode(err)
+    log.error('Exception while fetching RedMart package 📦:', err)
+    dispatch(failureDetails(traderOrderId, err))
+
+    if (err === 'FAIL_SYS_SESSION_EXPIRED') {
+        clearSession();
+        location.reload();
+    } else {
+        // dispatch(showAlert({
+        //     show: true, 
+        //     title: 'Failure',
+        //     message: 'Something went wrong. Please try again later',
+        //     onClick: () => dispatch(hideAlert()),
+        //     btnText: 'Close'
+        // }));
     }
 }
 

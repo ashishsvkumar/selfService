@@ -2,13 +2,13 @@ import * as React from "react";
 import * as log from "loglevel";
 import { connect } from "react-redux";
 import { OrderHelpLandingPage as Component } from "../../components/pages/order/OrderHelpLandingPage"
-import { fetchRedMartOrders } from "../../store/package/actions";
+import { fetchRedMartOrder } from "../../store/package/actions";
 import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
 import { isLoggedIn } from '../../utils/session'
 import { Spinner } from "../../components/icons/Spinner"
 import { ProtectedPage } from "../../components/wrappers/AuthWrapper"
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
 import { NotFound } from "../../components/pages/notFound/NotFound";
@@ -28,7 +28,7 @@ export class OrderHelpLandingPage extends React.Component<OrderHelpPageProps, Or
 
         if (isLoggedIn() && this.props.order === null && !this.props.fetching) {
             log.info('Fetching order details');
-            this.props.fetchRedMartOrders();
+            this.props.fetchRedMartOrder(this.props.match.params.tradeOrderId);
         }
     }
 
@@ -50,7 +50,7 @@ interface OrderHelpPageState {
 }
 
 interface PropsFromDispatch {
-    fetchRedMartOrders: () => void,
+    fetchRedMartOrder: (tradeOrderId: string) => void,
     setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 
@@ -67,19 +67,20 @@ interface PropsFromRoute {
 type OrderHelpPageProps = PropsFromDispatch & PropsFromState & PropsFromRoute;
 
 const mapDispatchToProps = {
-    fetchRedMartOrders: fetchRedMartOrders,
+    fetchRedMartOrder: fetchRedMartOrder,
     setBreadcrumbs: setBreadcrumbs
 }
 
 const maptStateToProps = ({ redmartOrders }: ApplicationState, ownProps: OrderHelpPageProps) => {
     const orderId = ownProps.match.params.tradeOrderId;
-    const orders = isEmpty(redmartOrders.orders) ? null : redmartOrders.orders.filter(o => o.tradeOrderId == orderId);
-    const notFound = redmartOrders.fetched && (redmartOrders.noOrders || (redmartOrders.orders || []).filter(o => o.tradeOrderId == orderId).length === 0);
+    const fetching =  get(redmartOrders, `details[${orderId}].fetching`, false);
+    const notFound = !isEmpty(get(redmartOrders, `details[${orderId}].error`))
+    const order = get(redmartOrders, `details[${orderId}].order`, null);
 
     return {
-        fetching: redmartOrders.fetching,
+        fetching,
         notFound,
-        order: isEmpty(orders) ? null : orders[0],
+        order
     };
 }
 

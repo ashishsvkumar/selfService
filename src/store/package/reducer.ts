@@ -6,7 +6,8 @@ export const initialRedMartOrderState: RedMartOrderState = {
   orders: [],
   error: undefined,
   noOrders: false,
-  fetched: false
+  fetched: false,
+  details: {}
 };
 
 export const redmartOrderReducer: Reducer<RedMartOrderState> = (state = initialRedMartOrderState, action: any) => {
@@ -20,6 +21,15 @@ export const redmartOrderReducer: Reducer<RedMartOrderState> = (state = initialR
     }
     case RedMartOrderActionTypes.FAILURE: {
       return { ...state, error: action.payload, fetching: false, fetched: true };
+    }
+    case RedMartOrderActionTypes.DETAILS_FETCH: {
+      return { ...state, details: { ...state.details, [action.payload]: { fetching: true } } };
+    }
+    case RedMartOrderActionTypes.DETAILS_SUCCESS: {
+      return { ...state, details: { ...state.details, [action.payload.tradeOrderId]: { fetching: false, order: action.payload.data } } };
+    }
+    case RedMartOrderActionTypes.DETAILS_FAILURE: {
+      return { ...state, details: { ...state.details, [action.payload.tradeOrderId]: { fetching: false, error: action.payload.error } } };
     }
     default: {
       return state;
