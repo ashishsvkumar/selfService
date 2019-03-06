@@ -2,6 +2,8 @@ import * as log from "loglevel";
 import { isWindVandAvailable } from "../api/windvane";
 // @ts-ignore
 const ENV = window.__rm__env__ || "development";
+// @ts-ignore
+const DEVICE = window.__rm__device__ || 'desktop';
 
 export const enum Environments {
   daily = "daily",
@@ -40,7 +42,7 @@ export function isMobile(): boolean {
   const words = ['android', 'iphone', 'ipad', 'ipod', 'kindle'];
   const agent = window.navigator.userAgent.toLowerCase();
 
-  return isWindVandAvailable() || words.some(word => agent.indexOf(word) >= 0);
+  return isWindVandAvailable() || DEVICE === 'mobile' || words.some(word => agent.indexOf(word) >= 0);
 }
 
 export const currentEnvironment: Environments = getCurrentEnvironment();
@@ -51,5 +53,3 @@ if (currentEnvironment === Environments.production) {
 } else {
   log.setLevel("INFO");
 }
-
-export const RM_SELLER_ID: string = '1000008313';

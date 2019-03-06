@@ -2,7 +2,7 @@ import { action } from "typesafe-actions";
 import { RedMartOrderActionTypes, RedMartOrder, RedMartItem } from "./types";
 import { orderList, orderDetails } from '../../api/mtop'
 import { deflattener, errorCode } from "../../utils/mtop-utils";
-import { RM_SELLER_ID } from "../../config/environment";
+import { Constants } from "../../config/constants";
 import { get, isEmpty, has, groupBy, reduce, values } from 'lodash';
 import * as log from "loglevel";
 import { clearSession } from "../../utils/session";
@@ -94,7 +94,7 @@ function onError(err: any, dispatch: Dispatch) {
 
 function filterForRedMartOrders(order: any) {
     const items: any[] = get(order, 'orderItems');
-    return !isEmpty(items) && items.some(im => im.sellerId == RM_SELLER_ID || true); // Use loose equality!!!
+    return !isEmpty(items) && items.some(im => im.sellerId == Constants.RM_SELLER_ID || true); // Use loose equality!!!
 }
 
 function fetchAllDetails(ids: string[], dispatch: Dispatch) {
@@ -111,7 +111,7 @@ function digestOrder(order: any): RedMartOrder {
         return null;      // unlikely
     }
 
-    const rmPackages = packages.filter(pack => has(pack, 'orderItems')).filter(pack => pack.orderItems.every(im => im.sellerId == RM_SELLER_ID))
+    const rmPackages = packages.filter(pack => has(pack, 'orderItems')).filter(pack => pack.orderItems.every(im => im.sellerId == Constants.RM_SELLER_ID))
     if (isEmpty(rmPackages)) {
         return null;
     }

@@ -61,6 +61,7 @@ function prepareTemplate(head, header, footer, isMobile) {
         ${isMobile ? '<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">' : '<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">'}
         ${prepareInlineLibs()}
         <script>__rm__env__="${process.env.NODE_ENV}"</script>
+        <script>__rm__device__="${isMobile ? 'mobile' : 'desktop'}"</script>
         ${head}
     </head>
     <body>
