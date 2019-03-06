@@ -117,7 +117,7 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
     onWindvaneFileSelect = (url: string) => {
         if (url === null) {
-            this.props.showMessage('Failure', 'Could not access the selected file. Please try again with another picture.', 'Close');
+            //this.props.showMessage('Failure', 'Could not access the selected file. Please try again with another picture.', 'Close');
             return;
         }
 
@@ -129,7 +129,7 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
                 showToast('Upload error: ' + JSON.stringify(err), 30);
             }
 
-            this.props.showMessage('Failure', 'Could not access the selected file. Please try again with another picture.', 'Close');
+            //this.props.showMessage('Failure', 'Could not access the selected file. Please try again with another picture.', 'Close');
         })
     }
 
