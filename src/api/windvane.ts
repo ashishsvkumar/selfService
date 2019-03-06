@@ -69,6 +69,7 @@ export function takePhoto(callback: (url: string) => void) {
             }
 
         }).catch((err: any) => {
+            alert(JSON.stringify(err));
             log.warn('User has cancelled image selection', err);
             callback(null);
         });
