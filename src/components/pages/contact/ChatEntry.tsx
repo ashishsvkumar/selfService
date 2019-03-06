@@ -90,17 +90,19 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                 </div>
                 <div className={styles.content}>
                     <div className={styles.title}>Contact Us</div>
-                    <div className={styles.card_subtitle}>Can't find the answer you are looking for? Contact us through <b>Live Chat</b> and we will assist you.</div>
-                    <div className={styles.btn} onClick={this.onChat}>
-                        <div className={styles.center}>
-                            <div className={styles.icon}/>
-                            <div className={styles.btn_text}>Chat Now</div>
-                            <div className={styles.clear}/>
+                    <div style={{padding: '0 2px'}}>
+                        <div className={styles.card_subtitle}>Can't find the answer you are looking for? Contact us through <b>Live Chat</b> and we will assist you.</div>
+                        <div className={styles.btn} onClick={this.onChat}>
+                            <div className={styles.center}>
+                                <div className={styles.icon}/>
+                                <div className={styles.btn_text}>Chat Now</div>
+                                <div className={styles.clear}/>
+                            </div>
                         </div>
+                        <div className={styles.timings}>{Constants.OPERATION_TIME}</div>
+                        <br/>
+                        <div className={styles.card_subtitle}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Click here.</span></div>
                     </div>
-                    <div className={styles.timings}>{Constants.OPERATION_TIME}</div>
-                    <br/>
-                    <div className={styles.card_subtitle}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Click here.</span></div>
                 </div>
             </div>
         )

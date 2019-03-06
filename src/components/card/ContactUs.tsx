@@ -36,7 +36,7 @@ export const PopupText = () => {
     return (
         <div style={{ border: '1px solid #ddd', padding: '12px 14px', fontSize: '14px' }}>
             <div style={{ fontSize: '14px', marginBottom: '12px', color: '#333' }}>Our Customer Service Hotline:</div>
-            <span style={{ fontSize: '14px', color: '#333', fontWeight: 'bold', display: 'inline-block', marginRight: '12px' }}>+65 6261 3456 </span>
+            <a href={`tel:${Constants.CS_PHONE_PLAIN}`} style={{ fontSize: '14px', color: '#333', fontWeight: 'bold', display: 'inline-block', marginRight: '12px' }}>{Constants.CS_PHONE_PLAIN_FORMATTED}</a>
             <span style={{ color: '#666', display: 'inline-block', fontSize: '12px' }}>{Constants.OPERATION_TIME}</span>
         </div>
     );

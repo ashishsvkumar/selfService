@@ -43,7 +43,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
         if (forCall) {
             return (
                 <div className={styles.pair}>
-                    <a className={styles.btn} href="tel:+6562613456">
+                    <a className={styles.btn} href={`tel:${Constants.CS_PHONE_PLAIN}`}>
                         <div className={styles.center}>
                             <div className={cx([styles.call, styles.icon])} />
                             <div className={styles.btn_text}>Call us</div>
