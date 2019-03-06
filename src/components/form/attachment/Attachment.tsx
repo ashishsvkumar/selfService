@@ -2,13 +2,14 @@ import * as React from "react";
 import * as styles from "./Attachment.scss";
 import { Button, Icon } from "../Button";
 import { uploadFile } from "../../../api/support";
-import { takePhoto, isWindVandAvailable } from "../../../api/windvane";
+import { takePhoto, isWindVandAvailable, showToast } from "../../../api/windvane";
 import fetch from 'cross-fetch';
 import { blobToFile } from "../../../utils/transformers";
 import * as log from 'loglevel';
 import { random } from "../../../utils/extras";
 import { connect } from "react-redux";
 import { showMessage } from "../../../store/alert/actions";
+import { currentEnvironment, Environments } from "../../../config/environment";
 
 class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
@@ -123,7 +124,13 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
         fetch(url).then(resp => resp.blob().then((blob: Blob) => {
             const file = blobToFile(blob, url);
             this.onFileSelect({ target: { files: [file], value: url } })
-        }))
+        })).catch(err => {
+            if (currentEnvironment !== Environments.production) {
+                showToast('Upload error: ' + JSON.stringify(err), 30);
+            }
+
+            this.props.showMessage('Failure', 'Could not access the selected file. Please try again with another picture.', 'Close');
+        })
     }
 
     onTriggerWindvaneFile = () => {
