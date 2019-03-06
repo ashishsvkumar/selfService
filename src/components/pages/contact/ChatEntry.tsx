@@ -60,9 +60,14 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
 
     onChat = () => {
         if (this.props.chat.loaded) {
-            if (!isEmpty(this.props.recentOrder)) {
+            const match = (this.props.location.search || 'foo-bar').match(/tradeOrderId=(\d+)/);
+
+            if (!isEmpty(match) && match.length >= 2) {
+                this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${match[1]}`);
+            } else if (!isEmpty(this.props.recentOrder)) {
                 this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
             }
+            
             this.props.chat.snapEngageInstance.startLink();
         }
     }
@@ -101,11 +106,17 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                         </div>
                         <div className={styles.timings}>{Constants.OPERATION_TIME}</div>
                         <br/>
-                        <div className={styles.card_subtitle}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Click here.</span></div>
+                        <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Click here.</span></div>
                     </div>
                 </div>
             </div>
         )
+    }
+}
+
+interface PropsFromUrl {
+    location: {
+        search: string
     }
 }
 
@@ -121,7 +132,7 @@ interface PropsFromState {
     recentOrder?: string
 }
 
-type ChatEntryProps = PropsFromDispatch & PropsFromState;
+type ChatEntryProps = PropsFromDispatch & PropsFromState & PropsFromUrl;
 
 const mapDispatchToProps = {
     showMessage: showMessage,

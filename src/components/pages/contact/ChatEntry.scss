@@ -1,7 +1,6 @@
 @import '../../../base.scss';
 
 .container {
-    padding-top: 12px;
     font-size: 14px;
     color: $almost_black;
 }
@@ -52,12 +51,11 @@
 
 .card_subtitle {
     color: $brownish_grey;
-
     margin-top: 8px;
 }
 
 .others {
-    padding: 0 12px;
+    padding: 0 4px;
 
     > span:first-child {
         padding-right: 8px;
