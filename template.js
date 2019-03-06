@@ -1,5 +1,5 @@
 const log = require('loglevel');
-const devMode = process.env.NODE_ENV !== 'production'
+const devMode = process.env.NODE_ENV !== 'live'
 const fs = require("fs");
 const request = require("request");
 

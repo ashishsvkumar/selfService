@@ -1,26 +1,20 @@
 import * as log from "loglevel";
 import { isWindVandAvailable } from "../api/windvane";
 // @ts-ignore
-const ENV = window.__rm__env__ || "development";
-// @ts-ignore
 const DEVICE = window.__rm__device__ || 'desktop';
 
 export const enum Environments {
-  daily = "daily",
-  development = "development",
-  production = "production"
+  preLive = "preLive",
+  production = "live"
 }
 
 function getCurrentEnvironment() {
-  const isTest = location.hostname.indexOf('.test') > 0;
+  const isLive = location.hostname === 'redmart.lazada.sg';
 
-  switch (ENV) {
-    case Environments.production:
-      return Environments.production;
-    case Environments.development:
-      return isTest ? Environments.daily : Environments.development;
-    default:
-      return Environments.daily;
+  if (isLive) {
+    return Environments.production;
+  } else {
+    return Environments.preLive;
   }
 }
 

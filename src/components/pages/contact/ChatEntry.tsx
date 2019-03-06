@@ -39,7 +39,7 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
         if (currentEnvironment === Environments.production) {
             return isMobile() ? 'https://my-m.lazada.sg/order/order-management' : 'https://my.lazada.sg/customer/order/index'
         } else {
-            return isMobile() ? 'https://my-rm-p.lazada.sg/order/order-management' : 'https://my-rm.lazada.sg/customer/order/index'
+            return isMobile() ? 'https://my-p.lazada.sg/order/order-management' : 'https://my.lazada.sg/customer/order/index'
         }
     }
 

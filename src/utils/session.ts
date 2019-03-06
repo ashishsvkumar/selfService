@@ -1,5 +1,4 @@
 import { get as getCookie, remove } from "es-cookie";
-import { currentEnvironment, Environments } from "../config/environment";
 import { isEmptyString } from "./extras";
 import { isWindVandAvailable, initiateLogin } from "../api/windvane";
 
@@ -49,15 +48,7 @@ export function getSessionId() {
 
 export function loginFrom(currentLocation: string = location.href): string {
   const param = `?redirect=${encodeURIComponent(currentLocation)}`;
-
-  switch(currentEnvironment) {
-    case Environments.production: 
-      return `https://member.lazada.sg/user/login${param}`;
-    case Environments.development: 
-      return `https://member-rm.lazada.sg/user/login${param}`;
-    default:
-    return `https://buyer.lazada.test/user/login${param}`;
-  }
+  return `https://member.lazada.sg/user/login${param}`;
 }
 
 export function reLogin() {

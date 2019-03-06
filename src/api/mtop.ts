@@ -5,13 +5,13 @@ const useMock: boolean = location.search.indexOf('mock=true') >= 0;
 // @ts-ignore
 const Mtop = window.lib.mtop;
 
-if (currentEnvironment === Environments.production) {
+if (currentEnvironment === Environments.preLive) {
   Mtop.config.prefix = "";
   Mtop.config.subDomain = "acs-wapa";
   Mtop.config.mainDomain = "lazada.sg";
 } else {
   Mtop.config.prefix = "";
-  Mtop.config.subDomain = "acs-wapa-rm";
+  Mtop.config.subDomain = "acs-m";
   Mtop.config.mainDomain = "lazada.sg";
 }
 
