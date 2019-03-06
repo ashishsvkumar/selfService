@@ -29,7 +29,7 @@ interface SidebarLink {
 
 const links: SidebarLink[] = [
     {
-        text: 'Past Orders',
+        text: 'My RedMart Orders',
         url: '/orders',
         needLogin: true
     },

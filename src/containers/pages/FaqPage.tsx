@@ -24,7 +24,7 @@ export class FaqPage extends React.Component<FaqPageProps, FaqPageState> {
 
         if (tradeOrderId) {
             crumbs.unshift({ text: 'Order Help', url: `/orders/${tradeOrderId}`, needLogin: true });
-            crumbs.unshift({ text: 'Past Orders', url: '/orders', needLogin: true },);
+            crumbs.unshift({ text: 'My RedMart Orders', url: '/orders', needLogin: true },);
         } else if (categoryId && categoryHeading) {
             crumbs.unshift({ text: decode(categoryHeading), url: `/category/${categoryId}/${categoryHeading}`, needLogin: false });
         }
