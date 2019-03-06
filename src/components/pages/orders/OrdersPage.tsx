@@ -13,7 +13,7 @@ export const OrdersPage = (props: OrdersPageProps) => {
     return (
         <div className={styles.content}>
             { hasOrders &&  <div className={styles.mobile_title}><ContentTitle text="Which order do you need help with?" /></div>}
-            <div className={styles.desktop_title}><ContentTitle text="Past Orders" /></div>
+            <div className={styles.desktop_title}><ContentTitle text="My RedMart Orders" /></div>
             { hasOrders && <div className={styles.cards}>
                 {props.orders.map(order => prepareOrderCard(order))}
             </div>}

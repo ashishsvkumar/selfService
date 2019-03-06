@@ -20,7 +20,7 @@ export class OrdersPage extends React.Component<OrdersPageProps, OrdersPageState
 
     componentWillMount() {
         log.info('Orders page countainer will mount 📖');
-        this.props.setBreadcrumbs([ { text: 'Past Orders', url: location.href, needLogin: true } ]);
+        this.props.setBreadcrumbs([ { text: 'My RedMart Orders', url: location.href, needLogin: true } ]);
 
         if (isLoggedIn() && isEmpty(this.props.orders) && !this.props.fetching && !this.props.noOrders) {
             log.info('Will fetch recent orders');
