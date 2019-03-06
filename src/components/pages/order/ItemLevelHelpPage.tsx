@@ -8,7 +8,7 @@ import { PopupPage, Style } from "../PopupPage"
 import { ItemPreviewProps } from "../../item/ItemPreview";
 import { ItemIssue } from "../../item/ItemIssue";
 import { SelectOption } from "../../form/Select";
-import { Attachment } from "../../form/attachment/Attachment";
+import Attachment from "../../form/attachment/Attachment";
 import { Ticket, TicketType, RefundMethod } from "../../../store/ticket/types";
 import { isEmptyString, isEmptyArray } from "../../../utils/extras";
 import { WarningIcon } from "../../icons/WarningIcon";

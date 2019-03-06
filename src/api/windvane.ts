@@ -62,14 +62,18 @@ export function takePhoto(callback: (url: string) => void) {
 
         windvane.call('WVCamera', 'takePhoto', { type: '0' }).then((response: any) => {
             log.info('User has selected an image', response);
-            callback(response.url);
 
             if (currentEnvironment !== Environments.production) {
-                alert(JSON.stringify(response));
+                showToast('Response: ' + JSON.stringify(response), 15);
             }
 
+            callback(response.url);
         }).catch((err: any) => {
-            alert(JSON.stringify(err));
+            
+            if (currentEnvironment !== Environments.production) {
+                showToast('Err: ' + JSON.stringify(err), 30);
+            }
+
             log.warn('User has cancelled image selection', err);
             callback(null);
         });

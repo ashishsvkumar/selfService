@@ -2,14 +2,15 @@ import * as React from "react";
 import * as styles from "./Attachment.scss";
 import { Button, Icon } from "../Button";
 import { uploadFile } from "../../../api/support";
-import { takePhoto, isWindVandAvailable, showToast } from "../../../api/windvane";
+import { takePhoto, isWindVandAvailable } from "../../../api/windvane";
 import fetch from 'cross-fetch';
 import { blobToFile } from "../../../utils/transformers";
 import * as log from 'loglevel';
 import { random } from "../../../utils/extras";
-import { currentEnvironment, Environments } from "../../../config/environment";
+import { connect } from "react-redux";
+import { showMessage } from "../../../store/alert/actions";
 
-export class Attachment extends React.Component<AttachmentProps, AttachmentState> {
+class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
     constructor(props: AttachmentProps) {
         super(props);
@@ -115,11 +116,8 @@ export class Attachment extends React.Component<AttachmentProps, AttachmentState
 
     onWindvaneFileSelect = (url: string) => {
         if (url === null) {
+            this.props.showMessage('Failure', 'Could not access the selected file. Please try again with another picture.', 'Close');
             return;
-        }
-
-        if (currentEnvironment !== Environments.production) {
-            showToast(url, 10);
         }
 
         fetch(url).then(resp => resp.blob().then((blob: Blob) => {
@@ -168,8 +166,20 @@ interface AttachmentState {
     images: Image[]
 }
 
-export interface AttachmentProps {
+interface SimpleProps {
     label: string,
     onChange?: (urls: string[]) => void,
     notifyOnProgress?: (uploadOnGoing: boolean) => void
 }
+
+interface PropsFromDispatch {
+    showMessage: (title: string, message: any, btnText: string) => void
+}
+
+export type AttachmentProps = SimpleProps & PropsFromDispatch;
+
+const mapDispatchToProps = {
+    showMessage: showMessage
+}
+
+export default connect(null, mapDispatchToProps)(Attachment);
