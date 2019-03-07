@@ -41,7 +41,12 @@ export const ProtectedLink: React.StatelessComponent<ProtectedLinkProps> = (prop
       return <a href="javascript:void(0)" {...otherProps} onClick={() => initiateLogin(onSuccess)}>{children}</a>;
     }
 
-    to = loginFrom(`${location.origin}${basePath.replace(/\/$/g, '')}${to}`)
+    if (/^https?:\/\//.test(to) && to.indexOf(location.origin) < 0) {
+      to = loginFrom(to);
+    } else {
+      to = loginFrom(`${location.origin}${basePath.replace(/\/$/g, '')}${to}`);
+    }
+
     useAnchor = true;
   }
 

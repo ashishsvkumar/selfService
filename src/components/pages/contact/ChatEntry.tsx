@@ -16,6 +16,7 @@ import { isLoggedIn } from "../../../utils/session";
 import { isEmpty } from 'lodash';
 import { fetchRedMartOrders } from "../../../store/package/actions"
 import { Constants } from "../../../config/constants";
+import { ProtectedLink } from "../../wrappers/AuthWrapper";
 
 
 class ChatEntry extends React.Component<ChatEntryProps, {}> {
@@ -37,13 +38,13 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
 
     ordersLink = () => {
         if (currentEnvironment === Environments.production) {
-            return isMobile() ? 'https://my-m.lazada.sg/order/order-management' : 'https://my.lazada.sg/customer/order/index'
+            return isMobile() ? 'https://my-m.lazada.sg/order/order-management' : 'https://my.lazada.sg/customer/order/index/'
         } else {
             return isMobile() ? 'https://my-p.lazada.sg/order/order-management' : 'https://my.lazada.sg/customer/order/index'
         }
     }
 
-    prepareCard = (title: string, subtitle: string, url: string) => {
+    prepareCard = (title: string, subtitle: string, url: string, needLogin: boolean) => {
         const frag = (
             <React.Fragment>
                 <div className={styles.card_title}>{title}</div>
@@ -51,11 +52,7 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
             </React.Fragment>
         );
 
-        if (url.indexOf('://') < 0) {
-            return <Link className={styles.card} to={url}>{frag}</Link>;
-        } else {
-            return <a className={styles.card} href={url}>{frag}</a>
-        }
+        return <ProtectedLink needLogin={needLogin} to={url} className={styles.card}>{frag}</ProtectedLink>;
     }
 
     onChat = () => {
@@ -83,10 +80,10 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                 <div className={styles.content}>
                     <div className={styles.title}>Hi, how can we help you?</div>
                     <div className={styles.cards}>
-                        {this.prepareCard('I want to update my delivery', 'Change your delivery slot and shipping information', this.ordersLink())}
-                        {this.prepareCard('I want to cancel my order', 'Cancellation is supported 17 hours before your delivery', this.ordersLink())}
-                        {this.prepareCard('I want to report an issue for my received order', 'Request for a refund and provide your feedback', '/orders')}
-                        {this.prepareCard('I have a question about a product or RedMart', 'Ask us about RedMart product features here', '/')}
+                        {this.prepareCard('I want to update my delivery', 'Change your delivery slot and shipping information', this.ordersLink(), true)}
+                        {this.prepareCard('I want to cancel my order', 'Cancellation is supported 17 hours before your delivery', this.ordersLink(), true)}
+                        {this.prepareCard('I want to report an issue for my received order', 'Request for a refund and provide your feedback', '/orders', true)}
+                        {this.prepareCard('I have a question about a product or RedMart', 'Ask us about RedMart product features here', '/', false)}
                     </div>
                     <div className={styles.others}>
                         <span>I have another question</span>
