@@ -3,9 +3,8 @@ import * as React from "react";
 import { isLoggedIn, loginFrom } from "../../utils/session";
 import { Link } from "react-router-dom";
 import { isWindVandAvailable, initiateLogin, showToast } from "../../api/windvane";
-import { basePath, currentEnvironment } from "../../config/environment";
+import { basePath } from "../../config/environment";
 import { refresh } from "../../utils/extras";
-import { isEmpty } from 'lodash';
 
 
 export const ProtectedPage: React.StatelessComponent<{}> = ({ children }) => {
@@ -37,8 +36,6 @@ export const ProtectedLink: React.StatelessComponent<ProtectedLinkProps> = (prop
 
     if (isWindVandAvailable()) {
       const onSuccess = () => { 
-
-        showToast('Success: ' + to, 30);
 
         if (/^https?:\/\//.test(to) && to.indexOf(location.origin) < 0) {
           // @ts-ignore
