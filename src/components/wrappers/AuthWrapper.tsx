@@ -36,8 +36,17 @@ export const ProtectedLink: React.StatelessComponent<ProtectedLinkProps> = (prop
   if (needLogin && !isLoggedIn()) {
 
     if (isWindVandAvailable()) {
-      // @ts-ignore
-      const onSuccess = () => { window.location = `${basePath.replace(/\/$/g, '')}${to}`; }
+      const onSuccess = () => { 
+
+        if (/^https?:\/\//.test(to) && to.indexOf(location.origin) < 0) {
+          // @ts-ignore
+          window.location = to;
+        } else {
+          // @ts-ignore
+          window.location = `${basePath.replace(/\/$/g, '')}${to}`; 
+        }
+
+      }
       return <a href="javascript:void(0)" {...otherProps} onClick={() => initiateLogin(onSuccess)}>{children}</a>;
     }
 
