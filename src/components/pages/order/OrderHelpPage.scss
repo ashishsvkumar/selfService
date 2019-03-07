@@ -9,7 +9,7 @@
     border-bottom: 1px solid $border_grey;
     background-color: white;
 
-    > div > div {
+    > div > div, > div > a {
         padding-top: 10px;
         padding-bottom: 10px;
     }
@@ -37,11 +37,16 @@
         border-bottom: none;
         margin-bottom: 20px;
 
-        > div > div {
+        > div > div, > div > a {
             background-color: $almost_white;
             border-radius: 5px;
             padding-top: 16px;
             padding-bottom: 16px;
+            border-color: transparent;
+
+            &:hover {
+                box-shadow: none;
+            }
         }
     }
 
