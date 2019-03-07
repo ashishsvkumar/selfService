@@ -6,7 +6,8 @@ export interface UserInfo {
     id: string,
     isLiveUp: string,
     memberLevel: string   // "TRUSTED",
-    name: string
+    name: string,
+    phone: string
 }
 
 export const enum UserInfoActionTypes {

@@ -27,6 +27,7 @@ class SnapEngageWrapper extends React.Component<ChatProps, {}> {
             if (!isEmpty(nextProps.user.user)) {
                 se.setUserName(nextProps.user.user.name);
                 se.setUserEmail(nextProps.user.user.email, false);
+                se.setCustomField('phone', nextProps.user.user.phone);
             }
         }
     }
