@@ -5,7 +5,7 @@ module.exports = {
     entry: "./src/index.tsx",
     output: {
         //path: path.resolve(__dirname, "dist"),
-        filename: "./support/rm-cs-bundle-[hash:6].js",
+        filename: "./support/rm-cs-bundle-[hash:6].js?rm_voyager=true",
         publicPath: '/'
     },
 
@@ -77,7 +77,7 @@ module.exports = {
             inject: true
         }),
         new MiniCssExtractPlugin({
-            filename: "./support/rm-cs-bundle-[hash:6].css",
+            filename: "./support/rm-cs-bundle-[hash:6].css?rm_voyager=true",
             chunkFilename: "[name].css"
         })
     ],
