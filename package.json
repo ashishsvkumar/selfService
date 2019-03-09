@@ -1,7 +1,7 @@
 {
   "name": "service-app-v3",
   "description": "",
-  "version": "0.0.30",
+"version": "0.0.31-0",
   "main": "index.js",
   "scripts": {
     "template": "NODE_ENV=live node template.js",
