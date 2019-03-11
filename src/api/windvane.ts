@@ -60,7 +60,7 @@ export function takePhoto(callback: (url: string) => void) {
             return;
         } 
 
-        windvane.call('WVCamera', 'takePhoto', { type: '0' }).then((response: any) => {
+        windvane.call('WVCamera', 'takePhoto', { type: '0', bizCode: 'lazada-im-sg' }).then((response: any) => {
             log.info('User has selected an image', response);
 
             if (currentEnvironment !== Environments.production) {

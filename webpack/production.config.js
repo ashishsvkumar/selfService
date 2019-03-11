@@ -5,9 +5,9 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const zopfli = require('@gfx/zopfli');
 
 module.exports = merge(commonConfig, {
-    optimization: {
-        minimizer: [new UglifyJsPlugin()],
-    },
+    // optimization: {
+    //     minimizer: [new UglifyJsPlugin()],
+    // },
     // plugins: [
     //     new CompressionPlugin({
     //         compressionOptions: {

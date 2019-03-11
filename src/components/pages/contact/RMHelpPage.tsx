@@ -49,7 +49,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                             <div className={styles.btn_text}>Call us</div>
                         </div>
                     </a>
-                    <div className={styles.timings}>{Constants.OPERATION_TIME}.</div>
+                    <div className={styles.timings}>{Constants.CALL_OPERATION_TIME}.</div>
                 </div>
             );
         }
