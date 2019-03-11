@@ -170,6 +170,10 @@ b {
         padding: 14px 16px 12px 14px;
         align-items: stretch;
         width: calc(50% - 44px);
+
+        &:nth-child(odd) {
+            margin-left: 0;
+        }
     }
 
     .card_title {
