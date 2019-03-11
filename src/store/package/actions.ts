@@ -28,7 +28,12 @@ export function fetchRedMartOrders() {
 
         return orderList().then((response) => {
             if (response.retType === 0) {
-                const tradeOrderIds: string[] = (deflattener(response).orders || []).filter(filterForRedMartOrders).map(order => get(order, 'tradeOrderId'))//.filter(id => id != 8495707897086);
+                const orders = (deflattener(response).orders || []);
+
+                const tradeOrderIds: string[] = orders.filter(filterForRedMartOrders)
+                    .filter(order => !pastThreshold(getSummarySlot(order)))
+                    .map(order => get(order, 'tradeOrderId'));
+
                 log.info('Fetched traderOrderIds of RedMart Orders 📦', tradeOrderIds);
                 fetchAllDetails(tradeOrderIds, dispatch)
             } else {
@@ -36,6 +41,10 @@ export function fetchRedMartOrders() {
             }
         }).catch(err => onError(err, dispatch))
     }
+}
+
+function getSummarySlot(order: any) {
+    return moment(get(order, 'orderInfo.createdAt'), 'DD MMM YYYY');
 }
 
 export function fetchRedMartOrder(traderOrderId: string) {
@@ -165,20 +174,18 @@ function digestOrder(order: any): RedMartOrder {
         out.deliverySlot = out.deliverySlot || order.detailInfo.createdAt;
     }
 
-    const mnt = getTime(out);
-    if (pastThreshold(mnt)) {
-        log.info('Order', out.tradeOrderId, 'is dated', mnt.format('DD-MM-YYYY'), 'and is past threshold. Will not show.');
-        //return null;
-    }
+    // const mnt = getTime(out);
+    // if (pastThreshold(mnt)) {
+    //     log.info('Order', out.tradeOrderId, 'is dated', mnt.format('DD-MM-YYYY'), 'and is past threshold. Will not show.');
+    //     return null;
+    // }
 
     return out;
 }
 
 function pastThreshold(slot: moment.Moment): boolean {
-    const eightDaysInFuture = moment().add(8, 'd');
     const eightDaysInPast = moment().subtract(8, 'd');
-
-    return slot.isSameOrAfter(eightDaysInPast) || slot.isSameOrBefore(eightDaysInFuture);
+    return slot.isBefore(eightDaysInPast);
 }
 
 function getTime(order: RedMartOrder): moment.Moment {
