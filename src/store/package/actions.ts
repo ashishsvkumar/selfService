@@ -168,7 +168,7 @@ function digestOrder(order: any): RedMartOrder {
     const mnt = getTime(out);
     if (pastThreshold(mnt)) {
         log.info('Order', out.tradeOrderId, 'is dated', mnt.format('DD-MM-YYYY'), 'and is past threshold. Will not show.');
-        return null;
+        //return null;
     }
 
     return out;
