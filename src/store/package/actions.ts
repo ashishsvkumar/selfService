@@ -4,6 +4,7 @@ import { orderList, orderDetails } from '../../api/mtop'
 import { deflattener, errorCode } from "../../utils/mtop-utils";
 import { Constants } from "../../config/constants";
 import { get, isEmpty, has, groupBy, reduce, values } from 'lodash';
+import * as moment from "moment";
 import * as log from "loglevel";
 import { clearSession } from "../../utils/session";
 import { showAlert, hideAlert } from "../alert/actions";
@@ -164,7 +165,31 @@ function digestOrder(order: any): RedMartOrder {
         out.deliverySlot = out.deliverySlot || order.detailInfo.createdAt;
     }
 
+    const mnt = getTime(out);
+    if (pastThreshold(mnt)) {
+        log.info('Order', out.tradeOrderId, 'is dated', mnt.format('DD-MM-YYYY'), 'and is past threshold. Will not show.');
+        return null;
+    }
+
     return out;
+}
+
+function pastThreshold(slot: moment.Moment): boolean {
+    const eightDaysInFuture = moment().add(8, 'd');
+    const eightDaysInPast = moment().subtract(8, 'd');
+
+    return slot.isSameOrAfter(eightDaysInPast) || slot.isSameOrBefore(eightDaysInFuture);
+}
+
+function getTime(order: RedMartOrder): moment.Moment {
+    let slot = get(order, 'deliverySlot', order.createdAt);
+    let mnt = moment(slot, ['ddd DD MMM', 'DD MMM YYYY']);
+    if (mnt.year() < 2018) {
+        slot = slot.split(',')[0] + ' 2018';
+        mnt = moment(slot, ['ddd DD MMM YYYY', 'ddd DD MMM', 'DD MMM YYYY']);
+    }
+
+    return mnt;
 }
 
 function showItem(item: RedMartItem): boolean {
