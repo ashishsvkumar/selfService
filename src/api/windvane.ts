@@ -1,5 +1,6 @@
 import * as log from 'loglevel';
 import { currentEnvironment, Environments } from '../config/environment';
+import { get, has } from 'lodash';
 // @ts-ignore
 const windvane = window.WindVane;
 
@@ -60,19 +61,24 @@ export function takePhoto(callback: (url: string) => void) {
             return;
         } 
 
-        windvane.call('WVCamera', 'takePhoto', { type: '0', bizCode: 'lazada-im-sg' }).then((response: any) => {
+        windvane.call('WVCamera', 'takePhoto', { type: '0', bizCode: 'lazada-im-sg', needBase64: true }).then((response: any) => {
             log.info('User has selected an image', response);
 
-            if (currentEnvironment !== Environments.production) {
-                showToast('Response: ' + JSON.stringify(response), 15);
+            showToast('User selected image: ' + JSON.stringify(response), 15);
+
+            if (has(response, 'base64Data')) {
+                if (response.base64Data.indexOf('/9j/') === 0) {
+                    callback(`data:image/jpg;base64,${response.base64Data}`);
+                } else {
+                    callback(`data:image/png;base64,${response.base64Data}`);
+                }
+            } else {
+                callback(response.url);
             }
 
-            callback(response.url);
         }).catch((err: any) => {
             
-            if (currentEnvironment !== Environments.production) {
-                showToast('Err: ' + JSON.stringify(err), 30);
-            }
+            showToast('Failure while selecting the image: ' + JSON.stringify(err), 30);
 
             log.warn('User has cancelled image selection', err);
             callback(null);
