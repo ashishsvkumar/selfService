@@ -25,7 +25,10 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
 
     togglePopup = (selectedSku?: string[], status?: Closed) => {
         if (selectedSku !== undefined) {
-            const selected = this.props.order.items.filter(im => selectedSku.indexOf(im.skuId) >= 0).map(itemDetailsToItemPreviewProps)
+            const selected = this.props.order.items.filter(im => selectedSku.indexOf(im.skuId) >= 0).map(itemDetailsToItemPreviewProps);
+            this.state.selectedItems.forEach(si => {
+                selected.filter(it => it.sku === si.sku).forEach(i => i.selectedIssue = si.selectedIssue);
+            });
             this.setState({ slideInPopup: !this.state.slideInPopup, selectedItems: selected })
         } else {
             this.setState({ slideInPopup: !this.state.slideInPopup })
