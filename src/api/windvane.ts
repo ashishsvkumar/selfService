@@ -71,7 +71,7 @@ export function takePhoto(callback: (url: string) => void) {
         windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
             log.info('User has selected an image', response);
 
-            windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response) });
+            windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response, null, '\t') });
             alert('User selected image: ' + JSON.stringify(response));
 
             // if (has(response, 'base64Data')) {
@@ -84,12 +84,12 @@ export function takePhoto(callback: (url: string) => void) {
             //     callback(response.url);
             // }
 
-            response(get(response, 'resourceURL', response.url));
+            callback(get(response, 'resourceURL', response.url));
 
         }).catch((err: any) => {
             
             windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(err) });
-            alert('Failure while selecting the image: ' + JSON.stringify(err));
+            alert('Failure while selecting the image: ' + JSON.stringify(err, null, '\t'));
 
             log.warn('User has cancelled image selection', err);
             callback(null);
