@@ -120,7 +120,7 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
             return;
         }
 
-        showToast('Will attach image: ' + url, 30);
+        alert('Will attach image: ' + url);
 
         fetch(url).then(resp => resp.blob().then((blob: Blob) => {
             const file = blobToFile(blob, url);
