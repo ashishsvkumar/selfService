@@ -259,15 +259,15 @@ interface IssueReasonCode extends SelectOption {
 }
 
 const issueList: IssueReasonCode[] = [
-    { displayText: 'Item was broken', value: '1456125006689', primaryRC: '1456125006989' },
-    { displayText: 'Item was dented', value: '1456125006789', primaryRC: '1456125006989' },
-    { displayText: 'Item was leaking', value: '1456125006889', primaryRC: '1456125006989' },
-    { displayText: 'Item had torn packaging', value: '1512095387602', primaryRC: '1456125006989' },
+    { displayText: 'The item was broken', value: '1456125006689', primaryRC: '1456125006989' },
+    { displayText: 'The item was dented', value: '1456125006789', primaryRC: '1456125006989' },
+    { displayText: 'The item was leaking', value: '1456125006889', primaryRC: '1456125006989' },
+    { displayText: 'The item had torn packaging', value: '1512095387602', primaryRC: '1456125006989' },
     { displayText: 'The item is expired', value: '1456125007889', primaryRC: '1456125007989' },
-    { displayText: 'The item is close to Expiry', value: '1456125008089', primaryRC: '1456125007989' },
-    { displayText: 'The item was rotten or moldy', value: '1456125007289', primaryRC: '1456125007489' },
-    { displayText: 'Item taste is not good', value: '1456125007389', primaryRC: '1456125007489' },
+    { displayText: 'The item is close to expiry', value: '1456125008089', primaryRC: '1456125007989' },
+    { displayText: 'The item did not taste good', value: '1456125007389', primaryRC: '1456125007489' },
     { displayText: 'The item may be contaminated', value: '1456125007189', primaryRC: '1456125007489' },
-    { displayText: 'Fresh Food was frozen', value: '1456125007689', primaryRC: '1456125007789' },
-    { displayText: 'Item not cold at receiving / Melted', value: '1456125007589', primaryRC: '1456125007789' }
+    { displayText: 'The item was rotten or moldy', value: '1456125007289', primaryRC: '1456125007489' },
+    { displayText: 'The fresh food was frozen', value: '1456125007689', primaryRC: '1456125007789' },
+    { displayText: 'The item was not cold / melted when received', value: '1456125007589', primaryRC: '1456125007789' }
 ];
