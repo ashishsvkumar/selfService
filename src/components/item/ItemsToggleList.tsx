@@ -12,6 +12,10 @@ export class ItemsToggleList extends React.Component<ItemsToggleListProps, Items
         this.state = { draftSku: this.props.selectedSkus ? this.props.selectedSkus : [] }
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps: ItemsToggleListProps) {
+        this.setState({ draftSku: nextProps.selectedSkus || [] });
+    }
+
     isSelected = (item: ItemPreviewProps) => {
         return this.state.draftSku.indexOf(item.sku) >= 0;
     }

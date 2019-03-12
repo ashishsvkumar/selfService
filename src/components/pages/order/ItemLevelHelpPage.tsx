@@ -27,7 +27,10 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         if (selectedSku !== undefined) {
             const selected = this.props.order.items.filter(im => selectedSku.indexOf(im.skuId) >= 0).map(itemDetailsToItemPreviewProps);
             this.state.selectedItems.forEach(si => {
-                selected.filter(it => it.sku === si.sku).forEach(i => i.selectedIssue = si.selectedIssue);
+                selected.filter(it => it.sku === si.sku).forEach(i => {
+                    i.selectedIssue = si.selectedIssue;
+                    i.selectedQuantity = si.selectedQuantity || 1;
+                });
             });
             this.setState({ slideInPopup: !this.state.slideInPopup, selectedItems: selected })
         } else {
@@ -189,6 +192,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         const items: ItemPreviewProps[] = this.props.order.items.map(itemDetailsToItemPreviewProps)
 
         const preSelected = items.map(im => im.sku).filter(sku => this.state.selectedItems.some(im => im.sku === sku))
+
         return (
             <React.Fragment>
                 <div className={styles.only_mobile}>
