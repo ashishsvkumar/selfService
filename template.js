@@ -16,7 +16,8 @@ function prepareInlineLibs() {
         `//laz-g-cdn.alicdn.com/mtb/??lib-env/1.9.9/env${infix}.js`,
         `//laz-g-cdn.alicdn.com/mtb/??lib-mtop/2.4.11/mtop${infix}.js`,
         `//laz-g-cdn.alicdn.com/mtb/??lib-mtop/1.6.3/middleware${infix}.js`,
-        `//laz-g-cdn.alicdn.com/mtb/??lib-windvane/2.1.8/windvane${infix}.js`
+        //`//laz-g-cdn.alicdn.com/mtb/??lib-windvane/2.1.8/windvane${infix}.js`,
+        '//g.alicdn.com/code/npm/??@ali/universal-windvane/1.1.4/index.js'
     ];
 
     return lazUrls.map(j => `<script src="${j}"></script>`).reduce((s1, s2) => s1 + s2);
