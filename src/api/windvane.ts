@@ -63,6 +63,7 @@ export function takePhoto(callback: (url: string) => void) {
 
         const param = {
             type: '1',
+            v: '2.0',
             mode: 'both',
             bizCode: 'lazada-im-sg'
         };
