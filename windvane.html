@@ -1,5 +1,10 @@
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="//laz-img-cdn.alicdn.com/tfs/TB1f5qJef6H8KJjy0FjXXaXepXa-16-16.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
     <title>Test Page</title>
     <!-- Es5-shim -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
@@ -25,6 +30,8 @@
         text-align: left;
         font-family: consolas, monospace;
         font-size: 12px;
+
+        margin-bottom: 100px;
       }
 
       #thumbnail {
@@ -45,6 +52,7 @@
 
     <br><br>
     <pre id="response"></pre>
+
 
     <script type="text/javascript">
       const windvane = window.lib.windvane;
@@ -68,14 +76,18 @@
 
         windvane.call('WVCamera', 'takePhoto', param).then(response => {
             
+            windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response, null, '\t') });
             showToast('User has selected a file', 30);
             document.getElementById('response').innerText = JSON.stringify(response, null, '\t');
 
+            var url;
             if (response.base64Data.indexOf('/9j/') === 0) {
-              setBackground('data:image/jpg;base64,' + response.base64Data);
+              url = 'data:image/jpg;base64,' + response.base64Data;
             } else {
-              setBackground('data:image/png;base64,' + response.base64Data);
+               url = 'data:image/png;base64,' + response.base64Data;
             }
+
+            setBackground(response.url);
 
         }).catch(err => {
 
@@ -87,6 +99,7 @@
       }
 
       function setBackground(url) {
+        //showToast(('Showing background to' + 'url(' + url + ')').substring(0, 200));
         document.getElementById('thumbnail').style.backgroundImage = 'url(' + url + ')';
       }
 
