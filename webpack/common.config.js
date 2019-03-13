@@ -82,7 +82,7 @@ module.exports = {
             chunkFilename: "[name].css"
         }),
         new CopyWebpackPlugin([
-            { from: './windvane.html', to: './' }
+            { from: './windvane.html', to: './support' }
         ])
     ],
 
