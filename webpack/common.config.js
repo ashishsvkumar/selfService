@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
@@ -79,7 +80,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "./support/rm-cs-bundle-[hash:6].css?rm_voyager=true",
             chunkFilename: "[name].css"
-        })
+        }),
+        new CopyWebpackPlugin([
+            { from: './windvane.html', to: './' }
+        ])
     ],
 
     externals: {
