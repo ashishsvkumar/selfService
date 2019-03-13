@@ -75,6 +75,8 @@
         };
 
         setBackground(null);
+        document.getElementById('response').innerText = '';
+        
         windvane.call('WVCamera', 'takePhoto', param).then(response => {
             
             windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response, null, '\t') });
