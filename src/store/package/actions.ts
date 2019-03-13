@@ -126,8 +126,6 @@ function digestOrder(order: any): RedMartOrder {
         return null;
     }
 
-    console.log('>>>', rmPackages)
-
     const out: any = {};
     out.userId = order.buyerId;
     out.isAsap = false;

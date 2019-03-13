@@ -13,7 +13,7 @@ export const OrderHelpLandingPage = (props: OrderHelpLandingPageProps) => {
 export type OrderHelpLandingPageProps = RedMartOrder;
 
 function prepareHelpLinks(props: OrderHelpLandingPageProps) {
-    const links = helpLinks(props.tradeOrderId).filter(link => link.enableOn.indexOf(props.status) >= 0 || link.enableOn[0] === 'All').filter(link => !link.hide)
+    const links = helpLinks(props).filter(link => link.shouldEnable())
 
     return (
         <div style={{ marginTop: '-2px' }}>
@@ -28,37 +28,75 @@ function prepareStrip(link: HelpLink) {
 }
 
 function prepareCard(link: HelpLink) {
-    if (link.hideInDesktop === true) {
-        return null;
-    }
-
     return <div className={styles.only_desktop} style={{ marginBottom: '10px' }} key={`desktop-${link.text}`}><NavigationCard text={link.text} to={link.url} theme={Theme.CARD} /></div>;
 }
 
 interface HelpLink {
     text: string,
     url: string,
-    enableOn: string[],
-    hideInDesktop?: boolean,
-    hide?: boolean
+    shouldEnable: () => boolean
 }
 
-const helpLinks = (tradeOrderId: string): HelpLink[] => [
-    { text: "I want to check my order details", url: prepareOrderDetailsLink(tradeOrderId), enableOn: ["All"], hide: !isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0), hideInDesktop: true },
-    { text: "I have missing items", url: `/orders/${tradeOrderId}/help/missing`, enableOn: ["Delivered"] },
-    { text: "I have issues with my received items", url: `/orders/${tradeOrderId}/help/damaged`, enableOn: ["Delivered"] },
+const helpLinks = (order: RedMartOrder): HelpLink[] => [
+    { 
+        text: "I want to check my order details", 
+        url: prepareOrderDetailsLink(order.tradeOrderId), 
+        shouldEnable: () => isMobile() && !(!isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0))
+     },
+    { 
+        text: "I have missing items", 
+        url: `/orders/${order.tradeOrderId}/help/missing`, 
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+    },
+    { 
+        text: "I have issues with my received items", 
+        url: `/orders/${order.tradeOrderId}/help/damaged`, 
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+    },
 
     /* For not delivered */
-    { text: "Can I add or remove items from the order?", url: `/orders/${tradeOrderId}/faq/200376704`, enableOn: ["Payment pending", "Processing", "Shipped"] },
-    { text: "What if I'm not home for delivery?", url: `/orders/${tradeOrderId}/faq/200376874`, enableOn: ["Payment pending", "Processing", "Shipped"] },
-    { text: "How do I track the status of my order?", url: `/orders/${tradeOrderId}/faq/200389390`, enableOn: ["Payment pending", "Processing", "Shipped"] },
-    { text: "Can I cancel the order?", url: `/orders/${tradeOrderId}/faq/216795548`, enableOn: ["Payment pending", "Processing", "Shipped"] },
+    { 
+        text: "Can I add or remove items from the order?", 
+        url: `/orders/${order.tradeOrderId}/faq/200376704`, 
+        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0  
+    },
+    { 
+        text: "What if I'm not home for delivery?", 
+        url: `/orders/${order.tradeOrderId}/faq/200376874`, 
+        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0 
+    },
+    { 
+        text: "How do I track the status of my order?", 
+        url: `/orders/${order.tradeOrderId}/faq/200389390`,
+        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0 
+    },
+    { 
+        text: "Can I cancel the order?", 
+        url: `/orders/${order.tradeOrderId}/faq/216795548`, 
+        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0
+    },
     /* For delivered */
-    { text: "Can I return products to RedMart?", url: `/orders/${tradeOrderId}/faq/200376804`, enableOn: ["Delivered", "Refunded"] },
-    { text: "Why didn't I receive a free gift with my purchase?", url: `/orders/${tradeOrderId}/faq/217926027`, enableOn: ["Delivered", "Refunded"] },
-    { text: "Why does the item I received look different from the website?", url: `/orders/${tradeOrderId}/faq/203052204`, enableOn: ["Delivered", "Refunded"] },
+    { 
+        text: "Can I return products to RedMart?", 
+        url: `/orders/${order.tradeOrderId}/faq/200376804`,
+        shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
+    },
+    { 
+        text: "Why didn't I receive a free gift with my purchase?", 
+        url: `/orders/${order.tradeOrderId}/faq/217926027`,
+        shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
+    },
+    { 
+        text: "Why does the item I received look different from the website?",
+        url: `/orders/${order.tradeOrderId}/faq/203052204`,
+        shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
+    },
     /* For all */
-    { text: "Need more help?", url: `/orders/${tradeOrderId}/contact`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Refunded", "Cancelled", "Cancellation initiated"], hideInDesktop: true },
+    { 
+        text: "Need more help?", 
+        url: `/orders/${order.tradeOrderId}/contact`,
+        shouldEnable: () => isMobile() 
+    },
 ]
 
 export function prepareOrderDetailsLink(tradeOrderId: string) {
