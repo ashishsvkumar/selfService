@@ -62,20 +62,18 @@ export function takePhoto(callback: (url: string) => void) {
         } 
 
         const param = {
-            type: '1',
+            type: '0',
             v: '2.0',
-            mode: 'both',
-            //needBase64: true,
-            bizCode: 'lazada-im-sg'
+            mode: 'both'
         };
 
         windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
+            
             log.info('User has selected an image', response);
-
-            windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response, null, '\t') });
-            alert('User selected image: ' + JSON.stringify(response).substring(0, 100) + '...');
-
-            callback(response.resourceURL);
+            callback(response.url);
+            
+            // callback(response.resourceURL);
+            
             // if (has(response, 'base64Data')) {
             //     if (response.base64Data.indexOf('/9j/') === 0) {
             //         callback(`data:image/jpg;base64,${response.base64Data}`);
@@ -87,10 +85,6 @@ export function takePhoto(callback: (url: string) => void) {
             // }
 
         }).catch((err: any) => {
-            
-            windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(err) });
-            //alert('Failure while selecting the image: ' + JSON.stringify(err, null, '\t'));
-
             log.warn('User has cancelled image selection', err);
             callback(null);
         });
