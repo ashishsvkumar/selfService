@@ -119,14 +119,19 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
             return;
         }
 
-        //alert('Will attach image: ' + url);
+        alert('Will attach image: ' + url);
 
-        fetch(url).then(resp => resp.blob().then((blob: Blob) => {
-            const file = blobToFile(blob, url);
-            this.onFileSelect({ target: { files: [file], value: url } })
-        })).catch(err => {
-            //showToast('Cannot access image: ' + JSON.stringify(err), 30);
-        })
+        const now = new Date().getMilliseconds();
+        this.setState({
+            images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
+        });
+
+        // fetch(url).then(resp => resp.blob().then((blob: Blob) => {
+        //     const file = blobToFile(blob, url);
+        //     this.onFileSelect({ target: { files: [file], value: url } })
+        // })).catch(err => {
+        //     //showToast('Cannot access image: ' + JSON.stringify(err), 30);
+        // })
     }
 
     onTriggerWindvaneFile = () => {

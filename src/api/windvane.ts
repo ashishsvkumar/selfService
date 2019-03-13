@@ -65,25 +65,26 @@ export function takePhoto(callback: (url: string) => void) {
             type: '1',
             v: '2.0',
             mode: 'both',
-            bizCode: 'lazada-im-sg',
-            needBase64: true
+            //needBase64: true,
+            bizCode: 'lazada-im-sg'
         };
 
         windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
             log.info('User has selected an image', response);
 
-            //windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response, null, '\t') });
-            //alert('User selected image: ' + JSON.stringify(response).substring(0, 100) + '...');
+            windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response, null, '\t') });
+            alert('User selected image: ' + JSON.stringify(response).substring(0, 100) + '...');
 
-            if (has(response, 'base64Data')) {
-                if (response.base64Data.indexOf('/9j/') === 0) {
-                    callback(`data:image/jpg;base64,${response.base64Data}`);
-                } else {
-                    callback(`data:image/png;base64,${response.base64Data}`);
-                }
-            } else {
-                callback(response.url);
-            }
+            callback(response.resourceURL);
+            // if (has(response, 'base64Data')) {
+            //     if (response.base64Data.indexOf('/9j/') === 0) {
+            //         callback(`data:image/jpg;base64,${response.base64Data}`);
+            //     } else {
+            //         callback(`data:image/png;base64,${response.base64Data}`);
+            //     }
+            // } else {
+            //     callback(response.url);
+            // }
 
         }).catch((err: any) => {
             
