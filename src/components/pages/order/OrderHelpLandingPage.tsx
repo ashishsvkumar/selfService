@@ -54,11 +54,11 @@ const helpLinks = (tradeOrderId: string): HelpLink[] => [
     { text: "How do I track the status of my order?", url: `/orders/${tradeOrderId}/faq/200389390`, enableOn: ["Payment pending", "Processing", "Shipped"] },
     { text: "Can I cancel the order?", url: `/orders/${tradeOrderId}/faq/216795548`, enableOn: ["Payment pending", "Processing", "Shipped"] },
     /* For delivered */
-    { text: "Can I return products to RedMart?", url: `/orders/${tradeOrderId}/faq/200376804`, enableOn: ["Delivered"] },
-    { text: "Why didn't I receive a free gift with my purchase?", url: `/orders/${tradeOrderId}/faq/217926027`, enableOn: ["Delivered"] },
-    { text: "Why does the item I received look different from the website?", url: `/orders/${tradeOrderId}/faq/203052204`, enableOn: ["Delivered"] },
+    { text: "Can I return products to RedMart?", url: `/orders/${tradeOrderId}/faq/200376804`, enableOn: ["Delivered", "Refunded"] },
+    { text: "Why didn't I receive a free gift with my purchase?", url: `/orders/${tradeOrderId}/faq/217926027`, enableOn: ["Delivered", "Refunded"] },
+    { text: "Why does the item I received look different from the website?", url: `/orders/${tradeOrderId}/faq/203052204`, enableOn: ["Delivered", "Refunded"] },
     /* For all */
-    { text: "Need more help?", url: `/orders/${tradeOrderId}/contact`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Cancelled", "Cancellation initiated"], hideInDesktop: true },
+    { text: "Need more help?", url: `/orders/${tradeOrderId}/contact`, enableOn: ["Payment pending", "Processing", "Shipped", "Delivered", "Refunded", "Cancelled", "Cancellation initiated"], hideInDesktop: true },
 ]
 
 export function prepareOrderDetailsLink(tradeOrderId: string) {

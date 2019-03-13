@@ -6,7 +6,8 @@ export interface RedMartOrder {
     readonly isAsap: boolean;
     readonly createdAt: string;
     readonly deliverySlot: string;
-    readonly items: RedMartItem[]
+    readonly items: RedMartItem[],
+    readonly refundableItems: RedMartItem[]
 }
 
 export interface RedMartItem {

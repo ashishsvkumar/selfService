@@ -31,7 +31,7 @@ export function fetchRedMartOrders() {
                 const orders = (deflattener(response).orders || []);
 
                 const tradeOrderIds: string[] = orders.filter(filterForRedMartOrders)
-                    .filter(order => !pastThreshold(getSummarySlot(order)))
+                    .filter(order => !pastThreshold(order.tradeOrderId, getSummarySlot(order)))
                     .map(order => get(order, 'tradeOrderId'));
 
                 log.info('Fetched traderOrderIds of RedMart Orders 📦', tradeOrderIds);
@@ -126,6 +126,8 @@ function digestOrder(order: any): RedMartOrder {
         return null;
     }
 
+    console.log('>>>', rmPackages)
+
     const out: any = {};
     out.userId = order.buyerId;
     out.isAsap = false;
@@ -152,22 +154,11 @@ function digestOrder(order: any): RedMartOrder {
 
     out.status = rmPackages[0].status || out.status;
 
-    const itemGroups = groupBy(items.filter(im => !isEmpty(im)).filter(showItem), (item: RedMartItem) => item.skuId);
-    out.items = values(itemGroups).map((list: RedMartItem[]) => {
-        if (list.length === 1) {
-            return list;
-        } else {
-            return [reduce(list, (e1, e2) => {
-                return {...e1, quantity: e1.quantity + e2.quantity}
-            })]
-        }
-    }).map(list => {
-        return list[0];
-    });
+    const allItemGroups = groupBy(items.filter(im => !isEmpty(im)), (item: RedMartItem) => item.skuId);
+    const refundableItemGroups = groupBy(items.filter(im => !isEmpty(im)).filter(showItem), (item: RedMartItem) => item.skuId);
 
-    if (isEmpty(out.items)) {
-        return null;
-    }
+    out.items = aggregateItemsBySkuId(allItemGroups);
+    out.refundableItems = aggregateItemsBySkuId(refundableItemGroups);
 
     if (has(order, 'detailInfo.createdAt')) {
         out.createdAt = order.detailInfo.createdAt;
@@ -183,8 +174,23 @@ function digestOrder(order: any): RedMartOrder {
     return out;
 }
 
-function pastThreshold(slot: moment.Moment): boolean {
+function aggregateItemsBySkuId(listOfLists: any) {
+    return values(listOfLists).map((list: RedMartItem[]) => {
+        if (list.length === 1) {
+            return list;
+        } else {
+            return [reduce(list, (e1, e2) => {
+                return {...e1, quantity: e1.quantity + e2.quantity}
+            })]
+        }
+    }).map(list => {
+        return list[0];
+    });
+}
+
+function pastThreshold(tradeOrderId: string, slot: moment.Moment): boolean {
     const eightDaysInPast = moment().subtract(8, 'd');
+    log.info('Order', tradeOrderId, 'dated', slot.format('DD-MM-YYYY'), `${slot.isBefore(eightDaysInPast) ? 'is' : 'is not' } past thereshold`);
     return slot.isBefore(eightDaysInPast);
 }
 

@@ -25,7 +25,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
 
     togglePopup = (selectedSku?: string[], status?: Closed) => {
         if (selectedSku !== undefined) {
-            const selected = this.props.order.items.filter(im => selectedSku.indexOf(im.skuId) >= 0).map(itemDetailsToItemPreviewProps);
+            const selected = this.props.order.refundableItems.filter(im => selectedSku.indexOf(im.skuId) >= 0).map(itemDetailsToItemPreviewProps);
             this.state.selectedItems.forEach(si => {
                 selected.filter(it => it.sku === si.sku).forEach(i => {
                     i.selectedIssue = si.selectedIssue;
@@ -189,7 +189,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     itemListPopupView = () => {
-        const items: ItemPreviewProps[] = this.props.order.items.map(itemDetailsToItemPreviewProps)
+        const items: ItemPreviewProps[] = this.props.order.refundableItems.map(itemDetailsToItemPreviewProps)
 
         const preSelected = items.map(im => im.sku).filter(sku => this.state.selectedItems.some(im => im.sku === sku))
 

@@ -59,6 +59,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         switch (this.props.status) {
             case "Payment pending":
                 return "#f29d38";
+            case "Refunded":    
             case "Delivered":
                 return "#89a836";
             case "Cancelled":
