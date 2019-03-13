@@ -74,6 +74,7 @@
             needBase64: true
         };
 
+        setBackground(null);
         windvane.call('WVCamera', 'takePhoto', param).then(response => {
             
             windvane.call('Base', 'copyToClipboard', { text: JSON.stringify(response, null, '\t') });
