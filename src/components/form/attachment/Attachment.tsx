@@ -2,7 +2,7 @@ import * as React from "react";
 import * as styles from "./Attachment.scss";
 import { Button, Icon } from "../Button";
 import { uploadFile } from "../../../api/support";
-import { takePhoto, isWindVandAvailable } from "../../../api/windvane";
+import { takePhoto, isWindVandAvailable, getHostEnvironment, Host } from "../../../api/windvane";
 import fetch from 'cross-fetch';
 import { blobToFile } from "../../../utils/transformers";
 import * as log from 'loglevel';
@@ -119,12 +119,31 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
             return;
         }
 
-        fetch(url).then(resp => resp.blob().then((blob: Blob) => {
-            const file = blobToFile(blob, url);
-            this.onFileSelect({ target: { files: [file], value: url } })
-        })).catch(err => {
-            log.error('Could not fetch the attachment', err);
-        })
+        getHostEnvironment().then(host => {
+            if (host === Host.WEB) {
+                log.warn('Host is not windvane. Ignoring this image selection.', url);
+                return;
+            }
+
+            if (host === Host.ANDROID_WEBVIEW) {
+                log.info('Attaching the file from windvane url:', url);
+
+                fetch(url).then(resp => resp.blob().then((blob: Blob) => {
+                    const file = blobToFile(blob, url);
+                    this.onFileSelect({ target: { files: [file], value: url } })
+                })).catch(err => {
+                    log.error('Could not fetch the attachment on Android', err);
+                })
+            } else {
+                log.info('Attaching the file from alicloud url:', url);
+
+                const now = new Date().getMilliseconds();
+                this.setState({
+                    images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
+                });
+            }
+        });
+
     }
 
     onTriggerWindvaneFile = () => {

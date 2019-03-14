@@ -10,7 +10,7 @@ export const enum Host {
     WEB = "Web"
 }
 
-function getHostEnvironment(): Promise<Host> {
+export function getHostEnvironment(): Promise<Host> {
     return windvane.call('Base', 'isWindVaneSDK', {}).then((response: any) => {
         if (response.os === 'ios') {
             return Host.IOS_WEBVIEW;
@@ -56,37 +56,48 @@ export function isWindVandAvailable(): boolean {
 }
 
 export function takePhoto(callback: (url: string) => void) {
-    isInWebView().then(yes => {
-        if (!yes) {
+    getHostEnvironment().then(host => {
+        if (host === Host.WEB) {
+            log.warn('User is not in windvane env. Aborting.');
             return;
-        } 
+        }
 
-        const param = {
-            type: '0',
-            v: '2.0',
-            mode: 'both'
-        };
+        if (host == Host.ANDROID_WEBVIEW) {
+            
+            const param = {
+                type: '0',
+                v: '2.0',
+                mode: 'both'
+            };
 
-        windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
-            
-            log.info('User has selected an image', response);
-            callback(response.url);
-            
-            // callback(response.resourceURL);
-            
-            // if (has(response, 'base64Data')) {
-            //     if (response.base64Data.indexOf('/9j/') === 0) {
-            //         callback(`data:image/jpg;base64,${response.base64Data}`);
-            //     } else {
-            //         callback(`data:image/png;base64,${response.base64Data}`);
-            //     }
-            // } else {
-            //     callback(response.url);
-            // }
+            windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
+                log.info('User has selected an image on Android', response);
+                callback(response.url);
+                
+            }).catch((err: any) => {
+                log.warn('User has cancelled image selection on Android', err);
+                callback(null);
+            });
 
-        }).catch((err: any) => {
-            log.warn('User has cancelled image selection', err);
-            callback(null);
-        });
-    })
+        } else {
+
+            const param = {
+                type: '1',
+                v: '2.0',
+                mode: 'both',
+                bizCode: 'lazada-im-sg'
+            };
+
+            windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
+                
+                log.info('User has selected an image on iOS', response);
+                callback(response.resourceURL);
+
+            }).catch((err: any) => {
+                log.warn('User has cancelled image selection on iOS', err);
+                callback(null);
+            });
+        }
+    });
+
 }
