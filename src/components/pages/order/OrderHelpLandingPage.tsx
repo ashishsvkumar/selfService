@@ -38,11 +38,60 @@ interface HelpLink {
 }
 
 const helpLinks = (order: RedMartOrder): HelpLink[] => [
+    // For All
     { 
         text: "I want to check my order details", 
         url: prepareOrderDetailsLink(order.tradeOrderId), 
         shouldEnable: () => isMobile() && !(!isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0))
      },
+
+
+    // Payment pending
+    {
+        text: 'How do I make payment for a pending order?',
+        url: `/orders/${order.tradeOrderId}/faq/360019823373`, 
+        shouldEnable: () => ["Payment pending"].indexOf(order.status) >= 0
+    },
+    {
+        text: 'Was payment successful for my order?',
+        url: `/orders/${order.tradeOrderId}/faq/360019643974`,
+        shouldEnable: () => ["Payment pending"].indexOf(order.status) >= 0
+    },
+
+    // Scheduled / Processing / Shipped
+    {
+        text: 'Can I add or remove items from my order?',
+        url: `/orders/${order.tradeOrderId}/faq/200376704`,
+        shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
+    },
+    {
+        text: 'How can I cancel my order?',
+        url: `/orders/${order.tradeOrderId}/faq/360019789213`,
+        shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
+    },
+    {
+        text: 'Can I change my delivery address and phone number for an existing order?',
+        url: `/orders/${order.tradeOrderId}/faq/360019610994`,
+        shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
+    },
+    {
+        text: "What if I'm not at home for my delivery?",
+        url: `/orders/${order.tradeOrderId}/faq/200376874`,
+        shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
+    },
+    {
+        text: 'What if I want to give an Authority To Leave (ATL) for my delivery to my doorstep/security guard/concierge?',
+        url: `/orders/${order.tradeOrderId}/faq/200376854`,
+        shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
+    },
+    {
+        text: 'Can my Lazada orders be delivered together with my RedMart order?',
+        url: `/orders/${order.tradeOrderId}/faq/360019611274`,
+        shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
+    },
+    
+
+    // Delivered
     { 
         text: "I have missing items", 
         url: `/orders/${order.tradeOrderId}/help/missing`, 
@@ -53,50 +102,50 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
         url: `/orders/${order.tradeOrderId}/help/damaged`, 
         shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
     },
-
-    /* For not delivered */
-    { 
-        text: "Can I add or remove items from the order?", 
-        url: `/orders/${order.tradeOrderId}/faq/200376704`, 
-        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0  
-    },
-    { 
-        text: "What if I'm not home for delivery?", 
-        url: `/orders/${order.tradeOrderId}/faq/200376874`, 
-        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0 
-    },
-    // { 
-    //     text: "How do I track the status of my order?", 
-    //     url: `/orders/${order.tradeOrderId}/faq/200389390`,
-    //     shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0 
-    // },
-    { 
-        text: "Can I cancel the order?", 
-        url: `/orders/${order.tradeOrderId}/faq/360019789213`, 
-        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0
-    },
-    /* For delivered */
-    { 
-        text: "Can I return products to RedMart?", 
+    {
+        text: 'Can I return items to Redmart?',
         url: `/orders/${order.tradeOrderId}/faq/360019787013`,
-        shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
+        shouldEnable: () => ["Delivered", "Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
     },
-    { 
-        text: "Why didn't I receive a free gift with my purchase?", 
+    {
+        text: 'One or more of the products I ordered did not arrive. What should I do?',
+        url: `/orders/${order.tradeOrderId}/faq/217371367`,
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0
+    },
+    {
+        text: "Why didn't I receive a free gift with my RedMart purchase?",
         url: `/orders/${order.tradeOrderId}/faq/360019789273`,
-        shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0
     },
-    { 
-        text: "Why does the item I received look different from the website?",
+    {
+        text: 'How long is the refund process?',
+        url: `/orders/${order.tradeOrderId}/faq/360019824453`,
+        shouldEnable: () => ["Delivered", "Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
+    },
+    {
+        text: 'Why does the item I received look different from the one on the website?',
         url: `/orders/${order.tradeOrderId}/faq/360019611074`,
-        shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0
     },
-    /* For all */
+
+    // Refunded / Cancellation initiated / Cancelled
+    {
+        text: 'I used a voucher on my order, but some of the items were not available at delivery. Why did I not get a full refund on those items?',
+        url: `/orders/${order.tradeOrderId}/faq/360019638254`,
+        shouldEnable: () => ["Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
+    },
+    {
+        text: 'What happens if I cancel an order that I applied a voucher to?',
+        url: `/orders/${order.tradeOrderId}/faq/360019817993`,
+        shouldEnable: () => ["Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
+    },
+
+    // For all
     { 
         text: "Need more help?", 
         url: `/orders/${order.tradeOrderId}/contact`,
         shouldEnable: () => isMobile() 
-    },
+    }
 ]
 
 export function prepareOrderDetailsLink(tradeOrderId: string) {
