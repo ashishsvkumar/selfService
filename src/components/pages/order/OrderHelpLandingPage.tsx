@@ -65,30 +65,30 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
         url: `/orders/${order.tradeOrderId}/faq/200376874`, 
         shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0 
     },
-    { 
-        text: "How do I track the status of my order?", 
-        url: `/orders/${order.tradeOrderId}/faq/200389390`,
-        shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0 
-    },
+    // { 
+    //     text: "How do I track the status of my order?", 
+    //     url: `/orders/${order.tradeOrderId}/faq/200389390`,
+    //     shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0 
+    // },
     { 
         text: "Can I cancel the order?", 
-        url: `/orders/${order.tradeOrderId}/faq/216795548`, 
+        url: `/orders/${order.tradeOrderId}/faq/360019789213`, 
         shouldEnable: () => ["Payment pending", "Processing", "Shipped"].indexOf(order.status) >= 0
     },
     /* For delivered */
     { 
         text: "Can I return products to RedMart?", 
-        url: `/orders/${order.tradeOrderId}/faq/200376804`,
+        url: `/orders/${order.tradeOrderId}/faq/360019787013`,
         shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
     },
     { 
         text: "Why didn't I receive a free gift with my purchase?", 
-        url: `/orders/${order.tradeOrderId}/faq/217926027`,
+        url: `/orders/${order.tradeOrderId}/faq/360019789273`,
         shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
     },
     { 
         text: "Why does the item I received look different from the website?",
-        url: `/orders/${order.tradeOrderId}/faq/203052204`,
+        url: `/orders/${order.tradeOrderId}/faq/360019611074`,
         shouldEnable: () => ["Delivered", "Refunded"].indexOf(order.status) >= 0
     },
     /* For all */
