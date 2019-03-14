@@ -106,4 +106,3 @@ export function prepareOrderDetailsLink(tradeOrderId: string) {
         return isMobile() ? `https://my-p.lazada.sg/order/order-detail?tradeOrderId=${tradeOrderId}` : `https://my.lazada.sg/customer/order/view/?tradeOrderId=${tradeOrderId}`;
     }
 }
-
