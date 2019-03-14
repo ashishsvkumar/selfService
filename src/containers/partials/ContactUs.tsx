@@ -8,6 +8,7 @@ import { isEmpty } from 'lodash';
 import { showMessage } from "../../store/alert/actions";
 import { isLoggedIn } from '../../utils/session';
 import { getBasePath } from '../../config/environment';
+import { fetchRedMartOrders } from '../../store/package/actions';
 
 class ContactUs extends React.Component<ContactUsProps, {}> {
     constructor(props: ContactUsProps) {
@@ -16,22 +17,27 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     componentDidMount() {
         log.info('Contact us container will mount');
+
+        if (this.props.shouldFetchOrders) {
+            this.props.fetchRedMartOrders();
+        }
     }
 
     onChatClick = () => {
-        // if (!this.props.chat.loaded || this.props.chat.isOffline) {
-        //     this.onLeaveMessage();
-        // } else {
-        //     this.onChat();
-        // }
+
         this.onChat();
     }
 
     onChat = () => {
         if (this.props.chat.loaded) {
-            if (!isEmpty(this.props.recentOrder)) {
+            const match = location.pathname.match(/^\/support\/orders\/(\d+)\/faq/);
+
+            if (!isEmpty(match) && match.length >= 2) {
+                this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${match[1]}`);
+            } else if (!isEmpty(this.props.recentOrder)) {
                 this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
             }
+            
             this.props.chat.snapEngageInstance.startLink();
         }
     }
@@ -53,7 +59,8 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 }
 
 interface PropsFromDispatch {
-    showMessage: (title: string, message: any, btnText: string) => void
+    showMessage: (title: string, message: any, btnText: string) => void,
+    fetchRedMartOrders: () => void
 }
 
 interface PropsFromState {
@@ -66,7 +73,8 @@ interface PropsFromState {
 type ContactUsProps = PropsFromDispatch & PropsFromState;
 
 const mapDispatchToProps = {
-    showMessage: showMessage
+    showMessage: showMessage,
+    fetchRedMartOrders: fetchRedMartOrders
 }
 
 const maptStateToProps = ({ chat, redmartOrders }: ApplicationState) => {
