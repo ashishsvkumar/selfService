@@ -30,11 +30,11 @@ export const LandingPage = (props: LandingPageProps) => {
                 </div>
                 <div className={styles.title}><ContentTitle text="Non-Order Related" /></div>
                 <div className={styles.other_cards}>
-                    <NavigationCard text="About RedMart & Lazada Integration" to="/category/202592837/About+RedMart+&+Lazada+Integration" />
+                    <NavigationCard text="About RedMart & Lazada Integration" to="/category/202558047/About+RedMart+&+Lazada+Integration" />
                     <NavigationCard text="Placing an Order" to="/category/202592867/Placing+an+Order" />
                     <NavigationCard text="RedMart Delivery" to="/category/202557897/RedMart+Delivery" />
                     <NavigationCard text="Products on RedMart" to="/category/202601828/Products+on+RedMart" />
-                    <NavigationCard text="About RedMart" to="/faq/217371327/About-RedMart" />
+                    <NavigationCard text="About RedMart" to="/category/202592837/About-RedMart" />
                 </div>
                 <div className={styles.only_desktop}><ContactUs /></div>
             </div>
