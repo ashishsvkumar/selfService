@@ -1,6 +1,4 @@
 import * as log from 'loglevel';
-import { currentEnvironment, Environments } from '../config/environment';
-import { get, has } from 'lodash';
 // @ts-ignore
 const windvane = window.WindVane;
 

@@ -5,17 +5,17 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const zopfli = require('@gfx/zopfli');
 
 module.exports = merge(commonConfig, {
-    // optimization: {
-    //     minimizer: [new UglifyJsPlugin()],
-    // },
-    // plugins: [
-    //     new CompressionPlugin({
-    //         compressionOptions: {
-    //             numiterations: 15
-    //         },
-    //         algorithm(input, compressionOptions, callback) {
-    //             return zopfli.gzip(input, compressionOptions, callback);
-    //         }
-    //     })
-    // ]
+    optimization: {
+        minimizer: [new UglifyJsPlugin()],
+    },
+    plugins: [
+        new CompressionPlugin({
+            compressionOptions: {
+                numiterations: 15
+            },
+            algorithm(input, compressionOptions, callback) {
+                return zopfli.gzip(input, compressionOptions, callback);
+            }
+        })
+    ]
 });
