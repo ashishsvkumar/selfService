@@ -75,6 +75,11 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     {
+        text: "I need to change my delivery slot",
+        url: `/orders/${order.tradeOrderId}/faq/360019651834`,
+        shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
+    },
+    {
         text: "What if I'm not at home for my delivery?",
         url: `/orders/${order.tradeOrderId}/faq/200376874`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
