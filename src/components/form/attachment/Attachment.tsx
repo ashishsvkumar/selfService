@@ -125,23 +125,12 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
                 return;
             }
 
-            if (host === Host.ANDROID_WEBVIEW) {
-                log.info('Attaching the file from windvane url:', url);
+            log.info('Attaching the file from alicloud url:', url);
 
-                fetch(url).then(resp => resp.blob().then((blob: Blob) => {
-                    const file = blobToFile(blob, url);
-                    this.onFileSelect({ target: { files: [file], value: url } })
-                })).catch(err => {
-                    log.error('Could not fetch the attachment on Android', err);
-                })
-            } else {
-                log.info('Attaching the file from alicloud url:', url);
-
-                const now = new Date().getMilliseconds();
-                this.setState({
-                    images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
-                });
-            }
+            const now = new Date().getMilliseconds();
+            this.setState({
+                images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
+            });
         });
 
     }
