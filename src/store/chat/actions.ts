@@ -40,8 +40,8 @@ export function setup() {
                 se.hideButton();
                 se.allowChatSound(false);
 
-                //se.setCallback('Close', removeSnapEngageStyle);
-                //se.setCallback('Minimize', removeSnapEngageStyle);
+                se.setCallback('Close', removeSnapEngageStyle);
+                se.setCallback('Minimize', removeSnapEngageStyle);
 
                 setupPing(se, dispatch);
                 dispatch(chatReady(se));
