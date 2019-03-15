@@ -60,42 +60,25 @@ export function takePhoto(callback: (url: string) => void) {
             return;
         }
 
-        if (host == Host.ANDROID_WEBVIEW) {
+        const param = {
+            type: '1',
+            v: '2.0',
+            mode: 'both',
+            bizCode: 'lazada-im-sg'
+        };
+
+        windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
+                
+            log.info('User has selected an image on iOS', response);
+            callback(response.resourceURL);
+
+        }).catch((err: any) => {
+
+            log.warn('User has cancelled image selection on iOS', err);
+            callback(null);
             
-            const param = {
-                type: '0',
-                v: '2.0',
-                mode: 'both'
-            };
+        });
 
-            windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
-                log.info('User has selected an image on Android', response);
-                callback(response.url);
-                
-            }).catch((err: any) => {
-                log.warn('User has cancelled image selection on Android', err);
-                callback(null);
-            });
-
-        } else {
-
-            const param = {
-                type: '1',
-                v: '2.0',
-                mode: 'both',
-                bizCode: 'lazada-im-sg'
-            };
-
-            windvane.call('WVCamera', 'takePhoto', param).then((response: any) => {
-                
-                log.info('User has selected an image on iOS', response);
-                callback(response.resourceURL);
-
-            }).catch((err: any) => {
-                log.warn('User has cancelled image selection on iOS', err);
-                callback(null);
-            });
-        }
     });
 
 }
