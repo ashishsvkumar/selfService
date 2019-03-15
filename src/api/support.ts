@@ -5,6 +5,8 @@ const CancelToken = axios.CancelToken;
 import * as log from 'loglevel';
 import { Ticket } from '../store/ticket/types';
 import { compress } from './compress';
+import { getHostEnvironment, Host } from './windvane';
+import { isMobile } from '../config/environment';
 
 function getUploadUrl(): Promise<String> {
     return fetch(`${supportBase}/ticket/attachment`).then((response: any) => {
@@ -56,14 +58,32 @@ export function uploadFile(name: string, fileUncompressed: File,
 }
 
 export function ticketCreate(ticket: Ticket) {
-    return fetch(
-        `${supportBase}/ticket`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ticket: ticket})
+
+    return getHostEnvironment().then(host => {
+
+        switch(host) {
+            case Host.ANDROID_WEBVIEW: {
+                ticket.tags = ['mode:lz_android_app'];
+                break;
+            }
+            case Host.IOS_WEBVIEW: {
+                ticket.tags = ['mode:lz_ios_app'];
+                break; 
+            }
+            default: {
+                ticket.tags = [`mode:${isMobile() ? 'lz_msite' : 'lz_pc'}`];
+            }
         }
-    )
+
+        return fetch(
+            `${supportBase}/ticket`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ticket: ticket})
+            }
+        )
+    });
 }

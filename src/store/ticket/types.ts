@@ -10,7 +10,8 @@ export interface Ticket {
     comment?: string,
     rpc?: {id: string, quantity: number, reasonCodeId: string}[],
     attachments?: {name: string, link: string}[],
-    refundMethod?: string
+    refundMethod?: string,
+    tags?: string[]
 }
 
 export const enum RefundMethod {
