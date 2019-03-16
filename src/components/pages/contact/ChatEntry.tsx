@@ -91,6 +91,14 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                     </div>
                 </div>
                 <div className={styles.content}>
+                    <div className={styles.title}>Top Questions</div>
+                    <div className={styles.cards}>
+                        {this.prepareCard('What happens if I cancel an order that I applied a voucher to?', '', '/category/202592867/Placing+an+Order/faq/360019817993/What+happens+if+I+cancel+an+order+that+I+applied+a+voucher+to%3F', false)}
+                        {this.prepareCard("Why was my order cancelled even though I didn't cancel it myself?", '', '/category/202592867/Placing+an+Order/faq/360019778634/Why+was+my+order+cancelled+even+though+I+didn%27t+cancel+it+myself%3F', false)}
+                        {this.prepareCard('I am a LiveUp member. Why are some of my credits missing?', '', '/category/202558047/About+RedMart+&+Lazada+Integration/faq/360019818833/+I+am+a+LiveUp+member.+Why+are+some+of+my+credits+missing%3F', false)}
+                    </div>
+                </div>
+                <div className={styles.content}>
                     <div className={styles.title}>Contact Us</div>
                     <div style={{padding: '0 2px'}}>
                         <div className={styles.card_subtitle}>Can't find the answer you are looking for? Contact us through <b>Live Chat</b> and we will assist you.</div>
