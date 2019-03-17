@@ -43,7 +43,7 @@ export const currentEnvironment: Environments = getCurrentEnvironment();
 export const basePath: string = getBasePath();
 
 if (currentEnvironment === Environments.production) {
-  log.setLevel("INFO");
+  log.setLevel("ERROR");
 } else {
   log.setLevel("INFO");
 }
