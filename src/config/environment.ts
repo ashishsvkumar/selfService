@@ -9,9 +9,9 @@ export const enum Environments {
 }
 
 function getCurrentEnvironment() {
-  const isLive = location.hostname === 'redmart.lazada.sg';
+  const isTest = /(&?)test=true/.test(location.search);
 
-  if (isLive) {
+  if (!isTest) {
     return Environments.production;
   } else {
     return Environments.preLive;
