@@ -58,6 +58,8 @@ function prepareTemplate(head, header, footer, isMobile) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Get help with your RedMart delivery, a recent order, or browse through frequently asked questions.">
+        <meta name="keywords" content="RedMart Help Center, RedMart Customer Care, RedMart Support, RedMart Customer Support, RedMart FAQ, RedMart Help, RedMart Issue, RedMart Issues, RedMart Ticket, RedMart Order, RedMart Delivery, Redmart LiveUp">
         ${isMobile ? '<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">' : '<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">'}
         ${prepareInlineLibs()}
         <script>__rm__env__="${process.env.NODE_ENV}"</script>
