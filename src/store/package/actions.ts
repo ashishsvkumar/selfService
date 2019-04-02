@@ -187,7 +187,7 @@ function aggregateItemsBySkuId(listOfLists: any) {
 }
 
 function pastThreshold(tradeOrderId: string, slot: moment.Moment): boolean {
-    const eightDaysInPast = moment().subtract(8, 'd');
+    const eightDaysInPast = moment().subtract(21, 'd');
     log.info('Order', tradeOrderId, 'dated', slot.format('DD-MM-YYYY'), `${slot.isBefore(eightDaysInPast) ? 'is' : 'is not' } past thereshold`);
     return slot.isBefore(eightDaysInPast);
 }
