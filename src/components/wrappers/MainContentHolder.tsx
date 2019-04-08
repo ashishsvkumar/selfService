@@ -8,7 +8,6 @@ import LandingPage from "../../containers/pages/LandingPage";
 import OrdersPage from "../../containers/pages/OrdersPage";
 import OrderHelpLandingPage from "../../containers/pages/OrderHelpLandingPage";
 import ItemLevelHelpPage from "../../containers/pages/ItemLevelHelpPage";
-import QueryFormPage from "../../containers/pages/QueryFormPage";
 import FaqPage from "../../containers/pages/FaqPage";
 import CategoryPage from "../../containers/pages/CategoryPage";
 import { Sidebar } from "../sidebar/Sidebar";
@@ -17,11 +16,13 @@ import SnapEngageWrapper from "../../containers/partials/Snapengage";
 import RMHelpPage from "../../containers/pages/RMHelpPage";
 import { NotFound } from "../pages/notFound/NotFound";
 import ChatEntry from "../pages/contact/ChatEntry";
+import { trackPageView } from "../../utils/tracker";
 
 class MainContentHolder extends Component<any, any> {
 
     componentDidUpdate(prevProps: any) {
         if (this.props.location.pathname !== prevProps.location.pathname) {
+            trackPageView();
             window.scrollTo(0, 0);
         }
     }
