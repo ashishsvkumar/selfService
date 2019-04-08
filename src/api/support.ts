@@ -7,6 +7,7 @@ import { Ticket } from '../store/ticket/types';
 import { compress } from './compress';
 import { getHostEnvironment, Host } from './windvane';
 import { isMobile } from '../config/environment';
+import { trackEvent } from '../utils/tracker';
 
 function getUploadUrl(): Promise<String> {
     return fetch(`${supportBase}/ticket/attachment`).then((response: any) => {
@@ -61,29 +62,49 @@ export function ticketCreate(ticket: Ticket) {
 
     return getHostEnvironment().then(host => {
 
-        switch(host) {
+        switch (host) {
             case Host.ANDROID_WEBVIEW: {
                 ticket.tags = ['mode:lz_android_app'];
                 break;
             }
             case Host.IOS_WEBVIEW: {
                 ticket.tags = ['mode:lz_ios_app'];
-                break; 
+                break;
             }
             default: {
                 ticket.tags = [`mode:${isMobile() ? 'lz_msite' : 'lz_pc'}`];
             }
         }
 
-        return fetch(
+        track(ticket, 'Create');
+
+        const result = fetch(
             `${supportBase}/ticket`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ticket: ticket})
+                body: JSON.stringify({ ticket: ticket })
             }
         )
+
+        result.then(() => {
+            track(ticket, 'Success');
+        }).catch(() => {
+            track(ticket, 'Failure');
+        });
+
+        return result;
     });
 }
+
+function track(ticket: Ticket, action: string) {
+    try {
+        trackEvent('Ticket', action, JSON.stringify({ type: ticket.type, rcPrimary: ticket.primaryReasonCodeId, rcSeconday: ticket.secondaryReasonCodeId }));
+    }
+    catch (ex) {
+
+    }
+}
+
