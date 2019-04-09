@@ -1,4 +1,5 @@
 import * as log from 'loglevel';
+import { isWindVandAvailable } from '../api/windvane';
 
 function getGA() {
     // @ts-ignore
@@ -13,6 +14,10 @@ export function trackPageView(url: string = sanitizePath(location.pathname)) {
 
         ga("set", "page", url);
         ga("send", "pageview", url);
+
+        if (isWindVandAvailable()) {
+            ga('send', 'screenview', { screenName: url, appName: 'RedMart Helpcenter' });
+        }
     }
     catch (err) {
         log.error('Error for GA view', err);
