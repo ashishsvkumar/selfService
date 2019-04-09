@@ -69,13 +69,13 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
             }
             
             this.props.chat.snapEngageInstance.startLink();
-            trackEvent('Contact', 'click', 'cta', 'chat')
+            trackEvent('Chat', 'click', 'Contact RedMart')
         }
     }
 
     onMore = () => {
         this.props.showMessage('Contact Us', PopupText(), 'Close');
-        trackEvent('Contact', 'click', 'cta', 'phone')
+        trackEvent('Phone', 'click', 'Contact RedMart')
     }
     
     render() {

@@ -20,6 +20,18 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
         setTitle('Contact RedMart Support');
     }
 
+    getGaLabel = () => {
+        const path = location.href;
+        if (path.indexOf('category') >= 0 && path.indexOf('faq') >= 0) {
+            return 'Category > FAQ';
+        } else if (path.indexOf('category') >= 0) {
+            return 'Category';
+        } else if (path.indexOf('faq') >= 0) {
+            return 'FAQ';
+        }
+        return undefined;
+    }
+
     handleChatClick = () => {
         const { chat, recentOrder } = this.props;
 
@@ -29,7 +41,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                     chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
                 }
                 chat.snapEngageInstance.startLink();
-                trackEvent('Contact', 'click', 'cta', 'chat')
+                trackEvent('Chat', 'click', this.getGaLabel());
             }
         } else {
             // @ts-ignore
@@ -39,7 +51,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
 
     handleToggleExpander = () => {
         if (!this.state.showCall) {
-            trackEvent('Contact', 'click', 'cta', 'phone')
+            trackEvent('Phone', 'click', this.getGaLabel());
         }
 
         this.setState({ showCall: !this.state.showCall });

@@ -6,11 +6,13 @@ import { Constants } from "../../config/constants";
 
 export const ContactUs = (props: ContactUsProps) => {
 
+    const referrer = `/contact?referrer=${location.pathname}`
+
     return (
         <div className={cx(styles.content)}>
             <div className={styles.only_mobile}>
                 <div className={styles.link_to_contact}>
-                    <span>If you still need help,</span> <Link to="/contact">contact RedMart Support</Link>.
+                    <span>If you still need help,</span> <Link to={referrer}>contact RedMart Support</Link>.
                 </div>
             </div>
             <div className={styles.only_desktop}>

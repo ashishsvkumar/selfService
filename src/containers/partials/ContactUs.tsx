@@ -25,8 +25,19 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
     }
 
     onChatClick = () => {
-
         this.onChat();
+    }
+
+    getGaLabel = () => {
+        const path = location.href;
+        if (path.indexOf('category') >= 0 && path.indexOf('faq') >= 0) {
+            return 'Category > FAQ';
+        } else if (path.indexOf('category') >= 0) {
+            return 'Category';
+        } else if (path.indexOf('faq') >= 0) {
+            return 'FAQ';
+        }
+        return undefined;
     }
 
     onChat = () => {
@@ -40,7 +51,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
             }
             
             this.props.chat.snapEngageInstance.startLink();
-            trackEvent('Contact', 'click', 'cta', 'chat')
+            trackEvent('Chat', 'click', this.getGaLabel());
         }
     }
 
@@ -51,7 +62,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     onMore = () => {
         this.props.showMessage('Contact Us', PopupText(), 'Close');
-        trackEvent('Contact', 'click', 'cta', 'phone')
+        trackEvent('Phone', 'click', this.getGaLabel());
     }
 
     render() {
