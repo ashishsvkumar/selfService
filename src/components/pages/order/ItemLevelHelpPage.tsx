@@ -15,6 +15,7 @@ import { WarningIcon } from "../../icons/WarningIcon";
 import { Comment } from "../../form/Comment";
 import { RedMartOrder } from "../../../store/package/types";
 import { Constants } from "../../../config/constants";
+import { trackEvent } from "../../../utils/tracker";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, ItemLevelHelpPageState> {
 
@@ -151,6 +152,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
             refundMethod: RefundMethod.CC_PAYPAL
         }
         this.props.createTicket(ticket);
+
+        trackEvent('Ticket', 'Creation', 'submission', this.props.helpCategory);
     }
 
     issuesView = () => {

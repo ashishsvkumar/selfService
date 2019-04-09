@@ -76,9 +76,7 @@ export function ticketCreate(ticket: Ticket) {
             }
         }
 
-        track(ticket, 'Create');
-
-        const result = fetch(
+        return fetch(
             `${supportBase}/ticket`,
             {
                 method: 'POST',
@@ -88,23 +86,7 @@ export function ticketCreate(ticket: Ticket) {
                 body: JSON.stringify({ ticket: ticket })
             }
         )
-
-        result.then(() => {
-            track(ticket, 'Success');
-        }).catch(() => {
-            track(ticket, 'Failure');
-        });
-
-        return result;
     });
 }
 
-function track(ticket: Ticket, action: string) {
-    try {
-        trackEvent('Ticket', action, JSON.stringify({ type: ticket.type, rcPrimary: ticket.primaryReasonCodeId, rcSeconday: ticket.secondaryReasonCodeId }));
-    }
-    catch (ex) {
-
-    }
-}
 

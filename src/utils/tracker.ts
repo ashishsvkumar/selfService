@@ -7,7 +7,7 @@ function getGA() {
     return ga;
 }
 
-export function trackPageView(url: string = location.pathname) {
+export function trackPageView(url: string = sanitizePath(location.pathname)) {
     try {
         const ga = getGA();
 
@@ -19,14 +19,22 @@ export function trackPageView(url: string = location.pathname) {
     }
 }
 
-export function trackEvent(category: string, action: string, value: string) {
+export function trackEvent(category: string, action: string, label?: string, value?: string) {
     try {
         const ga = getGA();
-        const label = location.pathname;
-
         ga("send", "event", category, action, label, value, { nonInteraction: false });
     }
     catch (err) {
         log.error('Error for GA event', err);
     }
+}
+
+function sanitizePath(path: string) {
+    let out = path.trim();
+
+    if (out !== '/') {
+        out = out.replace(/\/$/, '');
+    }
+
+    return out;
 }
