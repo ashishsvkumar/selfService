@@ -54,7 +54,7 @@ export class FaqPage extends React.Component<FaqPageProps, FaqPageState> {
         const heading = this.props.match.params.heading;
 
         if (article) {
-            trackEvent('FAQ', 'View', 'knowledge', decode(heading));
+            trackEvent('FAQ', 'View', 'knowledge', decode(article.title));
 
             return <Component heading={heading} title={article.title} body={article.body} />
         } else {
