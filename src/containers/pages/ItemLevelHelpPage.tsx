@@ -14,6 +14,7 @@ import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
 import { isEmpty, get } from 'lodash';
 import { NotFound } from "../../components/pages/notFound/NotFound";
+import { trackPageView } from "../../utils/tracker";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {}> {
 
@@ -34,6 +35,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
         if (isLoggedIn() && this.props.order === null && !this.props.fetching) {
             this.props.fetchRedMartOrder(this.props.match.params.tradeOrderId);
         }
+
+        trackPageView(`Order Help: items ${this.props.match.params.category}`)
     }
 
     unknownHelp = () => {

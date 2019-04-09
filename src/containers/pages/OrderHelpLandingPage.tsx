@@ -12,6 +12,7 @@ import { isEmpty, get } from 'lodash';
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
 import { NotFound } from "../../components/pages/notFound/NotFound";
+import { trackPageView } from "../../utils/tracker";
 
 export class OrderHelpLandingPage extends React.Component<OrderHelpPageProps, OrderHelpPageState> {
 
@@ -29,6 +30,14 @@ export class OrderHelpLandingPage extends React.Component<OrderHelpPageProps, Or
         if (isLoggedIn() && this.props.order === null && !this.props.fetching) {
             log.info('Fetching order details');
             this.props.fetchRedMartOrder(this.props.match.params.tradeOrderId);
+        }
+
+        trackPageView(`Order Help Page`)
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps: OrderHelpPageProps) {
+        if (this.props.order === null && nextProps.order !== null) {
+            //trackPageView(`${nextProps.order.status} order help`)
         }
     }
 

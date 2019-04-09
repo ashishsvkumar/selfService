@@ -9,6 +9,8 @@ import { ArticlesState, Article } from "../../store/faq/types";
 import { Spinner } from "../../components/icons/Spinner";
 import { isEmptyObject, decode } from "../../utils/extras";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
+import { trackEvent, trackPageView } from "../../utils/tracker";
+import {get} from 'lodash';
 
 export class FaqPage extends React.Component<FaqPageProps, FaqPageState> {
 
@@ -34,6 +36,8 @@ export class FaqPage extends React.Component<FaqPageProps, FaqPageState> {
         if (this.props.match.params.id && !this.getArticle()) {
             this.props.fetchArticleDetails(this.props.match.params.id);
         }
+
+        trackPageView(`FAQ Page`);
     }
 
     getArticle = (): Article => {

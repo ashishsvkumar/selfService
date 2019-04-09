@@ -16,13 +16,11 @@ import SnapEngageWrapper from "../../containers/partials/Snapengage";
 import RMHelpPage from "../../containers/pages/RMHelpPage";
 import { NotFound } from "../pages/notFound/NotFound";
 import ChatEntry from "../pages/contact/ChatEntry";
-import { trackPageView } from "../../utils/tracker";
 
 class MainContentHolder extends Component<any, any> {
 
     componentDidUpdate(prevProps: any) {
         if (this.props.location.pathname !== prevProps.location.pathname) {
-            trackPageView();
             window.scrollTo(0, 0);
         }
     }

@@ -8,6 +8,7 @@ import { Ticket } from "../../store/ticket/types";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { isEmpty } from 'lodash';
 import * as log from 'loglevel';
+import { trackPageView } from "../../utils/tracker";
 
 export class QueryFormPage extends React.Component<QueryFormPageProps, QueryFormPageState> {
 
@@ -18,6 +19,7 @@ export class QueryFormPage extends React.Component<QueryFormPageProps, QueryForm
 
     componentWillMount() {
         this.props.setBreadcrumbs([{ text: 'Miscellaneous', url: location.href, needLogin: false }]);
+        trackPageView('Query Form Page')
     }
 
     render() {

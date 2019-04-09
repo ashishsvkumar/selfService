@@ -9,6 +9,7 @@ import { CategoriesState, SectionsState, Category } from "../../store/faq/types"
 import { Spinner } from "../../components/icons/Spinner";
 import { isEmptyObject, isEmptyArray, decode } from "../../utils/extras";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
+import { trackPageView } from "../../utils/tracker";
 
 class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState> {
 
@@ -24,6 +25,8 @@ class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState>
         const id = this.props.match.params.id;
         const heading = this.props.match.params.heading;
         this.props.setBreadcrumbs([ { text: decode(heading), url: `/category/${id}/${heading}`, needLogin: false } ])
+
+        trackPageView('FAQ Category Page')
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: CategoryPageProps) {
@@ -33,6 +36,8 @@ class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState>
             const id = nextProps.match.params.id;
             const heading = nextProps.match.params.heading;
             this.props.setBreadcrumbs([ { text: decode(heading), url: location.href, needLogin: false } ])
+
+            //trackPageView('FAQ Category Page')
         }
     }
 

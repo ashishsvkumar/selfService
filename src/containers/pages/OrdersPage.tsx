@@ -11,6 +11,7 @@ import { ProtectedPage } from "../../components/wrappers/AuthWrapper"
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { isEmpty } from 'lodash';
 import { RedMartOrder } from "../../store/package/types";
+import { trackPageView } from "../../utils/tracker";
 
 export class OrdersPage extends React.Component<OrdersPageProps, OrdersPageState> {
 
@@ -26,6 +27,8 @@ export class OrdersPage extends React.Component<OrdersPageProps, OrdersPageState
             log.info('Will fetch recent orders');
             this.props.fetchRedMartOrders();
         }
+
+        trackPageView('My RedMart Orders')
     }
 
     render() {

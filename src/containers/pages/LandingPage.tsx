@@ -8,6 +8,7 @@ import { ApplicationState } from "../../store";
 import { isLoggedIn } from '../../utils/session';
 import { isEmpty } from 'lodash';
 import { RedMartOrder } from "../../store/package/types";
+import { trackPageView } from "../../utils/tracker";
 
 export class LandingPage extends React.Component<LandingPageProps, LandingPageState> {
 
@@ -22,6 +23,8 @@ export class LandingPage extends React.Component<LandingPageProps, LandingPageSt
             log.info('Will fetch recent orders');
             this.props.fetchRedMartOrders();
         }
+
+        trackPageView('RedMart Helpcenter')
     }
 
     render() {

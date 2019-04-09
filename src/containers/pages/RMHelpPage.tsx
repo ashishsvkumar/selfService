@@ -7,6 +7,7 @@ import { RMHelpPage as Component } from "../../components/pages/contact/RMHelpPa
 import { fetchRedMartOrders } from "../../store/package/actions";
 import { isEmpty } from 'lodash';
 import { isLoggedIn } from '../../utils/session';
+import { trackPageView } from '../../utils/tracker';
 
 class RMHelpPage extends React.Component<RMHelpPageProps, {}> {
     constructor(props: RMHelpPageProps) {
@@ -15,6 +16,7 @@ class RMHelpPage extends React.Component<RMHelpPageProps, {}> {
 
     componentDidMount() {
         log.info('RM Help container will mount');
+        trackPageView('Chat or Phone Page')
     }
 
     onLeaveMessage = () => {
