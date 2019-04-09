@@ -9,6 +9,7 @@ import { showMessage } from "../../store/alert/actions";
 import { isLoggedIn } from '../../utils/session';
 import { getBasePath } from '../../config/environment';
 import { fetchRedMartOrders } from '../../store/package/actions';
+import { trackEvent } from '../../utils/tracker';
 
 class ContactUs extends React.Component<ContactUsProps, {}> {
     constructor(props: ContactUsProps) {
@@ -39,6 +40,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
             }
             
             this.props.chat.snapEngageInstance.startLink();
+            trackEvent('Contact', 'click', 'cta', 'chat')
         }
     }
 
@@ -49,6 +51,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     onMore = () => {
         this.props.showMessage('Contact Us', PopupText(), 'Close');
+        trackEvent('Contact', 'click', 'cta', 'phone')
     }
 
     render() {

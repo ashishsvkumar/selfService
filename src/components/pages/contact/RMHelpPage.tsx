@@ -7,6 +7,7 @@ import { isEmptyString } from "../../../utils/extras";
 import { ArrowIcon, Direction } from "../../icons/ArrowIcon";
 import { getBasePath } from "../../../config/environment";
 import { Constants } from "../../../config/constants";
+import { trackEvent } from "../../../utils/tracker";
 
 export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState> {
 
@@ -28,6 +29,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                     chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
                 }
                 chat.snapEngageInstance.startLink();
+                trackEvent('Contact', 'click', 'cta', 'chat')
             }
         } else {
             // @ts-ignore
@@ -36,6 +38,10 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
     }
 
     handleToggleExpander = () => {
+        if (!this.state.showCall) {
+            trackEvent('Contact', 'click', 'cta', 'phone')
+        }
+
         this.setState({ showCall: !this.state.showCall });
     }
 

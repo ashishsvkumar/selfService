@@ -17,6 +17,7 @@ import { isEmpty } from 'lodash';
 import { fetchRedMartOrders } from "../../../store/package/actions"
 import { Constants } from "../../../config/constants";
 import { ProtectedLink } from "../../wrappers/AuthWrapper";
+import { trackPageView, trackEvent } from "../../../utils/tracker";
 
 
 class ChatEntry extends React.Component<ChatEntryProps, {}> {
@@ -34,6 +35,8 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
         if (this.props.shouldFetchOrders) {
             this.props.fetchRedMartOrders();
         }
+
+        trackPageView('Contact RedMart')
     }
 
     ordersLink = () => {
@@ -66,11 +69,13 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
             }
             
             this.props.chat.snapEngageInstance.startLink();
+            trackEvent('Contact', 'click', 'cta', 'chat')
         }
     }
 
     onMore = () => {
         this.props.showMessage('Contact Us', PopupText(), 'Close');
+        trackEvent('Contact', 'click', 'cta', 'phone')
     }
     
     render() {
