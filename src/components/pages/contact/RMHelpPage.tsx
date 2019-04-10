@@ -28,6 +28,8 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
             return 'Category';
         } else if (path.indexOf('faq') >= 0) {
             return 'FAQ';
+        } else if (path.indexOf('orders') >= 0) {
+            return 'Order';
         }
         return undefined;
     }
