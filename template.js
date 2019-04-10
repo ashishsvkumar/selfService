@@ -72,7 +72,6 @@ function prepareTemplate(head, header, footer, isMobile) {
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
             ga('create', 'UA-26494190-22', 'auto');
-            ga('send', 'pageview');
         </script>
         <!-- End Google Analytics -->
     </head>
