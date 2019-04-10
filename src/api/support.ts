@@ -47,9 +47,11 @@ export function uploadFile(name: string, fileUncompressed: File,
             if (response.status === 201) {
                 log.info('File uploaded', response.statusText);
                 callback(response.data.token);
+                trackEvent('Attachment', 'upload', 'host', isMobile() ? 'mobile-web' : 'desktop-web');
             } else {
                 log.error('File uploade failed', response);
                 callback(null);
+                trackEvent('Attachment', 'failure', 'host', isMobile() ? 'mobile-web' : 'desktop-web');
             }
         }).catch(err => {
             log.error('Error while uploading the file', err);

@@ -9,6 +9,8 @@ import * as log from 'loglevel';
 import { random } from "../../../utils/extras";
 import { connect } from "react-redux";
 import { showMessage } from "../../../store/alert/actions";
+import { trackEvent } from "../../../utils/tracker";
+import { isMobile } from "../../../config/environment";
 
 class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
@@ -111,7 +113,9 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
             images: [...this.state.images, { name: name, type: file.type, progress: 0, failed: false, uploaded: false, thumbnail: URL.createObjectURL(file), fileObject: file, addedOn: now }]
         }, () => {
             uploadFile(name, file, this.onProgress, this.onCancelCallbackReady, (url) => this.onComplete(name, url));
-        })
+        });
+
+        trackEvent('Attachment', 'selection', 'host', isMobile() ? 'mobile-web' : 'desktop-web');
     }
 
     onWindvaneFileSelect = (url: string) => {
@@ -137,6 +141,9 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
     onTriggerWindvaneFile = () => {
         takePhoto(this.onWindvaneFileSelect);
+        getHostEnvironment().then(host => {
+            trackEvent('Attachment', 'selection', 'host', host);
+        });
     }
 
     onGoingUpload = () => {

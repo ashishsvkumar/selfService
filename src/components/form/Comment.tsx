@@ -3,6 +3,7 @@ import * as styles from "./Comment.scss";
 import cx from "classnames";
 import { isEmptyString } from "../../utils/extras";
 import { WarningIcon } from "../icons/WarningIcon";
+import { trackEvent } from "../../utils/tracker";
 
 export class Comment extends React.Component<CommentProps, CommentState> {
 
@@ -30,12 +31,16 @@ export class Comment extends React.Component<CommentProps, CommentState> {
                     this.props.onChange(text);
                 }
             });
+
+            trackEvent('Comment', 'enable');
         } else {
             this.setState({ hideCommentBox: true, savedComment: this.commentRef.current.value }, () => {
                 if (this.props.onChange) {
                     this.props.onChange(null);
                 }
             });
+
+            trackEvent('Comment', 'enable');
         }
     }
 

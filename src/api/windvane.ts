@@ -1,4 +1,5 @@
 import * as log from 'loglevel';
+import { trackEvent } from '../utils/tracker';
 // @ts-ignore
 const windvane = window.WindVane;
 
@@ -72,10 +73,14 @@ export function takePhoto(callback: (url: string) => void) {
             log.info('User has selected an image on iOS', response);
             callback(response.resourceURL);
 
+            trackEvent('Attachment', 'upload', 'host', host);
+
         }).catch((err: any) => {
 
             log.warn('User has cancelled image selection on iOS', err);
             callback(null);
+
+            trackEvent('Attachment', 'failure', 'host', host);
             
         });
 
