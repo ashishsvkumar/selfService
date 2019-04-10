@@ -28,7 +28,7 @@ export class OrdersPage extends React.Component<OrdersPageProps, OrdersPageState
             this.props.fetchRedMartOrders();
         }
 
-        trackPageView('My RedMart Orders')
+        trackPageView("Orders List Page")
     }
 
     render() {

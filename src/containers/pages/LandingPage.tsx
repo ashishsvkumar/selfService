@@ -24,7 +24,7 @@ export class LandingPage extends React.Component<LandingPageProps, LandingPageSt
             this.props.fetchRedMartOrders();
         }
 
-        trackPageView('RedMart Helpcenter')
+        trackPageView('Homepage')
     }
 
     render() {
