@@ -16,6 +16,7 @@ import { Comment } from "../../form/Comment";
 import { RedMartOrder } from "../../../store/package/types";
 import { Constants } from "../../../config/constants";
 import { trackEvent } from "../../../utils/tracker";
+import {isEmpty} from 'lodash';
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, ItemLevelHelpPageState> {
 
@@ -34,6 +35,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
                 });
             });
             this.setState({ slideInPopup: !this.state.slideInPopup, selectedItems: selected })
+
+            trackEvent('Order help', 'items selection', 'count', `${selected.length}`);
         } else {
             this.setState({ slideInPopup: !this.state.slideInPopup })
         }
@@ -67,6 +70,10 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
             this.setState({
                 warning: undefined
             });
+        }
+
+        if (!isEmpty(newIssue)) {
+            issueList.filter(is => is.value == newIssue).forEach(is => trackEvent('Item Issue', 'Selected', is.displayText, is.value));
         }
     }
 
