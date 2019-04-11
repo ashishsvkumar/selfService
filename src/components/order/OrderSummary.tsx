@@ -74,6 +74,10 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         }
     }
 
+    shouldShowOrderLink = () => {
+        return this.props.linkTo === LinkTo.ORDER_DETAIL && !(!isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0));
+    }
+
     render() {
         const { status, items, linkTo, hideHelpLink = false } = this.props;
         const thumbnailClass = cx({ [styles.thumbnails]: true, [styles.greyscale]: status === 'Cancelled' })
@@ -89,7 +93,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                 <div className={thumbnailClass}>
                     {itemsForThumbnail.map(im => im === null ? null : im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
                     {linkTo === LinkTo.ORDER_HELP && !hideHelpLink && <div className={styles.help_btn}>Get Help</div>}
-                    {linkTo === LinkTo.ORDER_DETAIL && <div className={cx([styles.help, styles.only_desktop])}>View Order Details</div>}
+                    {this.shouldShowOrderLink() && <div className={cx(styles.help)}>View Order Details</div>}
                     <div className={cx([styles.status, styles.only_desktop])} style={{ color: this.statusColor() }}>{status}</div>
                     <div className={styles.clear}></div>
                 </div>

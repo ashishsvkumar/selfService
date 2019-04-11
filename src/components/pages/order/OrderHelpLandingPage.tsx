@@ -38,14 +38,6 @@ export interface HelpLink {
 }
 
 const helpLinks = (order: RedMartOrder): HelpLink[] => [
-    // For All
-    { 
-        text: "I want to check my order details", 
-        url: prepareOrderDetailsLink(order.tradeOrderId), 
-        shouldEnable: () => isMobile() && !(!isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0))
-     },
-
-
     // Payment pending
     {
         text: 'How do I make payment for a pending order?',
