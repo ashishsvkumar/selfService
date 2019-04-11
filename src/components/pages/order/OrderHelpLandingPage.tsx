@@ -31,7 +31,7 @@ function prepareCard(link: HelpLink) {
     return <div className={styles.only_desktop} style={{ marginBottom: '10px' }} key={`desktop-${link.text}`}><NavigationCard text={link.text} to={link.url} theme={Theme.CARD} /></div>;
 }
 
-interface HelpLink {
+export interface HelpLink {
     text: string,
     url: string,
     shouldEnable: () => boolean

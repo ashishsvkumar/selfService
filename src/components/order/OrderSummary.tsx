@@ -5,7 +5,8 @@ import { ArrowIcon } from "../icons/ArrowIcon";
 import * as moment from "moment";
 import cx from "classnames";
 import { RedMartOrder } from "../../store/package/types";
-import { prepareOrderDetailsLink } from "../pages/order/OrderHelpLandingPage";
+import { prepareOrderDetailsLink, HelpLink } from "../pages/order/OrderHelpLandingPage";
+import { isEmpty } from "lodash";
 
 export const enum LinkTo {
     ORDER_HELP = "order-help",
@@ -119,9 +120,10 @@ export const RecentOrderCard = (props: OrderSummaryProps) => {
         <div className={cx([styles.content, styles.card, styles.pack])}>
             <div className={styles.recent}>Most Recent Order</div>
             <OrderSummarySubcard {...props}/>
+            <div className={styles.actions}>{prepareExtraLink(props)}</div>
             <ProtectedLink className={styles.all_orders} to="/orders">
-                <div className={styles.arrow}><ArrowIcon /></div>
                 <div className={styles.help}><span>View More Orders</span></div>
+                <div className={styles.arrow}><ArrowIcon /></div>
                 <div className={styles.arrow_2}><ArrowIcon /></div>
                 <div className={styles.clear}></div>
             </ProtectedLink>
@@ -139,6 +141,18 @@ function prepareOrderHelpLink(linkTo: LinkTo, tradeOrderId: string) {
     }
 }
 
+function prepareExtraLink(props: OrderSummaryProps) {
+    return (
+        <React.Fragment>
+            { helpLinks(props).filter(link => link.shouldEnable())
+                .map(link => <ProtectedLink className={styles.action} to={link.url}>
+                        <div>{link.text}</div><div className={styles.arrow}><ArrowIcon /></div>
+                    </ProtectedLink>) 
+            }
+        </React.Fragment>
+    );
+}
+
 interface OrderSummaryState {
 
 }
@@ -148,3 +162,25 @@ interface ExtraProps {
 }
 
 export type OrderSummaryProps = RedMartOrder & ExtraProps;
+
+
+
+//-------------------
+
+const helpLinks = (order: RedMartOrder): HelpLink[] => [
+    { 
+        text: "Report a missing item", 
+        url: `/orders/${order.tradeOrderId}/help/missing`, 
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+    },
+    { 
+        text: "Report an issue with received items", 
+        url: `/orders/${order.tradeOrderId}/help/damaged`, 
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+    },
+    {
+        text: (["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)) ? 'More Help' : 'Get Help',
+        url: `/orders/${order.tradeOrderId}`,
+        shouldEnable: () => true
+    }
+];
