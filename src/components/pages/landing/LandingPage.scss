@@ -4,17 +4,19 @@
     padding: 20px 14px;
 }
 
+.panel {
+    background-color: white;
+    margin: -4px -14px 18px;
+    padding: 14px 14px;
+}
+
 .cards {
-    margin-top: 12px;
+    margin-top: 34px;
 }
 
 .first_card {
-    margin-bottom: 20px;
+    margin-top: 12px;
 }
-
-// .hue_box {
-//     display: none;
-// }
 
 .hue_box {
     position: relative;
@@ -28,7 +30,7 @@
     text-align: center;
     font-size: 18px;
     color: white;
-    padding: 41px 12px;
+    padding: 36px 12px;
     margin: -20px -14px;
 }
 
