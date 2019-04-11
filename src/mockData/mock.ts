@@ -10,7 +10,7 @@ import { o7 } from "./o7"
 import { o8 } from "./o8"
 import { isEmptyObject } from '../utils/extras';
 
-const orders = [o1, o2, o3, o4, o5, o6, o7];
+const orders = [o7, o1, o2, o3, o4, o5, o6];
 
 export function mockOrders() {
     // @ts-ignore
