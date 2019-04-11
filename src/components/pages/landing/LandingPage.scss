@@ -12,8 +12,24 @@
     margin-bottom: 20px;
 }
 
+// .hue_box {
+//     display: none;
+// }
+
 .hue_box {
-    display: none;
+    position: relative;
+    display: block;
+    background-image: linear-gradient(to top, #e36f5b, #de4d55);
+    background-image: url('../../../assets/orange-hue.png');
+    border: 1px solid #ed612b;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 100px; */
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    padding: 41px 12px;
+    margin: -20px -14px;
 }
 
 .other_cards {
@@ -34,7 +50,7 @@
     .hue_box {
         position: relative;
         display: block;
-        // background-image: url('../../../assets/orange-hue.jpg');
+        // background-image: url('../../../assets/orange-hue.png');
         background-image: linear-gradient(to top, rgb(227, 111, 91), rgb(222, 77, 85));
         border: 1px solid #ed612b;
         background-repeat: no-repeat;
