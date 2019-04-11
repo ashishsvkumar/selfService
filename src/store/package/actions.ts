@@ -8,6 +8,7 @@ import * as moment from "moment";
 import * as log from "loglevel";
 import { clearSession } from "../../utils/session";
 import { showAlert, hideAlert } from "../alert/actions";
+import { currentEnvironment, Environments } from "../../config/environment";
 
 const request = () => action(RedMartOrderActionTypes.FETCH);
 const success = (data: RedMartOrder[]) => action(RedMartOrderActionTypes.SUCCESS, data);
@@ -187,6 +188,10 @@ function aggregateItemsBySkuId(listOfLists: any) {
 }
 
 function pastThreshold(tradeOrderId: string, slot: moment.Moment): boolean {
+    if (currentEnvironment === Environments.preLive) {
+        return false;
+    }
+
     const eightDaysInPast = moment().subtract(21, 'd');
     log.info('Order', tradeOrderId, 'dated', slot.format('DD-MM-YYYY'), `${slot.isBefore(eightDaysInPast) ? 'is' : 'is not' } past thereshold`);
     return slot.isBefore(eightDaysInPast);

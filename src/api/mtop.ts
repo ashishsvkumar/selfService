@@ -1,6 +1,5 @@
 import { mockOrders, mockDetails, mockUser } from "../mockData/mock";
 import { currentEnvironment, Environments } from "../config/environment";
-const useMock: boolean = location.search.indexOf('mock=true') >= 0;
 
 // @ts-ignore
 const Mtop = window.lib.mtop;
@@ -31,7 +30,7 @@ const DEFAULT_CONFIG = {
 };
 
 export function orderList(): Promise<any> {
-  if (useMock) {
+  if (currentEnvironment === Environments.preLive) {
     return mockOrders();
   }
 
@@ -47,7 +46,7 @@ export function orderList(): Promise<any> {
 }
 
 export function orderDetails(id: string): Promise<any> {
-  if (useMock) {
+  if (currentEnvironment === Environments.preLive) {
     return mockDetails(id);
   }
 
@@ -64,7 +63,7 @@ export function orderDetails(id: string): Promise<any> {
 
 
 export function memberDetails(userId: string, sessionId: string): Promise<any> {
-  if (useMock) {
+  if (currentEnvironment === Environments.preLive) {
     return mockUser();
   }
 

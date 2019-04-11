@@ -1,10 +1,10 @@
 import { get as getCookie, remove } from "es-cookie";
 import { isEmptyString } from "./extras";
 import { isWindVandAvailable, initiateLogin } from "../api/windvane";
+import { currentEnvironment, Environments } from "../config/environment";
 
 const USER_ID_KEY = "lzd_uid";
 const SESSION_ID_KEY = "lzd_sid";
-const useMock: boolean = false;
 
 function cookieDomain() {
   let domain;
@@ -15,7 +15,7 @@ function cookieDomain() {
 }
 
 export function isLoggedIn() {
-  if (useMock) {
+  if (currentEnvironment === Environments.preLive) {
     return true;
   }
 
@@ -29,7 +29,7 @@ export function clearSession() {
 }
 
 export function getUserId() {
-  if (useMock) {
+  if (currentEnvironment === Environments.preLive) {
     return '1904097086';
   }
 
@@ -38,7 +38,7 @@ export function getUserId() {
 }
 
 export function getSessionId() {
-  if (useMock) {
+  if (currentEnvironment === Environments.preLive) {
     return 'foo-bar';
   }
 

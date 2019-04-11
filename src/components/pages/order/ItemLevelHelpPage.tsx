@@ -161,6 +161,11 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         this.props.createTicket(ticket);
 
         trackEvent('Ticket', 'Creation', 'submission', this.props.helpCategory);
+        if (this.props.helpCategory === Category.missing) {
+            this.state.selectedItems.forEach(im => {
+                trackEvent('Item Issue', 'Selected', 'The item is missing', Constants.MISSING_REASON_CODE_SECONDARY)
+            });
+        }
     }
 
     issuesView = () => {
