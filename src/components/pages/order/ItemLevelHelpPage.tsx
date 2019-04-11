@@ -73,7 +73,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         }
 
         if (!isEmpty(newIssue)) {
-            issueList.filter(is => is.value == newIssue).forEach(is => trackEvent('Item Issue', 'Selected', is.displayText, is.value));
+            issueList.filter(is => is.value == newIssue).forEach(is => trackEvent('Item Issue', 'Selected', is.displayText, '1'));
         }
     }
 
@@ -163,7 +163,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         trackEvent('Ticket', 'Creation', 'submission', this.props.helpCategory);
         if (this.props.helpCategory === Category.missing) {
             this.state.selectedItems.forEach(im => {
-                trackEvent('Item Issue', 'Selected', 'The item is missing', Constants.MISSING_REASON_CODE_SECONDARY)
+                trackEvent('Item Issue', 'Selected', 'The item is missing', '1');
             });
         }
     }
