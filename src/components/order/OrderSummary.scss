@@ -242,6 +242,17 @@
 
 @media (min-width: 992px) { 
 
+    .actions {
+        float: right;
+        padding-top: 6px;
+
+        a {
+            > div:last-child {
+                float: none;
+            }
+        }
+    }
+
     .help_btn {
         border-color: #1a9cb7;
         color: #1a9cb7;

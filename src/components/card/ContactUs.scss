@@ -148,6 +148,10 @@
         margin-right: 10px;
         padding: 14px 12px 11px 12px;
 
+        &:only-child {
+            width: 160px;
+        }
+
         &:first-child {
             border-right: 1px solid #ff330c;
         }
@@ -164,5 +168,10 @@
         color: #666666;
         font-size: 14px;
         margin-top: 8px;
+        margin-bottom: -12px;
+    }
+
+    .more {
+        color: #479ab4;
     }
 }

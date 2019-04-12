@@ -17,19 +17,17 @@ export const ContactUs = (props: ContactUsProps) => {
                 </div>
             </div>
             <div className={styles.only_desktop}>
-                <div className={cx([styles.only_desktop, styles.title])}>Need further help?</div>
-                <div className={styles.subtitle}>Our customer support team will be here to assist you.</div>
+                <div className={cx([styles.only_desktop, styles.title])}>Want to talk to someone?</div>
+                <div className={styles.subtitle}>Can’t find the answer you are looking for RedMart? Chat with our friendly Customer Support officers.</div>
                 <div className={styles.btns}>
                     <div className={styles.btn} onClick={props.onChatClick}>
                         <div className={styles.chat} />
                         <div className={styles.label}>{props.chatMessage}</div>
                     </div>
-                    <div className={cx([styles.btn, styles.disabled])} onClick={props.onMoreClick}>
-                        <div className={styles.chat} />
-                        <div className={styles.label}>Other Options</div>
-                    </div>
                 </div>
                 <div className={styles.subtext}>{Constants.OPERATION_TIME}</div>
+                <br/>
+                <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={props.onMoreClick}>Click here.</span></div>
             </div>
         </div>
     )

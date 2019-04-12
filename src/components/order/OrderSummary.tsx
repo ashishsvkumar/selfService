@@ -79,7 +79,7 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
     }
 
     render() {
-        const { status, items, linkTo, hideHelpLink = false } = this.props;
+        const { status, items, linkTo, showMultipleActions = false } = this.props;
         const thumbnailClass = cx({ [styles.thumbnails]: true, [styles.greyscale]: status === 'Cancelled' })
         const itemsForThumbnail = items.concat([null, null, null]).slice(0, 4)
 
@@ -92,7 +92,8 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                 </div>
                 <div className={thumbnailClass}>
                     {itemsForThumbnail.map(im => im === null ? null : im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
-                    {linkTo === LinkTo.ORDER_HELP && !hideHelpLink && <div className={styles.help_btn}>Get Help</div>}
+                    {linkTo === LinkTo.ORDER_HELP && !showMultipleActions && <div className={styles.help_btn}>Get Help</div>}
+                    {showMultipleActions && <div className={cx([styles.actions, styles.only_desktop])}>{prepareExtraLink(this.props)}</div>}
                     {this.shouldShowOrderLink() && <div className={cx(styles.help)}>View Order Details</div>}
                     <div className={cx([styles.status, styles.only_desktop])} style={{ color: this.statusColor() }}>{status}</div>
                     <div className={styles.clear}></div>
@@ -122,9 +123,9 @@ export const OrderSummarySubcard = (props: OrderSummaryProps) => {
 export const RecentOrderCard = (props: OrderSummaryProps) => {
     return (
         <div className={cx([styles.content, styles.card, styles.pack])}>
-            <div className={styles.recent}>&nbsp;</div>
-            <OrderSummarySubcard {...props} hideHelpLink={true}/>
-            <div className={styles.actions}>{prepareExtraLink(props)}</div>
+            <div className={cx([styles.recent, styles.only_mobile])}>&nbsp;</div>
+            <OrderSummarySubcard {...props} showMultipleActions={true}/>
+            <div className={cx([styles.actions, styles.only_mobile])}>{prepareExtraLink(props)}</div>
             <ProtectedLink className={styles.all_orders} to="/orders">
                 <div className={styles.help}><span>View More Orders</span></div>
                 <div className={styles.arrow}><ArrowIcon /></div>
@@ -163,7 +164,7 @@ interface OrderSummaryState {
 
 interface ExtraProps {
     linkTo?: LinkTo,
-    hideHelpLink?: boolean
+    showMultipleActions?: boolean
 }
 
 export type OrderSummaryProps = RedMartOrder & ExtraProps;
