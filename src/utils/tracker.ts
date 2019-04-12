@@ -4,7 +4,7 @@ import { currentEnvironment, Environments } from '../config/environment';
 
 function getGA() {
     if (currentEnvironment === Environments.preLive) {
-        return () => {};
+        return (...args) => log.info('Mock GA:', args);
     }
 
     // @ts-ignore
