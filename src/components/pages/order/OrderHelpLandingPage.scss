@@ -47,3 +47,35 @@
         margin-top: 8px;
     }
 }
+
+
+@media (min-width: 992px) { 
+    .panel {
+        border: none;
+        padding: 16px 0;
+
+        > div.only_desktop {
+            width: calc(50% - 8px);
+            display: inline-block;
+            margin-right: 16px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .title {
+            > div {
+                &:last-child {
+                    padding-bottom: 6px;
+                }
+            }
+        }
+
+        .icon {
+            background-size: 20px;
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
