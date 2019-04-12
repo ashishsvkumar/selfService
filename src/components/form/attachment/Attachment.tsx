@@ -119,6 +119,10 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
     }
 
     onWindvaneFileSelect = (url: string) => {
+        if (this.props.notifyOnProgress) {
+            this.props.notifyOnProgress(false);
+        }
+
         if (url === null) {
             return;
         }
@@ -141,6 +145,10 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
     onTriggerWindvaneFile = () => {
         takePhoto(this.onWindvaneFileSelect);
+        if (this.props.notifyOnProgress) {
+            this.props.notifyOnProgress(true);
+        }
+
         getHostEnvironment().then(host => {
             trackEvent('Attachment', 'selection', 'host', host);
         });
