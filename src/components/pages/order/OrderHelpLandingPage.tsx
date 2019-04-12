@@ -1,10 +1,11 @@
 import * as React from "react";
 import { NavigationCard, Theme } from "../../card/NavigationCard";
 import { OrderHelpPage } from "./OrderHelpPage"
-import * as styles from "../../../base.scss";
+import * as styles from "./OrderHelpLandingPage.scss";
 import { RedMartOrder } from "../../../store/package/types";
 import { currentEnvironment, Environments, isMobile } from "../../../config/environment";
 import { isEmpty } from "lodash";
+import cx from "classnames";
 
 export const OrderHelpLandingPage = (props: OrderHelpLandingPageProps) => {
     return <OrderHelpPage title="Order Help" body={prepareHelpLinks(props)} order={props} />
@@ -13,18 +14,44 @@ export const OrderHelpLandingPage = (props: OrderHelpLandingPageProps) => {
 export type OrderHelpLandingPageProps = RedMartOrder;
 
 function prepareHelpLinks(props: OrderHelpLandingPageProps) {
-    const links = helpLinks(props).filter(link => link.shouldEnable())
-
     return (
         <div style={{ marginTop: '-2px' }}>
-            {links.map(prepareStrip)}
-            {links.map(prepareCard)}
+            {prepareActions(props)}
+            {prepareFAQs(props)}
         </div>
     )
 }
 
+function prepareActions(order: OrderHelpLandingPageProps) {
+    const links = helpLinks(order).filter(link => link.shouldEnable()).filter(link => link.isCTA === true)
+    return (
+        <div className={cx([styles.panel, styles.highlighted])}>
+            <div className={styles.title}>
+                <div className={cx([styles.icon, styles.cta_icon])}></div>
+                <div>Report an issue</div>
+            </div>
+            {links.map(prepareStrip)}
+            {links.map(prepareCard)}
+        </div>
+    );
+}
+
+function prepareFAQs(order: OrderHelpLandingPageProps) {
+    const links = helpLinks(order).filter(link => link.shouldEnable()).filter(link => link.isCTA === undefined || link.isCTA === false)
+    return (
+        <div className={styles.panel}>
+            <div className={styles.title}>
+                <div className={cx([styles.icon, styles.faq_icon])}></div>
+                <div>FAQs</div>
+            </div>
+            {links.map(prepareStrip)}
+            {links.map(prepareCard)}
+        </div>
+    );
+}
+
 function prepareStrip(link: HelpLink) {
-    return <div className={styles.only_mobile} key={`mobile-${link.url}`}><NavigationCard text={link.text} to={link.url} theme={Theme.STRIP} /></div>;
+    return <div className={styles.only_mobile} key={`mobile-${link.url}`}><NavigationCard text={link.text} to={link.url} theme={link.isCTA ? Theme.CARD : Theme.STRIP} /></div>;
 }
 
 function prepareCard(link: HelpLink) {
@@ -34,10 +61,12 @@ function prepareCard(link: HelpLink) {
 export interface HelpLink {
     text: string,
     url: string,
-    shouldEnable: () => boolean
+    shouldEnable: () => boolean,
+    isCTA?: boolean
 }
 
 const helpLinks = (order: RedMartOrder): HelpLink[] => [
+
     // Payment pending
     {
         text: 'How do I make payment for a pending order?',
@@ -92,12 +121,14 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
     { 
         text: "I have missing items", 
         url: `/orders/${order.tradeOrderId}/help/missing`, 
-        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems),
+        isCTA: true
     },
     { 
         text: "I have issues with my received items", 
         url: `/orders/${order.tradeOrderId}/help/damaged`, 
-        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems),
+        isCTA: true
     },
     {
         text: 'Can I return items to Redmart?',
