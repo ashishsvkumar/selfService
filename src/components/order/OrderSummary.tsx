@@ -149,7 +149,7 @@ function prepareExtraLink(props: OrderSummaryProps) {
     return (
         <React.Fragment>
             { helpLinks(props).filter(link => link.shouldEnable())
-                .map(link => <ProtectedLink className={styles.action} to={link.url}>
+                .map(link => <ProtectedLink className={styles.action} to={link.url} key={link.url}>
                         <div>{link.text}</div><div className={styles.arrow}><ArrowIcon /></div>
                     </ProtectedLink>) 
             }

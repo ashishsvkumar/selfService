@@ -6,6 +6,7 @@ import { RedMartOrder } from "../../../store/package/types";
 import { currentEnvironment, Environments, isMobile } from "../../../config/environment";
 import { isEmpty } from "lodash";
 import cx from "classnames";
+import ContactUs from "../../../containers/partials/ContactUs";
 
 export const OrderHelpLandingPage = (props: OrderHelpLandingPageProps) => {
     return <OrderHelpPage title="Order Help" body={prepareHelpLinks(props)} order={props} />
@@ -18,6 +19,7 @@ function prepareHelpLinks(props: OrderHelpLandingPageProps) {
         <div style={{ marginTop: '-2px' }}>
             {prepareActions(props)}
             {prepareFAQs(props)}
+            <ContactUs />
         </div>
     )
 }
@@ -166,13 +168,6 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
         text: 'What happens if I cancel an order that I applied a voucher to?',
         url: `/orders/${order.tradeOrderId}/faq/360019817993`,
         shouldEnable: () => ["Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
-    },
-
-    // For all
-    { 
-        text: "Need more help?", 
-        url: `/orders/${order.tradeOrderId}/contact`,
-        shouldEnable: () => isMobile() 
     }
 ]
 
