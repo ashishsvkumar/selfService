@@ -67,7 +67,7 @@
         .title {
             > div {
                 &:last-child {
-                    padding-bottom: 6px;
+                    padding-bottom: 4px;
                 }
             }
         }
@@ -76,6 +76,37 @@
             background-size: 20px;
             width: 24px;
             height: 24px;
+        }
+
+        &:not(.highlighted) {
+
+            > div.only_desktop {
+                border: none;
+                display: block;
+                width: auto;
+                padding: 0;
+
+                > a {
+                    border: none;
+                    opacity: 0.9;
+                    padding: 8px 0;
+                    font-size: 18px;
+
+                    > div:nth-child(2) {
+                        display: none;
+                    }
+
+                    &:hover {
+                        box-shadow: none;
+                        opacity: 0.95;
+                    }
+
+                    &:active, &:focus {
+                        opacity: 1;
+                        box-shadow: none;
+                    }
+                }
+            }
         }
     }
 }
