@@ -7,6 +7,7 @@ import { currentEnvironment, Environments, isMobile } from "../../../config/envi
 import { isEmpty } from "lodash";
 import cx from "classnames";
 import ContactUs from "../../../containers/partials/ContactUs";
+import { link } from "fs";
 
 export const OrderHelpLandingPage = (props: OrderHelpLandingPageProps) => {
     return <OrderHelpPage title="Order Help" body={prepareHelpLinks(props)} order={props} />
@@ -26,6 +27,10 @@ function prepareHelpLinks(props: OrderHelpLandingPageProps) {
 
 function prepareActions(order: OrderHelpLandingPageProps) {
     const links = helpLinks(order).filter(link => link.shouldEnable()).filter(link => link.isCTA === true)
+    if (isEmpty(links)) {
+        return null;
+    }
+
     return (
         <div className={cx([styles.panel, styles.highlighted])}>
             <div className={styles.title}>
@@ -40,6 +45,10 @@ function prepareActions(order: OrderHelpLandingPageProps) {
 
 function prepareFAQs(order: OrderHelpLandingPageProps) {
     const links = helpLinks(order).filter(link => link.shouldEnable()).filter(link => link.isCTA === undefined || link.isCTA === false)
+    if (isEmpty(links)) {
+        return null;
+    }
+
     return (
         <div className={styles.panel}>
             <div className={styles.title}>
