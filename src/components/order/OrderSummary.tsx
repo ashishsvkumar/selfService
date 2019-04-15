@@ -175,7 +175,7 @@ export type OrderSummaryProps = RedMartOrder & ExtraProps;
 
 const helpLinks = (order: RedMartOrder): HelpLink[] => [
     { 
-        text: "Report a missing item", 
+        text: "Report missing items", 
         url: `/orders/${order.tradeOrderId}/help/missing`, 
         shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
     },

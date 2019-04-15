@@ -130,13 +130,13 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
 
     // Delivered
     { 
-        text: "I have missing items", 
+        text: "Report missing items", 
         url: `/orders/${order.tradeOrderId}/help/missing`, 
         shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems),
         isCTA: true
     },
     { 
-        text: "I have issues with my received items", 
+        text: "Report an issue with received items", 
         url: `/orders/${order.tradeOrderId}/help/damaged`, 
         shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems),
         isCTA: true

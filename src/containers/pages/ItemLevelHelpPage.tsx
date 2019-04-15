@@ -15,6 +15,7 @@ import { RedMartOrder } from "../../store/package/types";
 import { isEmpty, get } from 'lodash';
 import { NotFound } from "../../components/pages/notFound/NotFound";
 import { trackPageView } from "../../utils/tracker";
+import { setTitle } from "../../utils/container";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {}> {
 
@@ -24,7 +25,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
 
     componentWillMount() {
         log.info('Item level help page countainer will mount for order 📝', this.props.match.params.tradeOrderId);
-        const title = this.props.match.params.category === Category.missing ? 'I have missing items' : 'I have problem with the received items';
+        const title = this.props.match.params.category === Category.missing ? 'Report missing items' : 'Report an issue with received items';
 
         this.props.setBreadcrumbs([
             { text: 'My RedMart Orders', url: '/orders', needLogin: true },
@@ -36,7 +37,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
             this.props.fetchRedMartOrder(this.props.match.params.tradeOrderId);
         }
 
-        trackPageView(`Order Help: items ${this.props.match.params.category}`)
+        trackPageView(`Order Help: items ${this.props.match.params.category}`);
+        setTitle(title);
     }
 
     unknownHelp = () => {

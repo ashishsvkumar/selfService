@@ -9,7 +9,7 @@ export const OrderHelpPage = (props: OrderHelpPageProps) => {
 
     return (
         <div className={styles.content}>
-            <div className={styles.desktop_title}>Order Help</div>
+            <div className={styles.desktop_title}>{props.title || 'Order Help'}</div>
             <div className={styles.order_summary}>{prepareOrderCard(props.order)}</div>
             {props.body && <div className={styles.body}>{props.body}</div>}
         </div>

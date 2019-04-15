@@ -47,7 +47,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     getTitle = () => {
-        return this.props.helpCategory === Category.missing ? 'Missing Items' : 'Issue with Received Items'
+        return this.props.helpCategory === Category.missing ? 'Report missing items' : 'Report an issue with received items';
     }
 
     getLabel = () => {
