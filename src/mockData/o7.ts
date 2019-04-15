@@ -41,7 +41,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -75,7 +75,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -109,7 +109,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -149,7 +149,7 @@ export const o7: any = {
                 "id": "8495707897086",
                 "type": "biz",
                 "fields": {
-                    "createdAt": "Placed on 18 Feb 2019  11:59:28",
+                    "createdAt": "Placed on 27 Feb 2019  11:59:28",
                     "total": "SGD77.24",
                     "visaCode": "Paid by card xxxx-8744",
                     "authCode": "Authorization Code 133906",
@@ -163,7 +163,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -228,7 +228,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -277,7 +277,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "leadingTimeInfo": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "title": "Delivery Time"
                     },
                     "isLiveUp": false,
@@ -304,7 +304,7 @@ export const o7: any = {
                             "code": "5",
                             "describeText": "Please collect item for return/exchange upon delivery"
                         }],
-                        "pageTitle": "Mon 18 Feb, 12pmSelected Time",
+                        "pageTitle": "Mon 27 Feb, 12pmSelected Time",
                         "selectedInstruction": {
                             "code": "2",
                             "describeText": "Please call upon arrival"
@@ -357,7 +357,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -392,7 +392,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -427,7 +427,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -462,7 +462,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -497,7 +497,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -532,7 +532,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -567,7 +567,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -602,7 +602,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -637,7 +637,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -672,7 +672,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"
@@ -707,7 +707,7 @@ export const o7: any = {
                 "type": "biz",
                 "fields": {
                     "delivery": {
-                        "desc": "Delivered on Mon 18 Feb, 12pm",
+                        "desc": "Delivered on Mon 27 Feb, 12pm",
                         "email": "burhan+1@redmart.com",
                         "method": "Scheduled Delivery",
                         "status": "success"

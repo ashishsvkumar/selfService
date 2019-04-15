@@ -4,16 +4,36 @@
     padding: 20px 14px;
 }
 
+.panel {
+    background-color: white;
+    margin: -4px -14px 18px;
+    padding: 14px 14px;
+    border-top: 1px solid $border_grey;
+    border-bottom: 1px solid $border_grey;
+}
+
 .cards {
-    margin-top: 12px;
+    margin-top: 34px;
 }
 
 .first_card {
-    margin-bottom: 20px;
+    margin-top: 12px;
 }
 
 .hue_box {
-    display: none;
+    position: relative;
+    display: block;
+    background-image: linear-gradient(to top, #e36f5b, #de4d55);
+    background-image: url('../../../assets/orange-hue.png');
+    border: 1px solid #ed612b;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 100px; */
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    padding: 36px 12px;
+    margin: -20px -14px;
 }
 
 .other_cards {
@@ -34,7 +54,7 @@
     .hue_box {
         position: relative;
         display: block;
-        // background-image: url('../../../assets/orange-hue.jpg');
+        // background-image: url('../../../assets/orange-hue.png');
         background-image: linear-gradient(to top, rgb(227, 111, 91), rgb(222, 77, 85));
         border: 1px solid #ed612b;
         background-repeat: no-repeat;

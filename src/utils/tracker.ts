@@ -1,10 +1,14 @@
 import * as log from 'loglevel';
 import { isWindVandAvailable } from '../api/windvane';
+import { currentEnvironment, Environments } from '../config/environment';
 
 function getGA() {
+    if (currentEnvironment === Environments.preLive) {
+        return (...args) => log.info('Mock GA:', args);
+    }
+
     // @ts-ignore
     const ga = window && window.ga;
-
     return ga;
 }
 

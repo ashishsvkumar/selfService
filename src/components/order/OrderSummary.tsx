@@ -5,7 +5,8 @@ import { ArrowIcon } from "../icons/ArrowIcon";
 import * as moment from "moment";
 import cx from "classnames";
 import { RedMartOrder } from "../../store/package/types";
-import { prepareOrderDetailsLink } from "../pages/order/OrderHelpLandingPage";
+import { prepareOrderDetailsLink, HelpLink } from "../pages/order/OrderHelpLandingPage";
+import { isEmpty } from "lodash";
 
 export const enum LinkTo {
     ORDER_HELP = "order-help",
@@ -73,8 +74,12 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
         }
     }
 
+    shouldShowOrderLink = () => {
+        return this.props.linkTo === LinkTo.ORDER_DETAIL && !(!isEmpty(document.referrer) && (document.referrer.indexOf('/support') < 0));
+    }
+
     render() {
-        const { status, items, linkTo } = this.props;
+        const { status, items, linkTo, showMultipleActions = false } = this.props;
         const thumbnailClass = cx({ [styles.thumbnails]: true, [styles.greyscale]: status === 'Cancelled' })
         const itemsForThumbnail = items.concat([null, null, null]).slice(0, 4)
 
@@ -87,8 +92,9 @@ export class OrderSummary extends React.Component<OrderSummaryProps, OrderSummar
                 </div>
                 <div className={thumbnailClass}>
                     {itemsForThumbnail.map(im => im === null ? null : im.thumbnail).map((url, index) => this.prepareItemthumnail(url, index))}
-                    {linkTo === LinkTo.ORDER_HELP && <div className={styles.help_btn}>Get Help</div>}
-                    {linkTo === LinkTo.ORDER_DETAIL && <div className={cx([styles.help, styles.only_desktop])}>View Order Details</div>}
+                    {linkTo === LinkTo.ORDER_HELP && !showMultipleActions && <div className={styles.help_btn}>Get Help</div>}
+                    {showMultipleActions && <div className={cx([styles.actions, styles.only_desktop])}>{prepareExtraLink(this.props)}</div>}
+                    {this.shouldShowOrderLink() && <div className={cx(styles.help)}>View Order Details</div>}
                     <div className={cx([styles.status, styles.only_desktop])} style={{ color: this.statusColor() }}>{status}</div>
                     <div className={styles.clear}></div>
                 </div>
@@ -117,11 +123,12 @@ export const OrderSummarySubcard = (props: OrderSummaryProps) => {
 export const RecentOrderCard = (props: OrderSummaryProps) => {
     return (
         <div className={cx([styles.content, styles.card, styles.pack])}>
-            <div className={styles.recent}>Most Recent Order</div>
-            <OrderSummarySubcard {...props}/>
+            <div className={cx([styles.recent, styles.only_mobile])}>&nbsp;</div>
+            <OrderSummarySubcard {...props} showMultipleActions={true}/>
+            <div className={cx([styles.actions, styles.only_mobile])}>{prepareExtraLink(props)}</div>
             <ProtectedLink className={styles.all_orders} to="/orders">
-                <div className={styles.arrow}><ArrowIcon /></div>
                 <div className={styles.help}><span>View More Orders</span></div>
+                <div className={styles.arrow}><ArrowIcon /></div>
                 <div className={styles.arrow_2}><ArrowIcon /></div>
                 <div className={styles.clear}></div>
             </ProtectedLink>
@@ -139,12 +146,47 @@ function prepareOrderHelpLink(linkTo: LinkTo, tradeOrderId: string) {
     }
 }
 
+function prepareExtraLink(props: OrderSummaryProps) {
+    return (
+        <React.Fragment>
+            { helpLinks(props).filter(link => link.shouldEnable())
+                .map(link => <ProtectedLink className={styles.action} to={link.url} key={link.url}>
+                        <div>{link.text}</div><div className={styles.arrow}><ArrowIcon /></div>
+                    </ProtectedLink>) 
+            }
+        </React.Fragment>
+    );
+}
+
 interface OrderSummaryState {
 
 }
 
 interface ExtraProps {
-    linkTo?: LinkTo
+    linkTo?: LinkTo,
+    showMultipleActions?: boolean
 }
 
 export type OrderSummaryProps = RedMartOrder & ExtraProps;
+
+
+
+//-------------------
+
+const helpLinks = (order: RedMartOrder): HelpLink[] => [
+    { 
+        text: "Report a missing item", 
+        url: `/orders/${order.tradeOrderId}/help/missing`, 
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+    },
+    { 
+        text: "Report an issue with received items", 
+        url: `/orders/${order.tradeOrderId}/help/damaged`, 
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)
+    },
+    {
+        text: (["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)) ? 'More Help' : 'Get Help',
+        url: `/orders/${order.tradeOrderId}`,
+        shouldEnable: () => true
+    }
+];

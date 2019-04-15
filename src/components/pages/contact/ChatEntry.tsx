@@ -85,10 +85,9 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                 <div className={styles.content}>
                     <div className={styles.title}>Hi, how can we help you?</div>
                     <div className={styles.cards}>
-                        {this.prepareCard('I want to update my delivery instructions', 'Updating shipping address and phone number is not supported', this.ordersLink(), true)}
-                        {this.prepareCard('I want to cancel my order', 'Cancellation is supported 17 hours before your delivery', this.ordersLink(), true)}
-                        {this.prepareCard('I want to report an issue for my received order', 'Request for a refund and provide your feedback', '/orders', true)}
-                        {/* {this.prepareCard('I have a question about a product or RedMart', 'Ask us about RedMart product features here', '/', false)} */}
+                        {this.prepareCard('Report an issue for my received order', 'Let us know about the missing or damaged items', '/orders', true)}
+                        {this.prepareCard('Update my delivery instructions', 'Updating shipping address and phone number is not supported', this.ordersLink(), true)}
+                        {this.prepareCard('Cancel my order', 'Only supported 17 hours before your delivery', this.ordersLink(), true)}
                     </div>
                     <div className={styles.others}>
                         <span>I have another question</span>

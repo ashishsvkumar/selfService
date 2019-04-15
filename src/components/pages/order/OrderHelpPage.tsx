@@ -18,20 +18,10 @@ export const OrderHelpPage = (props: OrderHelpPageProps) => {
 
 function prepareOrderCard(order: OrderSummaryProps) {
     return (
-        <React.Fragment>
-            <div className={styles.only_mobile}>
-                <OrderSummarySubcard
-                    {...order}
-                    linkTo={LinkTo.NONE}
-                />
-            </div>
-            <div className={styles.only_desktop}>
-                <OrderSummaryCard
-                    {...order}
-                    linkTo={LinkTo.ORDER_DETAIL}
-                />
-            </div>
-        </React.Fragment>
+        <OrderSummaryCard
+            {...order}
+            linkTo={LinkTo.ORDER_DETAIL}
+        />
     );
 }
 
