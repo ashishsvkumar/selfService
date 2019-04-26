@@ -27,7 +27,7 @@ export const ContactUs = (props: ContactUsProps) => {
                 </div>
                 <div className={styles.subtext}>{Constants.OPERATION_TIME}</div>
                 <br/>
-                <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={props.onMoreClick}>Click here.</span></div>
+                <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={props.onMoreClick}>Call us.</span></div>
             </div>
         </div>
     )

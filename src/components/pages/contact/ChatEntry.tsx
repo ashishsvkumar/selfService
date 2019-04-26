@@ -115,7 +115,7 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                         </div>
                         <div className={styles.timings}>{Constants.OPERATION_TIME}</div>
                         <br/>
-                        <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Click here.</span></div>
+                        <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Call us.</span></div>
                     </div>
                 </div>
             </div>
