@@ -13,7 +13,9 @@ export const ContactUs = (props: ContactUsProps) => {
         <div className={cx(styles.content)}>
             <div className={styles.only_mobile}>
                 <div className={styles.link_to_contact}>
-                    <span>{text}</span> <Link to={referrer}>click here</Link>.
+                    <span>{text}</span> <Link to="/orders">click here</Link>.
+                    <br/><br/>
+                    <span>For further help</span> <Link to={referrer}>click here</Link>.
                 </div>
             </div>
             <div className={styles.only_desktop}>
