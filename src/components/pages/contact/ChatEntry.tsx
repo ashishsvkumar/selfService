@@ -103,7 +103,7 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                     </div>
                 </div> */}
                 <div className={styles.content}>
-                    <div className={styles.title} area-label="CONTACT US">Contact Us</div>
+                    <div className={styles.title} aria-label="CONTACT US">Contact Us</div>
                     <div style={{padding: '0 2px'}}>
                         <div className={styles.card_subtitle}>Can't find the answer you are looking for? Contact us through <b>Live Chat</b> and we will assist you.</div>
                         <div className={styles.btn} onClick={this.onChat}>
