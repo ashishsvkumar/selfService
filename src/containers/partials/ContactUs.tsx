@@ -69,7 +69,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     render() {
         return (
-            <div class="--js-csc-trigger other-classes">
+            <div className="--js-csc-trigger other-classes">
               <a href="https://helpcenter-pre.lazada.sg/help/chat">Chat now</a>
             </div>
 
