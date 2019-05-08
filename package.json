@@ -1,9 +1,12 @@
 {
   "name": "service-app-v3",
   "description": "",
-"version": "0.0.91-0",
+  "version": "0.0.91-0",
   "main": "index.js",
   "scripts": {
+    "template:alpha": "NODE_ENV=development node template.js",
+    "template:prod": "NODE_ENV=production node template.js",
+    "dev": "npm run template:alpha && NODE_ENV=development webpack-dev-server --config webpack/local.config.js -d --progress",
     "template": "NODE_ENV=live node template.js",
     "pre-live": "npm run template && NODE_ENV=live webpack-dev-server --config webpack/local.config.js -d --progress",
     "storybook": "start-storybook -p 6006 -c .storybook",

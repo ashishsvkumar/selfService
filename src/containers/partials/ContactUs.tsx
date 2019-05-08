@@ -69,8 +69,12 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     render() {
         return (
-            <Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Chat with us' : 'Chat with us'} onMoreClick={this.onMore}/>
-        );
+            <div class="--js-csc-trigger other-classes">
+              <a href="https://helpcenter-pre.lazada.sg/help/chat">Chat now</a>
+            </div>
+
+            //<Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Chat with us' : 'Chat with us'} onMoreClick={this.onMore}/>
+        )
     }
 }
 

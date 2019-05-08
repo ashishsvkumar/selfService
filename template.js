@@ -74,6 +74,15 @@ function prepareTemplate(head, header, footer, isMobile) {
             ga('create', 'UA-26494190-22', 'auto');
         </script>
         <!-- End Google Analytics -->
+        <link rel="stylesheet" href="https://g-assets.daily.taobao.net/lzdfe/chat/0.0.28/pages/desktop/index.css">
+        <script>
+            window.g_config = window.g_config || {};
+            window.g_config.cscClient = 'buyer'; // 'seller' for seller helpcenter
+            window.g_config.regionID = 'SG';
+            window.g_config.cscLiveUp = true; // for integration on LiveUp pages
+            window.g_config.cscAnonymous = true; // for anonymous chatting (not require customer login)
+        </script>
+        <script scr="https://g-assets.daily.taobao.net/lzdfe/chat/0.0.28/pages/desktop/index.js"></script>
     </head>
     <body>
         ${header}
