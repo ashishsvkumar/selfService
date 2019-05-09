@@ -22,7 +22,7 @@ export const ContactUs = (props: ContactUsProps) => {
                 <div className={cx([styles.only_desktop, styles.title])}>Want to talk to someone?</div>
                 <div className={styles.subtitle}>Can’t find the answer you are looking for RedMart? Chat with our friendly Customer Support officers.</div>
                 <div className={styles.btns}>
-                    <div className={styles.btn} onClick={props.onChatClick}>
+                    <div className={cx([styles.btn, "--js-csc-trigger"])} onClick={props.onChatClick}>
                         <div className={styles.chat} />
                         <div className={styles.label}>{props.chatMessage}</div>
                     </div>

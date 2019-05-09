@@ -10,6 +10,8 @@ import { isLoggedIn } from '../../utils/session';
 import { getBasePath } from '../../config/environment';
 import { fetchRedMartOrders } from '../../store/package/actions';
 import { trackEvent } from '../../utils/tracker';
+import { Link } from "react-router-dom";
+
 
 class ContactUs extends React.Component<ContactUsProps, {}> {
     constructor(props: ContactUsProps) {
@@ -43,18 +45,6 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
     }
 
     onChat = () => {
-        if (this.props.chat.loaded) {
-            const match = location.pathname.match(/^\/support\/orders\/(\d+)\/faq/);
-
-            if (!isEmpty(match) && match.length >= 2) {
-                this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${match[1]}`);
-            } else if (!isEmpty(this.props.recentOrder)) {
-                this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
-            }
-            
-            this.props.chat.snapEngageInstance.startLink();
-            trackEvent('Chat', 'click', this.getGaLabel());
-        }
     }
 
     onLeaveMessage = () => {
@@ -69,11 +59,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
 
     render() {
         return (
-            <div className="--js-csc-trigger other-classes">
-              <a href="https://helpcenter-pre.lazada.sg/help/chat">Chat now</a>
-            </div>
-
-            //<Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Chat with us' : 'Chat with us'} onMoreClick={this.onMore}/>
+            <Component onChatClick={this.onChatClick} chatMessage={this.props.chat.isOffline ? 'Chat with us' : 'Chat with us'} onMoreClick={this.onMore}/>
         )
     }
 }

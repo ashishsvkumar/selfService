@@ -74,20 +74,25 @@ function prepareTemplate(head, header, footer, isMobile) {
             ga('create', 'UA-26494190-22', 'auto');
         </script>
         <!-- End Google Analytics -->
+        <link rel="stylesheet" href="https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.css>
+        
+
+        <!--$ lzd start prod -->
+        <link rel="stylesheet" href="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.min.css">
         <link rel="stylesheet" href="https://g-assets.daily.taobao.net/lzdfe/chat/0.0.28/pages/desktop/index.css">
-        <script>
-            window.g_config = window.g_config || {};
-            window.g_config.cscClient = 'buyer'; // 'seller' for seller helpcenter
-            window.g_config.regionID = 'SG';
-            window.g_config.cscLiveUp = true; // for integration on LiveUp pages
-            window.g_config.cscAnonymous = true; // for anonymous chatting (not require customer login)
-        </script>
-        <script scr="https://g-assets.daily.taobao.net/lzdfe/chat/0.0.28/pages/desktop/index.js"></script>
+    
+        <!--base lib : react react-dom fusion -->
+        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/babel-polyfill/6.26.0/polyfill.js"></script>
+        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react/16.2.0/react.development.js"></script>
+        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react-dom/16.2.0/react-dom.development.js"></script>
+        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.js"></script>
+
     </head>
     <body>
         ${header}
         <div id="rm-cs-app"></div>    
         ${isMobile ? '' : footer}
+        <script src="https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.js"></script>
     </body>
 </html>`;
 }
