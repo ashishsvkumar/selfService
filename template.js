@@ -22,6 +22,36 @@ function prepareInlineLibs() {
     return lazUrls.map(j => `<script src="${j}"></script>`).reduce((s1, s2) => s1 + s2);
 }
 
+function prepareChatLibs(isMobile) {
+    const chatLibs = [
+        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/babel-polyfill/6.26.0/polyfill.js',
+        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react/16.2.0/react.development.js',
+        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react-dom/16.2.0/react-dom.development.js',
+        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.js'
+    ];
+    if(devMode) {
+        chatLibs.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/mobile/index.js' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.js');
+    } else {
+        chatLibs.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/mobile/index.js' : 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.js');
+    }
+    return chatLibs.map(j => `<script src="${j}"></script>`).reduce((s1, s2) => s1 + s2);
+}
+
+function prepareChatStyles(isMobile) {
+
+    var styles = [
+        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.min.css'
+    ];
+    if(devMode) {
+        styles.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/mobile/index.css' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.css');
+    } else {
+        styles.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/mobile/index.css' : 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.css');
+    }
+
+    return styles.map(j => `<link rel="stylesheet" href="${j}">`).reduce((s1, s2) => s1 + s2);
+
+}
+
 function fetchComponent() {
     //const file = fs.createWriteStream("data.txt");
     const url = prepareUrl();
@@ -73,26 +103,14 @@ function prepareTemplate(head, header, footer, isMobile) {
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
             ga('create', 'UA-26494190-22', 'auto');
         </script>
-        <!-- End Google Analytics -->
-        <link rel="stylesheet" href="https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.css>
-        
-
-        <!--$ lzd start prod -->
-        <link rel="stylesheet" href="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.min.css">
-        <link rel="stylesheet" href="https://g-assets.daily.taobao.net/lzdfe/chat/0.0.28/pages/desktop/index.css">
-    
-        <!--base lib : react react-dom fusion -->
-        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/babel-polyfill/6.26.0/polyfill.js"></script>
-        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react/16.2.0/react.development.js"></script>
-        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react-dom/16.2.0/react-dom.development.js"></script>
-        <script src="https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.js"></script>
-
+        <!-- End Google Analytics -->        
+        ${prepareChatStyles(isMobile)}
+        ${prepareChatLibs(isMobile)}
     </head>
     <body>
         ${header}
         <div id="rm-cs-app"></div>    
         ${isMobile ? '' : footer}
-        <script src="https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.js"></script>
     </body>
 </html>`;
 }
