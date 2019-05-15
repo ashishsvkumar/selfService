@@ -52,7 +52,7 @@ function prepareChatStyles(isMobile) {
 
 }
 
-function fetchComponent() {
+function fetchComponent() { 
     //const file = fs.createWriteStream("data.txt");
     const url = prepareUrl();
     log.info('Calling', url);

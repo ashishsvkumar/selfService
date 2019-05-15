@@ -45,6 +45,7 @@ class ContactUs extends React.Component<ContactUsProps, {}> {
     }
 
     onChat = () => {
+        trackEvent('Chat', 'click', this.getGaLabel());
     }
 
     onLeaveMessage = () => {

@@ -8,6 +8,7 @@ import { ArrowIcon, Direction } from "../../icons/ArrowIcon";
 import { getBasePath } from "../../../config/environment";
 import { Constants } from "../../../config/constants";
 import { trackEvent } from "../../../utils/tracker";
+import { currentEnvironment, Environments, isMobile } from "../../../config/environment";
 
 export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState> {
 
@@ -35,19 +36,14 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
     }
 
     handleChatClick = () => {
-        const { chat, recentOrder } = this.props;
+        trackEvent('Chat', 'click', this.getGaLabel());
+    }
 
-        if (!chat.isOffline || true) {
-            if (chat.loaded) {
-                if (!isEmptyString(recentOrder)) {
-                    chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
-                }
-                chat.snapEngageInstance.startLink();
-                trackEvent('Chat', 'click', this.getGaLabel());
-            }
+    getChatLink  = () => {
+        if(currentEnvironment === Environments.production) {
+            return "https://www.lazada.sg/help/chat?redmart=1";
         } else {
-            // @ts-ignore
-            window.location = `${getBasePath()}query`;
+            return "https://helpcenter-pre.lazada.sg/help/chat?redmart=1";
         }
     }
 
@@ -76,12 +72,12 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
 
         return (
             <div className={styles.pair}>
-                <div className={styles.btn} onClick={this.handleChatClick}>
+                <a className={cx([styles.btn, "--js-csc-trigger"])} href = {this.getChatLink()} onClick={this.handleChatClick}>
                     <div className={styles.center}>
                         <div className={cx([styles.chat, styles.icon])} />
                         <div className={styles.btn_text}>Chat with us</div>
                     </div>
-                </div>
+                </a>
                 <div className={styles.timings}>We are online {Constants.OPERATION_TIME}.</div>
             </div>
         );

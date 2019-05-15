@@ -59,24 +59,22 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
     }
 
     onChat = () => {
-        if (this.props.chat.loaded) {
-            const match = (this.props.location.search || 'foo-bar').match(/tradeOrderId=(\d+)/);
-
-            if (!isEmpty(match) && match.length >= 2) {
-                this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${match[1]}`);
-            } else if (!isEmpty(this.props.recentOrder)) {
-                this.props.chat.snapEngageInstance.setCustomField('OrderNumber', `${this.props.recentOrder}`);
-            }
-            
-            this.props.chat.snapEngageInstance.startLink();
-            trackEvent('Chat', 'click', 'Contact RedMart')
-        }
+         trackEvent('Chat', 'click', 'Contact RedMart')
     }
 
     onMore = () => {
         this.props.showMessage('Contact Us', PopupText(), 'Close');
         trackEvent('Phone', 'click', 'Contact RedMart')
     }
+
+    getChatLink  = () => {
+        if(currentEnvironment === Environments.production) {
+            return "https://www.lazada.sg/help/chat?redmart=1";
+        } else {
+            return "https://helpcenter-pre.lazada.sg/help/chat?redmart=1";
+        }
+    }
+
     
     render() {
         return (
@@ -106,13 +104,13 @@ class ChatEntry extends React.Component<ChatEntryProps, {}> {
                     <div className={styles.title} aria-label="CONTACT US">Contact Us</div>
                     <div style={{padding: '0 2px'}}>
                         <div className={styles.card_subtitle}>Can't find the answer you are looking for? Contact us through <b>Live Chat</b> and we will assist you.</div>
-                        <div className={styles.btn} onClick={this.onChat}>
+                        <a className={cx([styles.btn, "--js-csc-trigger"])} href = {this.getChatLink()} onClick={this.onChat}>
                             <div className={styles.center}>
                                 <div className={styles.icon}/>
                                 <div className={styles.btn_text}>Chat Now</div>
                                 <div className={styles.clear}/>
                             </div>
-                        </div>
+                        </a>
                         <div className={styles.timings}>{Constants.OPERATION_TIME}</div>
                         <br/>
                         <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={this.onMore}>Call us.</span></div>
