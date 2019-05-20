@@ -3,12 +3,13 @@ import * as styles from "./ContactUs.scss";
 import cx from 'classnames';
 import { Link } from "react-router-dom";
 import { Constants } from "../../config/constants";
+import { currentEnvironment, Environments } from "../../config/environment";
 
 export const ContactUs = (props: ContactUsProps) => {
 
     const referrer = `/contact?referrer=${location.pathname}`
     const text = /\/orders\/\d+/.test(location.pathname) ? 'If you need more help for this order,' : 'If you need help for your orders,';
-
+    const testEnv = currentEnvironment != Environments.production;
     return (
         <div className={cx(styles.content)}>
             <div className={styles.only_mobile}>
@@ -21,12 +22,21 @@ export const ContactUs = (props: ContactUsProps) => {
             <div className={styles.only_desktop}>
                 <div className={cx([styles.only_desktop, styles.title])}>Want to talk to someone?</div>
                 <div className={styles.subtitle}>Can’t find the answer you are looking for RedMart? Chat with our friendly Customer Support officers.</div>
+                { testEnv && 
+                (<div className={styles.btns}>
+                    <div className={cx([styles.btn, "--js-csc-trigger"])} >
+                        <div className={styles.chat} />
+                        <div className={styles.label}>XSpace Chat</div>
+                    </div>
+                </div>) }
                 <div className={styles.btns}>
                     <div className={styles.btn} onClick={props.onChatClick}>
                         <div className={styles.chat} />
                         <div className={styles.label}>{props.chatMessage}</div>
                     </div>
                 </div>
+               
+                
                 <div className={styles.subtext}>{Constants.OPERATION_TIME}</div>
                 <br/>
                 <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={props.onMoreClick}>Call us.</span></div>

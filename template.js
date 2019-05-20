@@ -22,7 +22,34 @@ function prepareInlineLibs() {
     return lazUrls.map(j => `<script src="${j}"></script>`).reduce((s1, s2) => s1 + s2);
 }
 
-function fetchComponent() {
+function prepareChatLibs(isMobile) {
+    const chatLibs = [
+        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.js'
+    ];
+    if(devMode) {
+       chatLibs.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/mobile/index.js' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.js');
+    } else {
+        chatLibs.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/mobile/index.js' : 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.js');
+    }
+    return chatLibs.map(j => `<script src="${j}"></script>`).reduce((s1, s2) => s1 + s2);
+}
+
+function prepareChatStyles(isMobile) {
+
+    var styles = [
+        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.min.css'
+    ];
+    if(devMode) {
+        styles.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/mobile/index.css' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.css');
+    } else {
+        styles.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/mobile/index.css' : 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.css');
+    }
+
+    return styles.map(j => `<link rel="stylesheet" href="${j}">`).reduce((s1, s2) => s1 + s2);
+
+}
+
+function fetchComponent() { 
     //const file = fs.createWriteStream("data.txt");
     const url = prepareUrl();
     log.info('Calling', url);
@@ -73,11 +100,13 @@ function prepareTemplate(head, header, footer, isMobile) {
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
             ga('create', 'UA-26494190-22', 'auto');
         </script>
-        <!-- End Google Analytics -->
+        <!-- End Google Analytics -->        
+        ${prepareChatStyles(isMobile)}
+        ${prepareChatLibs(isMobile)}
     </head>
     <body>
         ${header}
-        <div id="rm-cs-app"></div>    
+        <div id="rm-cs-app"></div>
         ${isMobile ? '' : footer}
     </body>
 </html>`;
