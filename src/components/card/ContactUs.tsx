@@ -9,7 +9,7 @@ export const ContactUs = (props: ContactUsProps) => {
 
     const referrer = `/contact?referrer=${location.pathname}`
     const text = /\/orders\/\d+/.test(location.pathname) ? 'If you need more help for this order,' : 'If you need help for your orders,';
-    const testEnv = !(currentEnvironment === Environments.production);
+    const testEnv = currentEnvironment != Environments.production;
     return (
         <div className={cx(styles.content)}>
             <div className={styles.only_mobile}>
