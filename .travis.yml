@@ -42,7 +42,7 @@ after_failure:
 - echo "ERROR ********* Travis build failed. Please check the travis logs for details.
   **********"
 after_script:
-- test $TRAVIS_BRANCH = "master" && git clone https://rmautomation:$GITHUB_TOKEN@github.com/Redmart/POC_Laz_Web.git && cd POC_Laz_Web && cucumber --tags @selfService
+- $TRAVIS_BRANCH = "master" && git clone https://rmautomation:$GITHUB_TOKEN@github.com/Redmart/POC_Laz_Web.git && cd POC_Laz_Web && cucumber --tags @selfService
 notifications:
   email:
     on_success: never
