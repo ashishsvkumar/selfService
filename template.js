@@ -24,9 +24,6 @@ function prepareInlineLibs() {
 
 function prepareChatLibs(isMobile) {
     const chatLibs = [
-        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/babel-polyfill/6.26.0/polyfill.js',
-        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react/16.2.0/react.development.js',
-        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.2/react-dom/16.2.0/react-dom.development.js',
         'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.js'
     ];
     if(devMode) {
