@@ -11,6 +11,11 @@ cache: bundler
 addons:
   hosts:
   - 127.0.0.1 sonarqube.service.redmart.com
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 before_install:
 - nvm install 10.14.1
 - nvm install 0.10.33
@@ -49,6 +54,8 @@ after_script:
 - wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python2.7.9/
 - export CHROME_BIN=chromium-browser
+- chromedriver --version
+- google-chrome --version
 - git checkout ashish.sv
 - git pull
 - bundle install
