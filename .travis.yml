@@ -43,7 +43,7 @@ after_failure:
   **********"
 after_script:
 - echo $TRAVIS_BRANCH
-- test $TRAVIS_BRANCH = "master" && git clone https://rmautomation:$GITHUB_TOKEN@github.com/Redmart/POC_Laz_Web.git && cd POC_Laz_Web && cucumber --tags @selfService
+- test $TRAVIS_BRANCH = "test" && git clone https://rmautomation:$GITHUB_TOKEN@github.com/Redmart/POC_Laz_Web.git && cd POC_Laz_Web && cucumber --tags @selfService
 notifications:
   email:
     on_success: never
