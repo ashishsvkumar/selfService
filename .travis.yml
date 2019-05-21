@@ -43,8 +43,14 @@ after_failure:
 - echo "ERROR ********* Travis build failed. Please check the travis logs for details.
   **********"
 after_script:
+- echo $PATH
 - echo $TRAVIS_BRANCH
 - test $TRAVIS_BRANCH = "test" && git clone https://rmautomation:$GITHUB_TOKEN@github.com/Redmart/POC_Laz_Web.git && cd POC_Laz_Web
+- wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+- unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python2.7.9/
+- export CHROME_BIN=chromium-browser
+- git checkout ashish.sv
+- git pull
 - bundle install
 - cucumber --tags @selfService
 notifications:
