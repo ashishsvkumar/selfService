@@ -8,6 +8,8 @@ import { ArrowIcon, Direction } from "../../icons/ArrowIcon";
 import { getBasePath } from "../../../config/environment";
 import { Constants } from "../../../config/constants";
 import { trackEvent } from "../../../utils/tracker";
+import { currentEnvironment, Environments } from "../../../config/environment";
+
 
 export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState> {
 
@@ -87,12 +89,25 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
         );
     }
 
+    getChatLink  = () => {
+       return "https://helpcenter-pre.lazada.sg/help/chat?redmart=1";
+    }
+
     render() {
+        const testEnv = currentEnvironment != Environments.production;
+
         return (
             <div className={styles.content}>
                 <div className={styles.body}>
                     <div className={styles.subtitle}>Need more help? Our customer support team will be here to assist you.</div>
                     {this.preparePair(false)}
+                    {testEnv &&
+                        (<a className={cx([styles.btn, "--js-csc-trigger"])} href={this.getChatLink()}>
+                            <div className={styles.center}>
+                                <div className={cx([styles.chat, styles.icon])} />
+                                <div className={styles.btn_text}>XSpace Chat</div>
+                            </div>
+                        </a>)}
                     <div className={styles.more_option}>
                         <div className={styles.expander} onClick={this.handleToggleExpander}>
                             <div className={styles.expander_text}>More options</div>

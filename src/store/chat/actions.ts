@@ -49,6 +49,14 @@ export function setup() {
         }
 
         document.head.appendChild(script);
+
+        const xspaceScript = document.createElement('script');
+        xspaceScript.type = 'text/javascript';
+        xspaceScript.async = true;
+        xspaceScript.src = getXspaceChatScriptSource();
+
+        document.head.appendChild(xspaceScript);
+
     }
 }
 
@@ -74,6 +82,10 @@ function getSnapEngageScriptSource() {
     } else {
         return '//storage.googleapis.com/code.snapengage.com/js/e8b139d3-0051-4b76-81a4-dc61a4639da4.js';
     }
+}
+
+function getXspaceChatScriptSource() {
+    return 'https://g.alicdn.com/lzdfe/chat/0.0.29/pages/desktop/index.js';
 }
 
 function setupPing(se: SnapEngageApi, dispatch: (param: any) => any) {

@@ -3,6 +3,8 @@ const devMode = process.env.NODE_ENV !== 'live'
 const fs = require("fs");
 const request = require("request");
 
+
+
 function prepareUrl() {
     return `http://selfservice-api${devMode ? '.alpha' : ''}.redmart.com/v1.0.0/support/icms/all`;
 }
@@ -26,11 +28,6 @@ function prepareChatLibs(isMobile) {
     const chatLibs = [
         'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.js'
     ];
-    if(devMode) {
-       chatLibs.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/mobile/index.js' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.js');
-    } else {
-        chatLibs.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/mobile/index.js' : 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.js');
-    }
     return chatLibs.map(j => `<script src="${j}"></script>`).reduce((s1, s2) => s1 + s2);
 }
 
@@ -42,7 +39,7 @@ function prepareChatStyles(isMobile) {
     if(devMode) {
         styles.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/mobile/index.css' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.css');
     } else {
-        styles.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/mobile/index.css' : 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/desktop/index.css');
+        styles.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.0.28/pages/mobile/index.css' : 'https://g.alicdn.com/lzdfe/chat/0.0.29/pages/desktop/index.css');
     }
 
     return styles.map(j => `<link rel="stylesheet" href="${j}">`).reduce((s1, s2) => s1 + s2);
