@@ -33,9 +33,7 @@ function prepareChatLibs(isMobile) {
 
 function prepareChatStyles(isMobile) {
 
-    var styles = [
-        'https://laz-g-cdn.alicdn.com/lzd/assets/0.0.5/next/0.19.21/next.min.css'
-    ];
+    var styles = [];
     if(devMode) {
         styles.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/mobile/index.css' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.0.29/pages/desktop/index.css');
     } else {
@@ -99,7 +97,7 @@ function prepareTemplate(head, header, footer, isMobile) {
         </script>
         <!-- End Google Analytics -->        
         ${prepareChatStyles(isMobile)}
-        ${prepareChatLibs(isMobile)}
+       
     </head>
     <body>
         ${header}
