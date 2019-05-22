@@ -54,7 +54,7 @@ after_script:
 - wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip -d /home/travis/bin
 - export CHROME_BIN=chromium-browser
-- sleep 3
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 - chromedriver --version
 - google-chrome --version
 - git checkout ashish.sv
