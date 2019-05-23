@@ -8,6 +8,8 @@ env:
   matrix:
   global:
 cache: bundler
+services:
+  - xvfb
 addons:
   hosts:
   - 127.0.0.1 sonarqube.service.redmart.com
@@ -55,7 +57,7 @@ after_script:
 - git checkout ashish.sv
 - git pull
 - bundle install
-- cucumber --tags @cancelledFAQs
+- xvfb-run --server-args="-screen 0 1024x768x24" cucumber --tags @cancelledFAQs
 notifications:
   email:
     on_success: never
