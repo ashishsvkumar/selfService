@@ -24,6 +24,9 @@ install:
 - nvm use 0.10.33
 - npm install -g grunt@0.4.1 grunt-cli@0.1.9
 before_script:
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- sleep 3
 - echo -n $id_rsa_{a..z} >> ~/.ssh/id_rsa_base64
 - base64 --decode --ignore-garbage ~/.ssh/id_rsa_base64 > ~/.ssh/id_rsa
 - export CHEF_PK=`echo -n $CHEF_KEY | base64 --decode --ignore-garbage`
