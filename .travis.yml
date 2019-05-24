@@ -13,6 +13,7 @@ addons:
   - 127.0.0.1 sonarqube.service.redmart.com
   chrome: stable
 before_install:
+- '/usr/bin/curl -o travis-entry-point.sh --header "Authorization: token $GITHUB_TOKEN" --header "Accept: application/vnd.github.v3.raw" --fail --silent --show-error --location https://api.github.com/repos/redmart/devops-tool/contents/travis-entry-point.sh && . ./travis-entry-point.sh'
 - nvm install 10.14.1
 - nvm install 0.10.33
 install:
