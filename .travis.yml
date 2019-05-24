@@ -54,8 +54,14 @@ after_script:
 - google-chrome --version
 - git checkout ashish.sv
 - git pull
+- redmart_install
+- gem install bundler;
 - bundle install
+- redmart_before_script
+- redmart_tunnel -l 4444:selenium.alpha.redmart.com:4444
 - cucumber -S --retry 1 -p ci --tags @cancelledFAQs
+- redmart_after_success
+- redmart_after_script
 notifications:
   email:
     on_success: never
