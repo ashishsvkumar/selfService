@@ -52,9 +52,9 @@ after_script:
 - bundle install
 - redmart_before_script
 - redmart_tunnel -l 4444:selenium.alpha.redmart.com:4444
-- cucumber -S --retry 1 -p ci --tags @selfService
+- cucumber -S --retry 1 -p ci --guess --tags @selfService
 - export PROFILE="mobile'
-- cucumber -S --retry 1 -p ci --tags @selfServiceMob
+- cucumber -S --retry 1 -p ci --guess --tags @selfServiceMob
 - redmart_after_success
 - redmart_after_script
 notifications:
