@@ -11,7 +11,6 @@ cache: bundler
 addons:
   hosts:
   - 127.0.0.1 sonarqube.service.redmart.com
-  chrome: stable
 before_install:
 - '/usr/bin/curl -o travis-entry-point.sh --header "Authorization: token $GITHUB_TOKEN" --header "Accept: application/vnd.github.v3.raw" --fail --silent --show-error --location https://api.github.com/repos/redmart/devops-tool/contents/travis-entry-point.sh && . ./travis-entry-point.sh'
 - nvm install 10.14.1
@@ -45,14 +44,7 @@ after_failure:
 - echo "ERROR ********* Travis build failed. Please check the travis logs for details.
   **********"
 after_script:
-- echo $PATH
-- echo $TRAVIS_BRANCH
 - test $TRAVIS_BRANCH = "test" && git clone https://rmautomation:$GITHUB_TOKEN@github.com/Redmart/POC_Laz_Web.git && cd POC_Laz_Web
-- wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
-- unzip chromedriver_linux64.zip -d /home/travis/bin
-- export CHROME_BIN=chromium-browser
-- chromedriver --version
-- google-chrome --version
 - git checkout ashish.sv
 - git pull
 - redmart_install
@@ -60,7 +52,9 @@ after_script:
 - bundle install
 - redmart_before_script
 - redmart_tunnel -l 4444:selenium.alpha.redmart.com:4444
-- cucumber -S --retry 1 -p ci --tags @cancelledFAQs
+- cucumber -S --retry 1 -p ci --tags @selfService
+- export PROFILE="mobile'
+- cucumber -S --retry 1 -p ci --tags @selfServiceMob
 - redmart_after_success
 - redmart_after_script
 notifications:
