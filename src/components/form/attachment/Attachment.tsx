@@ -127,19 +127,15 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
     }
 
     onWindvaneFileSelect = (url: string) => {
+        if (this.props.notifyOnProgress) {
+            this.props.notifyOnProgress(false);
+        }
+
         if (url === null) {
             return;
         }
 
-        if (this.props.notifyOnProgress) {
-            this.props.notifyOnProgress(true);
-        }
-
         getHostEnvironment().then(host => {
-            if (this.props.notifyOnProgress) {
-                this.props.notifyOnProgress(false);
-            }
-
             if (host === Host.WEB) {
                 log.warn('Host is not windvane. Ignoring this image selection.', url);
                 return;
@@ -152,19 +148,15 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
             this.setState({
                 images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
             });
-        }).catch(() => {
-            if (this.props.notifyOnProgress) {
-                this.props.notifyOnProgress(false);
-            }
         });
 
     }
 
     onTriggerWindvaneFile = () => {
-        takePhoto(this.onWindvaneFileSelect);
         if (this.props.notifyOnProgress) {
             this.props.notifyOnProgress(true);
         }
+        takePhoto(this.onWindvaneFileSelect);
 
         getHostEnvironment().then(host => {
             trackEvent('Attachment', 'selection', 'host', host);
