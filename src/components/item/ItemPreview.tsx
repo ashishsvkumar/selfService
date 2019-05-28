@@ -18,7 +18,8 @@ export class ItemPreview extends React.Component<ItemPreviewProps, ItemPreviewSt
                 <div className={styles.thumbnail_holder}><div className={styles.thumbnail} style={{ backgroundImage: `url("${thumbnail}")` }} /></div>
                 <div className={styles.body}>
                     <div className={styles.name}>{truncate(name, { length: 60 })}</div>
-                    <div className={styles.price}>{`${unitPrice} x ${quantity}`}</div>
+                    {/* <div className={styles.price}>{`${unitPrice} x ${quantity}`}</div> */}
+                    <div className={styles.price}>{`x${quantity}`}</div>
                 </div>
                 <div className={styles.clear} />
             </div>
