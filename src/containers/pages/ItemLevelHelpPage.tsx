@@ -96,7 +96,8 @@ const maptStateToProps = ({ redmartOrders, ticket }: ApplicationState, ownProps:
     return {
         fetching,
         notFound,
-        order
+        order,
+        ticketInProgress: ticket.inProgress
     };
 }
 

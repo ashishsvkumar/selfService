@@ -57,6 +57,9 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
     onProgress = (name: string, done: number, total: number) => {
         this.updateImageStatus(name, { progress: done * 100 / total })
+        if (this.props.notifyOnProgress) {
+            this.props.notifyOnProgress(this.onGoingUpload());
+        }
     }
 
     onComplete = (name: string, url: string | null) => {
@@ -71,10 +74,11 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
                 if (this.props.onChange) {
                     this.props.onChange(this.state.images.map(im => im.url));
                 }
-                if (this.props.notifyOnProgress) {
-                    this.props.notifyOnProgress(this.onGoingUpload());
-                }
             });
+        }
+
+        if (this.props.notifyOnProgress) {
+            this.props.notifyOnProgress(this.onGoingUpload());
         }
     }
 
@@ -109,6 +113,10 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
             return;
         }
 
+        if (this.props.notifyOnProgress) {
+            this.props.notifyOnProgress(true);
+        }
+
         this.setState({
             images: [...this.state.images, { name: name, type: file.type, progress: 0, failed: false, uploaded: false, thumbnail: URL.createObjectURL(file), fileObject: file, addedOn: now }]
         }, () => {
@@ -119,15 +127,19 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
     }
 
     onWindvaneFileSelect = (url: string) => {
-        if (this.props.notifyOnProgress) {
-            this.props.notifyOnProgress(false);
-        }
-
         if (url === null) {
             return;
         }
 
+        if (this.props.notifyOnProgress) {
+            this.props.notifyOnProgress(true);
+        }
+
         getHostEnvironment().then(host => {
+            if (this.props.notifyOnProgress) {
+                this.props.notifyOnProgress(false);
+            }
+
             if (host === Host.WEB) {
                 log.warn('Host is not windvane. Ignoring this image selection.', url);
                 return;
@@ -136,9 +148,14 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
             log.info('Attaching the file from alicloud url:', url);
 
             const now = new Date().getMilliseconds();
+
             this.setState({
                 images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
             });
+        }).catch(() => {
+            if (this.props.notifyOnProgress) {
+                this.props.notifyOnProgress(false);
+            }
         });
 
     }

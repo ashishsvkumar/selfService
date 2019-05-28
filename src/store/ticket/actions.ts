@@ -59,12 +59,12 @@ export function createTicket(ticket: Ticket) {
 
 function onError(err: any, dispatch: Dispatcher) {
     log.error('Unexpected error while creating ticket', err);
-    showAlert({ 
+    dispatch(showAlert({ 
         show: true,
         title: 'Unexpected Error', 
         message: 'Something went wrong. Please try again later.', 
         btnText: 'Close',
         onClick: () => { dispatch(hideAlert()) }
-    });
+    }));
     dispatch(createFailure())
 }

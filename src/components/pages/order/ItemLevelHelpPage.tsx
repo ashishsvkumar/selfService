@@ -180,6 +180,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
 
         const { helpCategory, inProgress } = this.props;
         const issues = helpCategory === Category.missing ? undefined : issueList;
+        const disabled = this.state.attachmentUploading || inProgress;
 
         return (
             <div className={styles.selected_items}>
@@ -204,8 +205,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
                 <div className={styles.submission}>
                     { helpCategory === Category.damaged && !isEmptyString(this.state.warning) && <div className={styles.warning_text}><WarningIcon text={this.state.warning}/></div> }
                     <div className={styles.subtitle}>Upon verification of your claim, we will issue a refund to your original payment method within 24 business hours.</div>
-                    <div className={styles.only_mobile}><Button text="Submit" isPrimary={true} style={{ padding: '12px', width: '80%', margin: 'auto' }} isDisabled={this.state.attachmentUploading || inProgress} onClick={this.attempSubmit} /></div>
-                    <div className={styles.only_desktop}><Button text="Submit" isPrimary={true} style={{ padding: '15px 50px', margin: 'auto' }} isDisabled={this.state.attachmentUploading || inProgress} onClick={this.attempSubmit} /></div>
+                    <div className={styles.only_mobile}><Button text={disabled ? 'Please wait...' : 'Submit'} isPrimary={true} style={{ padding: '12px', width: '80%', margin: 'auto' }} isDisabled={disabled} onClick={this.attempSubmit} /></div>
+                    <div className={styles.only_desktop}><Button text={disabled ? 'Please wait...' : 'Submit'} isPrimary={true} style={{ padding: '15px 50px', margin: 'auto' }} isDisabled={disabled} onClick={this.attempSubmit} /></div>
                 </div>
             </div>
         )
