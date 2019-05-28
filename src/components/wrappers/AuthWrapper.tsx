@@ -32,6 +32,10 @@ export const ProtectedLink: React.StatelessComponent<ProtectedLinkProps> = (prop
   // If it is a relative link, then "Link" element takes care of infixing the subpath ("/customer-support")
   // But if it an absolute url (explicitly set or due to login requirement), then we need to manually include it in
 
+  if (to === null) {
+    return <a href="javascript:void(0)" {...otherProps}>{children}</a>;
+  }
+
   if (needLogin && !isLoggedIn()) {
 
     if (isWindVandAvailable()) {

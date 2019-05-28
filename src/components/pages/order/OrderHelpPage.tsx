@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as styles from "./OrderHelpPage.scss";
 import { setTitle } from '../../../utils/container'
-import { OrderSummarySubcard, LinkTo, OrderSummaryProps, OrderSummaryCard } from '../../order/OrderSummary'
+import { LinkTo, OrderSummaryProps, OrderSummaryCard } from '../../order/OrderSummary'
+import { isMobile } from "../../../config/environment";
 
 export const OrderHelpPage = (props: OrderHelpPageProps) => {
 
@@ -20,7 +21,7 @@ function prepareOrderCard(order: OrderSummaryProps) {
     return (
         <OrderSummaryCard
             {...order}
-            linkTo={LinkTo.ORDER_DETAIL}
+            linkTo={isMobile() ? LinkTo.NONE : LinkTo.ORDER_DETAIL}
         />
     );
 }
