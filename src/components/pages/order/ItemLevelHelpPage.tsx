@@ -114,7 +114,15 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
 
     attempSubmit = () => {
         if (!this.canSubmit()) {
-            this.setState( { enableWarning: true, warning: "Please select the issue for listed items" } )
+            this.setState( { enableWarning: true, warning: "Please select the issue for listed items" }, () => {
+                try {
+                    Array.prototype.slice.call(document.getElementsByTagName('div')).filter(d => d.innerHTML === "Please don’t leave this empty.")[0]
+                    .parentElement.parentElement.parentElement.parentElement.scrollIntoView({behavior: "smooth"})
+                }
+                catch(err){
+    
+                }
+            })
             return;
         }
 

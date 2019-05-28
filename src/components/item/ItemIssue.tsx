@@ -24,12 +24,18 @@ export const ItemIssue = (props: ItemIssueProps) => {
 };
 
 function dropdown(props: ItemIssueProps) {
+    const highlight = props.enableWarning === true && isEmptyString(props.selectedIssue);
+    const style: any = {};
+    if (highlight) {
+        style.borderColor =  'red';
+    }
+
     return (
         <div className={styles.select_container}>
             <div className={styles.select_label}>What's the issue?</div>
             <div className={styles.select}>
-                <Select options={props.issueTypes} value={props.selectedIssue} onChange={props.selectChanged} inputOptions={ { placeholder: "Select" } }/>
-                { props.enableWarning === true && isEmptyString(props.selectedIssue) && <div className={styles.warn_text}><WarningIcon text="Please don’t leave this empty."/></div> }
+                <Select options={props.issueTypes} value={props.selectedIssue} onChange={props.selectChanged} inputOptions={ { placeholder: "Select", style:style } }/>
+                { highlight && <div className={styles.warn_text}><WarningIcon text="Please don’t leave this empty."/></div> }
             </div>
         </div>
     );
