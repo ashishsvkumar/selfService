@@ -97,6 +97,9 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
                 if (this.props.notifyOnProgress) {
                     this.props.notifyOnProgress(this.onGoingUpload());
                 }
+                if (this.props.onChange) {
+                    this.props.onChange(this.state.images.map(im => im.url));
+                }
             });
         }
     }
@@ -105,7 +108,7 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
         const file = event.target.files[0];
         event.target.value = null;
 
-        const now = new Date().getMilliseconds();
+        const now = new Date().getTime();
         const name = `file-${now}-${random(1, 1000)}`;
         
         if (this.state.images.some(im => im.fileObject.lastModified === file.lastModified && im.fileObject.size === file.size)) {
@@ -143,10 +146,10 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
             log.info('Attaching the file from alicloud url:', url);
 
-            const now = new Date().getMilliseconds();
+            const now = new Date().getTime();
 
             this.setState({
-                images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
+                images: [...this.state.images, { name: `${now}`, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
             }, () => {
 
                 if (this.props.onChange) {
