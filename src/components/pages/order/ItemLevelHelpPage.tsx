@@ -64,13 +64,16 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     
         this.setState({
             selectedItems: all
-        });
+        }, () => {
 
-        if (isEmptyArray(this.getBlackItems())) {
-            this.setState({
-                warning: undefined
-            });
-        }
+            if (this.getBlankItems().length == 0) {
+                this.setState({
+                    warning: '',
+                    enableWarning: false
+                });
+            }
+
+        });
 
         if (!isEmpty(newIssue)) {
             issueList.filter(is => is.value == newIssue).forEach(is => trackEvent('Item Issue', 'Selected', is.displayText, '1'));
@@ -79,7 +82,14 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
 
     onRemoveSelection = (sku: string) => {
         const others = this.state.selectedItems.filter(im => im.sku !== sku)
-        this.setState({ selectedItems: others })
+        this.setState({ selectedItems: others }, () => {
+            if (this.getBlankItems().length == 0) {
+                this.setState({
+                    warning: '',
+                    enableWarning: false
+                });
+            }
+        })
     }
 
     onAttachmentUpload = (urls: string[]) => {
@@ -94,7 +104,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         this.setState({ comment: comment })
     }
 
-    getBlackItems = () => {
+    getBlankItems = () => {
         return this.state.selectedItems.filter(item => isEmptyString(item.selectedIssue)).map(item => item.sku);
     }
 
@@ -104,7 +114,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
             can = false;
         }
 
-        const blankItems = this.getBlackItems();
+        const blankItems = this.getBlankItems();
         if (blankItems.length > 0 && this.props.helpCategory === Category.damaged) {
             can = false;
         }

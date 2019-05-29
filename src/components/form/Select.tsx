@@ -25,7 +25,8 @@ export interface SelectProps {
     inputOptions?: any,
     maxHeight: string,
     isDropup: boolean,
-    isStriped: boolean
+    isStriped: boolean,
+    warn?: boolean
 };
 
 interface SelectState {
@@ -320,8 +321,13 @@ export class Select extends React.Component<SelectProps, SelectState> {
             );
         }
 
+        let containerClass: any[] = [selectStyles.container];
+        if (this.props.warn === true && !showMenu) {
+            containerClass = containerClass.concat([selectStyles.pulse, selectStyles.animated, selectStyles.infinite, selectStyles.warn]);
+        }
+
         return (
-            <div className={selectStyles.container}>
+            <div className={cx(containerClass)}>
                 <input
                     ref={input => (this.inputBox = input)}
                     type="text"

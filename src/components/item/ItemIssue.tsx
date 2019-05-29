@@ -34,7 +34,7 @@ function dropdown(props: ItemIssueProps) {
         <div className={styles.select_container}>
             <div className={styles.select_label}>What's the issue?</div>
             <div className={styles.select}>
-                <Select options={props.issueTypes} value={props.selectedIssue} onChange={props.selectChanged} inputOptions={ { placeholder: "Select", style:style } }/>
+                <Select options={props.issueTypes} value={props.selectedIssue} onChange={props.selectChanged} inputOptions={ { placeholder: "Select" } } warn={highlight}/>
                 { highlight && <div className={styles.warn_text}><WarningIcon text="Please don’t leave this empty."/></div> }
             </div>
         </div>
