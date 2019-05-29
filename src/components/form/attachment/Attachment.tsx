@@ -147,6 +147,12 @@ class Attachment extends React.Component<AttachmentProps, AttachmentState> {
 
             this.setState({
                 images: [...this.state.images, { name: name, type: 'image/jpg', progress: 100, failed: false, uploaded: true, thumbnail: url, fileObject: null, addedOn: now, url: url }]
+            }, () => {
+
+                if (this.props.onChange) {
+                    this.props.onChange(this.state.images.map(im => im.url));
+                }
+
             });
         });
 
