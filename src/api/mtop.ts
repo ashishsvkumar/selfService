@@ -70,12 +70,55 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
-      api: "mtop.lazada.member.user.biz.getloginuser",
+            api: "mtop.lazada.member.user.biz.getloginuser",
       data: {
         sessionId: sessionId,
         userId: parseInt(userId, 10),
         ultronVersion: 2.2
       }
+    }
+  );
+}
+
+export function getRootCategories(): Promise<any> {
+  return Mtop.request(
+    {
+      ...DEFAULT_CONFIG,
+      appKey: 4272,
+      needLogin: false,
+      api:"mtop.helpcenter.category.getrootcategories",
+      data: {}  
+    }
+  );
+}
+
+export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
+  return Mtop.request(
+    {
+      ...DEFAULT_CONFIG,
+      appKey: 4272,
+      needLogin: false,
+      api:"mtop.helpcenter.category.getByUrlKey",
+      data: 
+      {
+        urlKey: urlKey
+      },
+    }
+  );
+}
+
+
+export function getArticleByUrlKey(urlKey: string): Promise<any> {
+  return Mtop.request(
+    {
+      ...DEFAULT_CONFIG,
+      appKey: 4272,
+      needLogin: false,
+      api:"mtop.helpcenter.article.getByUrlKey",
+      data: 
+      {
+        urlKey: urlKey
+      },
     }
   );
 }
