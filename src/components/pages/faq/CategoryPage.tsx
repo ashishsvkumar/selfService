@@ -2,7 +2,7 @@ import * as React from "react";
 import * as styles from "./CategoryPage.scss";
 import { setTitle } from '../../../utils/container'
 import ContactUs from "../../../containers/partials/ContactUs";
-import { Section, Article } from "../../../store/faq/types";
+import { Section, Article, SubCategory } from "../../../store/faq/types";
 import cx from 'classnames';
 import { decode, encodeSpace } from "../../../utils/extras";
 import { NavigationCard, Theme } from "../../card/NavigationCard";
@@ -14,36 +14,37 @@ export const CategoryPage = (props: CategoryPageProps) => {
 
     return (
         <div className={styles.content}>
-            <div className={styles.sections}>{props.sections.map(section => prepareSection(section, props.id, props.title))}</div>
+            <div className={styles.sections}>{props.subCategories.map(subCategory => prepareSection(subCategory, props.id, props.title))}</div>
             <ContactUs />
         </div>
     );
 }
 
-function prepareSection(section: Section, categoryId: number, categoryHeading: string) {
+function prepareSection(subCategory: SubCategory, categoryId: string, categoryHeading: string) {
     return (
-        <div className={styles.section} key={`section-${section.id}`}>
-            <div className={styles.section_title}><ContentTitle text={section.name} /></div>
-            <div className={cx([styles.cards, styles.only_mobile])}>{ section.articles.map(article => articleLinkMobile(article, categoryId, categoryHeading)) }</div>
-            <div className={cx([styles.cards, styles.only_desktop])}>{ section.articles.map(article => articleLinkDesktop(article, categoryId, categoryHeading)) }</div>
+        <div className={styles.section} key={`section-${subCategory.id}`}>
+            <div className={styles.section_title}><ContentTitle text={subCategory.name} /></div>
+            <div className={cx([styles.cards, styles.only_mobile])}>{ subCategory.articles.map(article => articleLinkMobile(article, categoryId, categoryHeading)) }</div>
+            <div className={cx([styles.cards, styles.only_desktop])}>{ subCategory.articles.map(article => articleLinkDesktop(article, categoryId, categoryHeading)) }</div>
         </div>
     )
 }
 
-function articleLinkMobile(article: Article, categoryId: number, categoryHeading: string) {
+function articleLinkMobile(article: Article, categoryId: string, categoryHeading: string) {
     return (
-        <NavigationCard text={article.title} to={`/category/${categoryId}/${categoryHeading}/faq/${article.id}/${encodeSpace(article.title)}`} theme={Theme.STRIP} key={`mobile-article-link-${article.id}`}/>
+        <NavigationCard text={article.name} to={`/category/${categoryId}/${categoryHeading}/faq/${article.id}/${encodeSpace(article.name)}`} theme={Theme.STRIP} key={`mobile-article-link-${article.id}`}/>
     )
 }
 
-function articleLinkDesktop(article: Article, categoryId: number, categoryHeading: string) {
+function articleLinkDesktop(article: Article, categoryId: string, categoryHeading: string) {
     return (
-        <div className={styles.alt_card} key={`desktop-article-link-${article.id}`}><NavigationCard text={article.title} to={`/category/${categoryId}/${categoryHeading}/faq/${article.id}/${encodeSpace(article.title)}`} theme={Theme.CARD}/></div>
+        <div className={styles.alt_card} key={`desktop-article-link-${article.id}`}><NavigationCard text={article.name} to={`/category/${categoryId}/${categoryHeading}/faq/${article.id}/${encodeSpace(article.name)}`} theme={Theme.CARD}/></div>
     )
 }
 
 export interface CategoryPageProps {
-    id: number,
+    id: string,
     title: string,
-    sections: Section[]
+    sections: Section[],
+    subCategories: SubCategory[]
 }

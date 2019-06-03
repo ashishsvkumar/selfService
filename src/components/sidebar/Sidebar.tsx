@@ -35,7 +35,7 @@ const links: SidebarLink[] = [
     },
     {
         text: 'RedMart & Lazada Integration',
-        url: '/category/202558047/About+RedMart+&+Lazada+Integration',
+        url: '/category/redmart-on-lazada/About+RedMart+&+Lazada+Integration',
         needLogin: false
     },
     {

@@ -19,7 +19,7 @@ export const OrderHelpPage = (props: OrderHelpPageProps) => {
 
 function prepareOrderCard(order: OrderSummaryProps) {
     return (
-        <OrderSummaryCard
+        <OrderSummaryCard 
             {...order}
             linkTo={isMobile() ? LinkTo.NONE : LinkTo.ORDER_DETAIL}
         />

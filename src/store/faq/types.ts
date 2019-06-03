@@ -1,14 +1,14 @@
 export interface Article {
     id?: number,
-    title?: string,
-    body?: string,
-    promoted?: boolean,
+    name?: string,
+    articleUrl?: string,
+    body?:string,
     loading?: boolean,
     errors?: string
 }
 
 export interface Section {
-    id?: number,
+    id?: string,
     name?: string,
     articles?: Article[],
     loading?: boolean,
@@ -16,11 +16,21 @@ export interface Section {
 }
 
 export interface Category {
-    id?: number,
-    sections?: Section[],
+    id?: string,
+    name?: string,
+    subCategories?: SubCategory[],
     loading?: boolean,
     errors?: string
 }
+
+export interface SubCategory {
+    id?: string,
+    name?: string,
+    articles?: Article[],
+    loading?: boolean,
+    errors?: string
+}
+
 
 export const enum ArticleActionTypes {
     ARTILE_DETAILS_REQUEST = "article/details/request",
@@ -45,5 +55,5 @@ export interface SectionsState {
 }
 
 export interface CategoriesState {
-    [cateogryId: number]: Category
+    [cateogryId: string]: Category
 }

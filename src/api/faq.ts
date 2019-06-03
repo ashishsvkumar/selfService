@@ -17,7 +17,7 @@ export function fetchArticle(id: number): Promise<Article> {
         }).catch(err => null)
 }
 
-export function fetchCategory(categoryId: number): Promise<Category> {
+export function fetchCategory(categoryId: string): Promise<Category> {
     const SECTIONS_LIST = `https://myredmart.zendesk.com/api/v2/help_center/en-us/categories/${categoryId}/sections.json`;
     return fetch(SECTIONS_LIST).then((response: any) => {
 
