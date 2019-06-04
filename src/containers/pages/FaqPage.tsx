@@ -34,7 +34,7 @@ export class FaqPage extends React.Component<FaqPageProps, FaqPageState> {
         this.props.setBreadcrumbs(crumbs);
 
         if (this.props.match.params.id && !this.getArticleBody()) {
-            this.props.getArticleFromKc(this.props.match.params.id);
+            this.props.getArticle(this.props.match.params.id);
         }
 
         trackPageView(`FAQ Page`);
@@ -70,7 +70,7 @@ interface FaqPageState {
 
 interface PropsFromDispatch {
     fetchArticleDetails: Function,
-    getArticleFromKc: Function,
+    getArticle: Function,
     setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 
@@ -93,7 +93,7 @@ interface PropsFromRoute {
 type FaqPageProps = PropsFromDispatch & PropsFromState & PropsFromRoute;
 
 const mapDispatchToProps = {
-    getArticleFromKc: getArticle,
+    getArticle: getArticle,
     setBreadcrumbs: setBreadcrumbs
 }
 

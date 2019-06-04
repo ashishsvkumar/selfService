@@ -60,10 +60,6 @@ export interface ArticlesState {
     [articleId: string]: ArticleBody
 }
 
-export interface SectionsState {
-    [sectionId: number]: Section
-}
-
 export interface CategoriesState {
     [cateogryId: string]: Category
 }

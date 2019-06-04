@@ -5,7 +5,7 @@ import { CategoryPage as Component } from "../../components/pages/faq/CategoryPa
 import { getCategories } from "../../store/faq/actions";
 import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
-import { CategoriesState, SectionsState, Category } from "../../store/faq/types";
+import { CategoriesState, Category } from "../../store/faq/types";
 import { Spinner } from "../../components/icons/Spinner";
 import { isEmptyObject, isEmptyArray, decode } from "../../utils/extras";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
@@ -73,6 +73,7 @@ class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState>
                 article.urlKey = tokens[3];
             })
         })
+        
         return category;
     }
 
@@ -80,11 +81,12 @@ class CategoryPage extends React.Component<CategoryPageProps, CategoryPageState>
         if (!this.props.match.params || !this.props.match.params.id) {
             return <div>Sorry, the page you are looking for does not exist</div>
         }
+
         if (this.state.ready) {
             const category = this.getCategory();
             const id = this.props.match.params.id;
             const heading = this.props.match.params.heading;
-            return <Component id={id} title={decodeURI(heading)} sections={category.subCategories}  subCategories={category.subCategories}/>
+            return <Component id={id} title={decodeURI(heading)}  subCategories={category.subCategories}/>
         } else {
             return <Spinner />;
         }
@@ -104,7 +106,6 @@ interface PropsFromDispatch {
 
 interface PropsFromState {
     categories: CategoriesState,
-    sections: SectionsState
 }
 
 interface PropsFromRoute {
@@ -118,10 +119,9 @@ const mapDispatchToProps = {
     setBreadcrumbs: setBreadcrumbs
 }
 
-const maptStateToProps = ({ categories, sections }: ApplicationState) => {
+const maptStateToProps = ({ categories }: ApplicationState) => {
     return {
-        categories, 
-        sections
+        categories
     };
 }
 

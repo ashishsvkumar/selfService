@@ -1,6 +1,6 @@
 import { action } from "typesafe-actions";
 import * as log from "loglevel";
-import { Article, ArticleActionTypes, Section, Category } from "./types";
+import { Article, ArticleActionTypes, Category } from "./types";
 import { getCategoriesByUrlKey, getArticleByUrlKey } from "../../api/mtop";
 
 const articleDetailsRequest = (id: string) => action(ArticleActionTypes.ARTILE_DETAILS_REQUEST, id);

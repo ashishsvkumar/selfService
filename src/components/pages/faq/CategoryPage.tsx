@@ -2,7 +2,7 @@ import * as React from "react";
 import * as styles from "./CategoryPage.scss";
 import { setTitle } from '../../../utils/container'
 import ContactUs from "../../../containers/partials/ContactUs";
-import { Section, Article, SubCategory } from "../../../store/faq/types";
+import { Article, SubCategory } from "../../../store/faq/types";
 import cx from 'classnames';
 import { decode, encodeSpace } from "../../../utils/extras";
 import { NavigationCard, Theme } from "../../card/NavigationCard";
@@ -44,6 +44,5 @@ function articleLinkDesktop(article: Article, categoryId: string, categoryHeadin
 export interface CategoryPageProps {
     id: string,
     title: string,
-    sections: Section[],
     subCategories: SubCategory[]
 }
