@@ -32,18 +32,18 @@ export const LandingPage = (props: LandingPageProps) => {
                 <div className={styles.panel}>
                     <div className={styles.title}><ContentTitle text="FAQs" /></div>
                     <div className={cx([styles.other_cards, styles.only_mobile])}>
-                        <NavigationCard text="About RedMart & Lazada Integration" to="/category/202558047/About+RedMart+&+Lazada+Integration" theme={Theme.STRIP}/>
-                        <NavigationCard text="Placing an Order" to="/category/202592867/Placing+an+Order"  theme={Theme.STRIP}/>
-                        <NavigationCard text="RedMart Delivery" to="/category/202557897/RedMart+Delivery"  theme={Theme.STRIP}/>
-                        <NavigationCard text="Products on RedMart" to="/category/202601828/Products+on+RedMart"  theme={Theme.STRIP}/>
-                        <NavigationCard text="About RedMart" to="/category/202592837/About-RedMart"  theme={Theme.STRIP}/>
+                        <NavigationCard text="About RedMart & Lazada Integration" to="/category/redmart-on-lazada/About+RedMart+&+Lazada+Integration" theme={Theme.STRIP}/>
+                        <NavigationCard text="Placing an Order" to="/category/placing-an-order/Placing+an+Order"  theme={Theme.STRIP}/>
+                        <NavigationCard text="RedMart Delivery" to="/category/redmart-delivery/RedMart+Delivery"  theme={Theme.STRIP}/>
+                        <NavigationCard text="Products on RedMart" to="/category/products-on-redmart/Products+on+RedMart"  theme={Theme.STRIP}/>
+                        <NavigationCard text="About RedMart" to="/category/about-redmart/About-RedMart"  theme={Theme.STRIP}/>
                     </div>
                     <div className={cx([styles.other_cards, styles.only_desktop])}>
-                        <NavigationCard text="About RedMart & Lazada Integration" to="/category/202558047/About+RedMart+&+Lazada+Integration"/>
-                        <NavigationCard text="Placing an Order" to="/category/202592867/Placing+an+Order"/>
-                        <NavigationCard text="RedMart Delivery" to="/category/202557897/RedMart+Delivery"/>
-                        <NavigationCard text="Products on RedMart" to="/category/202601828/Products+on+RedMart"/>
-                        <NavigationCard text="About RedMart" to="/category/202592837/About-RedMart"/>
+                        <NavigationCard text="About RedMart & Lazada Integration" to="/category/redmart-on-lazada/About+RedMart+&+Lazada+Integration"/>
+                        <NavigationCard text="Placing an Order" to="/category/placing-an-order/Placing+an+Order"/>
+                        <NavigationCard text="RedMart Delivery" to="/category/redmart-delivery/RedMart+Delivery"/>
+                        <NavigationCard text="Products on RedMart" to="/category/products-on-redmart/Products+on+RedMart"/>
+                        <NavigationCard text="About RedMart" to="/category/about-redmart/About-RedMart"/>
                     </div>
                 </div>
                 <div className={styles.only_desktop}><ContactUs /></div>

@@ -7,7 +7,6 @@ import cx from 'classnames';
 import { decode, encodeSpace } from "../../../utils/extras";
 import { NavigationCard, Theme } from "../../card/NavigationCard";
 import { ContentTitle } from "../../labels/ContentTitle";
-
 export const CategoryPage = (props: CategoryPageProps) => {
 
     setTitle(decode(props.title))
@@ -32,13 +31,13 @@ function prepareSection(subCategory: SubCategory, categoryId: string, categoryHe
 
 function articleLinkMobile(article: Article, categoryId: string, categoryHeading: string) {
     return (
-        <NavigationCard text={article.name} to={`/category/${categoryId}/${categoryHeading}/faq/${article.id}/${encodeSpace(article.name)}`} theme={Theme.STRIP} key={`mobile-article-link-${article.id}`}/>
+        <NavigationCard text={article.name} to={`/category/${categoryId}/${categoryHeading}/faq/${article.urlKey}/${encodeSpace(article.name)}`} theme={Theme.STRIP} key={`mobile-article-link-${article.urlKey}`}/>
     )
 }
 
 function articleLinkDesktop(article: Article, categoryId: string, categoryHeading: string) {
     return (
-        <div className={styles.alt_card} key={`desktop-article-link-${article.id}`}><NavigationCard text={article.name} to={`/category/${categoryId}/${categoryHeading}/faq/${article.id}/${encodeSpace(article.name)}`} theme={Theme.CARD}/></div>
+        <div className={styles.alt_card} key={`desktop-article-link-${article.urlKey}`}><NavigationCard text={article.name} to={`/category/${categoryId}/${categoryHeading}/faq/${article.urlKey}/${encodeSpace(article.name)}`} theme={Theme.CARD}/></div>
     )
 }
 

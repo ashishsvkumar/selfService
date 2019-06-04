@@ -40,22 +40,22 @@ const links: SidebarLink[] = [
     },
     {
         text: 'Placing an Order',
-        url: '/category/202592867/Placing+an+Order',
+        url: '/category/placing-an-order/Placing+an+Order',
         needLogin: false
     },
     {
         text: 'RedMart Delivery',
-        url: '/category/202557897/RedMart+Delivery',
+        url: '/category/redmart-delivery/RedMart+Delivery',
         needLogin: false
     },
     {
         text: 'Products on RedMart',
-        url: '/category/202601828/Products+on+RedMart',
+        url: '/category/products-on-redmart/Products+on+RedMart',
         needLogin: false
     },
     {
         text: 'About RedMart',
-        url: '/category/202592837/About-RedMart',
+        url: '/category/about-redmart/About-RedMart',
         needLogin: false
     }
 ];

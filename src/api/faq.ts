@@ -1,7 +1,7 @@
 import fetch from 'cross-fetch';
 import { Article, Category, Section } from '../store/faq/types';
 
-export function fetchArticle(id: number): Promise<Article> {
+export function fetchArticle(id: string): Promise<Article> {
     const ARTICLE_DETAIL = `https://myredmart.zendesk.com/api/v2/help_center/en-us/articles/${id}.json`;
     return fetch(ARTICLE_DETAIL)
         .then((response: any) => {

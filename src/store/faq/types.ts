@@ -3,9 +3,19 @@ export interface Article {
     name?: string,
     articleUrl?: string,
     body?:string,
+    urlKey?:string,
     loading?: boolean,
     errors?: string
 }
+
+export interface ArticleBody {
+    content?: string,
+    urlKey?:string,
+    name?:string,
+    loading?: boolean,
+    errors?: string
+}
+
 
 export interface Section {
     id?: string,
@@ -47,7 +57,7 @@ export const enum ArticleActionTypes {
 }
 
 export interface ArticlesState {
-    [articleId: number]: Article
+    [articleId: string]: ArticleBody
 }
 
 export interface SectionsState {
