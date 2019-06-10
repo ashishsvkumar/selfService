@@ -81,49 +81,49 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
     // Payment pending
     {
         text: 'How do I make payment for a pending order?',
-        url: `/orders/${order.tradeOrderId}/faq/360019823373`, 
+        url: `/orders/${order.tradeOrderId}/faq/How-do-I-make-payment-for-a-pending-order`, 
         shouldEnable: () => ["Payment pending"].indexOf(order.status) >= 0
     },
     {
         text: 'Was payment successful for my order?',
-        url: `/orders/${order.tradeOrderId}/faq/360019643974`,
+        url: `/orders/${order.tradeOrderId}/faq/Was-payment-successful-for-my-order`,
         shouldEnable: () => ["Payment pending"].indexOf(order.status) >= 0
     },
 
     // Scheduled / Processing / Shipped
     {
         text: 'Can I add or remove items from my order?',
-        url: `/orders/${order.tradeOrderId}/faq/200376704`,
+        url: `/orders/${order.tradeOrderId}/faq/Can-I-add-or-remove-items-from-my-order`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     {
         text: 'How can I cancel my order?',
-        url: `/orders/${order.tradeOrderId}/faq/360019789213`,
+        url: `/orders/${order.tradeOrderId}/faq/How-can-I-cancel-my-order`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     {
         text: 'Can I change my delivery address and phone number for an existing order?',
-        url: `/orders/${order.tradeOrderId}/faq/360019610994`,
+        url: `/orders/${order.tradeOrderId}/faq/Can-I-change-my-delivery-address-and-phone-number-for-an-existing-order`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     {
         text: "I need to change my delivery slot",
-        url: `/orders/${order.tradeOrderId}/faq/360019651834`,
+        url: `/orders/${order.tradeOrderId}/faq/Can-I-change-my-delivery-slot`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     {
         text: "What if I'm not at home for my delivery?",
-        url: `/orders/${order.tradeOrderId}/faq/200376874`,
+        url: `/orders/${order.tradeOrderId}/faq/What-if-I'm-not-home-for-my-delivery`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     {
         text: 'What if I want to give an Authority To Leave (ATL) for my delivery to my doorstep/security guard/concierge?',
-        url: `/orders/${order.tradeOrderId}/faq/200376854`,
+        url: `/orders/${order.tradeOrderId}/faq/What-if-I-want-to-give-an-Authority-To-Leave-ATL-for-my-delivery-to-my-doorstepsecurity-guardconcierge`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     {
         text: 'Can my Lazada orders be delivered together with my RedMart order?',
-        url: `/orders/${order.tradeOrderId}/faq/360019611274`,
+        url: `/orders/${order.tradeOrderId}/faq/Can-my-Lazada-orders-be-delivered-together-with-my-RedMart-order`,
         shouldEnable: () => ["Processing", "Shipped", "Scheduled"].indexOf(order.status) >= 0
     },
     
@@ -143,39 +143,39 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
     },
     {
         text: 'Can I return items to Redmart?',
-        url: `/orders/${order.tradeOrderId}/faq/360019787013`,
+        url: `/orders/${order.tradeOrderId}/faq/Can-I-return-products-to-RedMart-`,
         shouldEnable: () => ["Delivered", "Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
     },
     {
         text: 'One or more of the products I ordered did not arrive. What should I do?',
-        url: `/orders/${order.tradeOrderId}/faq/217371367`,
+        url: `/orders/${order.tradeOrderId}/faq/One-or-more-of-the-products-I-ordered-did-not-arrive-What-should-I-do`,
         shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0
     },
     {
         text: "Why didn't I receive a free gift with my RedMart purchase?",
-        url: `/orders/${order.tradeOrderId}/faq/360019789273`,
+        url: `/orders/${order.tradeOrderId}/faq/Why-didn't-I-receive-a-free-gift-with-my-RedMart-purchase`,
         shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0
     },
     {
         text: 'How long is the refund process?',
-        url: `/orders/${order.tradeOrderId}/faq/360019824453`,
+        url: `/orders/${order.tradeOrderId}/faq/How-long-is-the-refund-process`,
         shouldEnable: () => ["Delivered", "Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
     },
     {
         text: 'Why does the item I received look different from the one on the website?',
-        url: `/orders/${order.tradeOrderId}/faq/360019611074`,
+        url: `/orders/${order.tradeOrderId}/faq/Why-does-the-item-I-received-look-different-from-the-one-on-the-website`,
         shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0
     },
 
     // Refunded / Cancellation initiated / Cancelled
     {
         text: 'I used a voucher on my order, but some of the items were not available at delivery. Why did I not get a full refund on those items?',
-        url: `/orders/${order.tradeOrderId}/faq/360019638254`,
+        url: `/orders/${order.tradeOrderId}/faq/I-used-a-voucher-on-my-order-but-some-of-the-items-were-not-available-at-delivery-Why-did-I-not-get-a-full-refund-on-those-items`,
         shouldEnable: () => ["Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
     },
     {
         text: 'What happens if I cancel an order that I applied a voucher to?',
-        url: `/orders/${order.tradeOrderId}/faq/360019817993`,
+        url: `/orders/${order.tradeOrderId}/faq/What-happens-if-I-cancel-an-order-that-I-applied-a-voucher-to`,
         shouldEnable: () => ["Refunded", "Cancellation initiated", "Cancelled"].indexOf(order.status) >= 0
     }
 ]
