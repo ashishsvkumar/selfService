@@ -45,7 +45,7 @@ class MainContentHolder extends Component<any, any> {
                                     <Route path="/contact" component={RMHelpPage}/>
                                     <Route path="/orders/:tradeOrderId(\d+)/contact" component={RMHelpPage}/>
                                     <Route path="/orders/:tradeOrderId(\d+)/faq/:id/:heading?" component={FaqPage} />
-                                    <Route path="/category/:categoryId(\d+)/:categoryHeading/faq/:id/:heading?" component={FaqPage} />
+                                    <Route path="/category/:categoryId/:categoryHeading/faq/:id/:heading?" component={FaqPage} />
                                     <Route path="/faq/:id/:heading?" component={FaqPage} />
                                     <Route path="/orders/:tradeOrderId(\d+)/help/:category" component={ItemLevelHelpPage} />
                                     <Route path="/orders/:tradeOrderId(\d+)" component={OrderHelpLandingPage} />
