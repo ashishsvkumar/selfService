@@ -101,6 +101,9 @@ function prepareTemplate(head, header, footer, isMobile) {
     </head>
     <body>
         ${header}
+        <script>
+            window.g_config.cscRedMart = true;
+        </script>
         <div id="rm-cs-app"></div>
         ${isMobile ? '' : footer}
     </body>
