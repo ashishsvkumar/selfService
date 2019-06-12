@@ -22,7 +22,12 @@ export class FaqPage extends React.Component<FaqPageProps, FaqPageState> {
         log.info('FAQ page countainer will mount❓');
 
         const { tradeOrderId, categoryId, categoryHeading, heading } = this.props.match.params;
-        const crumbs = [{ text: decode(heading || 'FAQ'), url: location.href, needLogin: false }];
+        var headingStriped = heading;
+        if (heading && heading.length > 100) {
+            headingStriped = heading.substring(0, 100) + '...';
+        }
+
+        const crumbs = [{ text: decode(headingStriped || 'FAQ'), url: location.href, needLogin: false }];
 
         if (tradeOrderId) {
             crumbs.unshift({ text: 'Order Help', url: `/orders/${tradeOrderId}`, needLogin: true });

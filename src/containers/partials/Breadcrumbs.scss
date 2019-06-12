@@ -1,5 +1,6 @@
 @import '../../base.scss';
 
+
 .content {
     background-color: #f1f1f1;
     padding-left: 40px;
@@ -7,6 +8,7 @@
 
     padding-top: 13px;
     padding-bottom: 13px;
+    white-space: nowrap;
 }
 
 .link {
