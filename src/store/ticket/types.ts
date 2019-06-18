@@ -11,7 +11,8 @@ export interface Ticket {
     rpc?: {id: string, quantity: number, reasonCodeId: string}[],
     attachments?: {name: string, link: string}[],
     refundMethod?: string,
-    tags?: string[]
+    tags?: string[],
+    forXSpace?: boolean
 }
 
 export const enum RefundMethod {

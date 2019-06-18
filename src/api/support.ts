@@ -6,7 +6,7 @@ import * as log from 'loglevel';
 import { Ticket } from '../store/ticket/types';
 import { compress } from './compress';
 import { getHostEnvironment, Host } from './windvane';
-import { isMobile } from '../config/environment';
+import { isMobile, currentEnvironment, Environments } from '../config/environment';
 import { trackEvent } from '../utils/tracker';
 
 function getUploadUrl(): Promise<String> {
@@ -76,6 +76,10 @@ export function ticketCreate(ticket: Ticket) {
             default: {
                 ticket.tags = [`mode:${isMobile() ? 'lz_msite' : 'lz_pc'}`];
             }
+        }
+
+        if (currentEnvironment == Environments.preLive) {
+            ticket.forXSpace = true;
         }
 
         return fetch(
