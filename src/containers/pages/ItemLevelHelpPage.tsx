@@ -9,7 +9,7 @@ import { Spinner } from "../../components/icons/Spinner";
 import { isLoggedIn } from "../../utils/session";
 import { ProtectedPage } from "../../components/wrappers/AuthWrapper";
 import { createTicket } from "../../store/ticket/actions";
-import { Ticket } from "../../store/ticket/types";
+import { Ticket, Case } from "../../store/ticket/types";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
 import { isEmpty, get } from 'lodash';
@@ -64,7 +64,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
 
 interface PropsFromDispatch {
     fetchRedMartOrder: (tradeOrderId: string) => void,
-    createTicket: (ticket: Ticket) => void,
+    createTicket: (ticket: Case) => void,
     setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 

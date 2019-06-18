@@ -5,7 +5,7 @@ import { setTitle } from '../../../utils/container'
 import { getUserId } from "../../../utils/session"
 import { Button } from "../../form/Button";
 import { isEmptyString } from "../../../utils/extras";
-import { Ticket, TicketType } from "../../../store/ticket/types";
+import { Ticket, TicketType, Case } from "../../../store/ticket/types";
 import { WarningIcon } from "../../icons/WarningIcon";
 
 export class QueryFormPage extends React.Component<QueryFormPageProps, QueryFormPageState> {
@@ -80,13 +80,11 @@ export class QueryFormPage extends React.Component<QueryFormPageProps, QueryForm
             return false;
         }
 
-        const ticket: Ticket = {
+        const ticket: Case = {
             subject: this.state.subject,
-            comment: this.state.comment,
-            type: TicketType.MISCELLANEOUS,
-            forLazada: true,
-            email: this.props.userEmail || this.state.email,
-            memberId: getUserId()
+            description: this.state.comment,
+            customer: { email: this.props.userEmail || this.state.email },
+            modeOfCommunication: 'SELF_SERVICE_APP'
         }
         this.props.createTicket(ticket);
     }
@@ -131,7 +129,7 @@ interface QueryFormPageState {
 }
 
 export interface QueryFormPageProps {
-    createTicket: (ticket: Ticket) => void,
+    createTicket: (ticket: Case) => void,
     inProgress: boolean,
     userEmail: string
 }

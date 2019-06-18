@@ -9,7 +9,7 @@ import { ItemPreviewProps } from "../../item/ItemPreview";
 import { ItemIssue } from "../../item/ItemIssue";
 import { SelectOption } from "../../form/Select";
 import Attachment from "../../form/attachment/Attachment";
-import { Ticket, TicketType, RefundMethod } from "../../../store/ticket/types";
+import { Ticket, TicketType, RefundMethod, Case } from "../../../store/ticket/types";
 import { isEmptyString, isEmptyArray } from "../../../utils/extras";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { Comment } from "../../form/Comment";
@@ -160,21 +160,15 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     submitTicket = () => {
-        const ticket: Ticket = {
-            type: TicketType.ORDER,
-            forLazada: true,
-            publicId: this.props.order.tradeOrderId,
-            memberId: this.props.order.userId,
-            email: this.props.order.email,
-            comment: this.state.comment,
-            attachments: this.state.attachments.map(url => { return { link: url, name: null } }),
-            rpc: this.state.selectedItems.map(item => { 
-                return { id: item.sku, quantity: item.selectedQuantity, reasonCodeId: item.selectedIssue || Constants.MISSING_REASON_CODE_SECONDARY 
-                } 
-            }),
-            primaryReasonCodeId: this.getPrimaryReasonCode(),
-            secondaryReasonCodeId: this.getSecondaryReasonCode(),
-            refundMethod: RefundMethod.CC_PAYPAL
+        const ticket: Case = {
+            subject: 'About your RedMart Order',
+            description: `Customer has missing/damaged items`,
+            orderId: this.props.order.tradeOrderId,
+            pictures: this.state.attachments,
+            reasonCode: { secondary: this.state.selectedItems[0].selectedIssue  },
+            skus: this.state.selectedItems.map(item => item.sku),
+            customer: { email: 'anurag.saini@redmart.com' },
+            modeOfCommunication: 'SELF_SERVICE_APP'
         }
         this.props.createTicket(ticket);
 
@@ -288,7 +282,7 @@ export const enum Category {
 export interface ItemLevelHelpPageProps {
     order: RedMartOrder,
     helpCategory: Category,
-    createTicket: (ticket: Ticket) => void,
+    createTicket: (ticket: Case) => void,
     inProgress: boolean
 }
 
@@ -297,10 +291,10 @@ interface IssueReasonCode extends SelectOption {
 }
 
 const issueList: IssueReasonCode[] = [
-    { displayText: 'The item was broken', value: '1456125006689', primaryRC: '1456125006989' },
-    { displayText: 'The item was dented', value: '1456125006789', primaryRC: '1456125006989' },
-    { displayText: 'The item was leaking', value: '1456125006889', primaryRC: '1456125006989' },
-    { displayText: 'The item had torn packaging', value: '1512095387602', primaryRC: '1456125006989' },
+    { displayText: 'The item was broken', value: 'Broken', primaryRC: '50_I received damaged items' },
+    { displayText: 'The item was dented', value: 'Dented', primaryRC: '50_I received damaged items' },
+    { displayText: 'The item was leaking', value: 'Leaking', primaryRC: '50_I received damaged items' },
+    { displayText: 'The item had torn packaging', value: 'Torn Packaging', primaryRC: '50_I received damaged items' },
     { displayText: 'The item is expired', value: '1456125007889', primaryRC: '1456125007989' },
     { displayText: 'The item is close to expiry', value: '1456125008089', primaryRC: '1456125007989' },
     { displayText: 'The item did not taste good', value: '1456125007389', primaryRC: '1456125007489' },

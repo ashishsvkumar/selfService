@@ -14,6 +14,26 @@ export interface Ticket {
     tags?: string[]
 }
 
+export interface ReasonCode {
+    primary?: String,
+    secondary: String
+}
+
+export interface Customer {
+    email: String
+}
+
+export interface Case {
+    orderId?: string,
+    subject: string,
+    description: string,
+    pictures?: string[],
+    reasonCode?: ReasonCode,
+    customer: Customer,
+    modeOfCommunication: string,
+    skus?: string[]
+}
+
 export const enum RefundMethod {
     CC_PAYPAL = "CC_PAYPAL"
 }
@@ -42,6 +62,6 @@ export const enum Result {
 
 export interface TicketState {
     inProgress: boolean,
-    request?: Ticket,
+    request?: Case,
     result?: Result
 }

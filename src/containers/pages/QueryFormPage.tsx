@@ -4,7 +4,7 @@ import { QueryFormPage as Component } from "../../components/pages/query/QueryFo
 import { createTicket } from "../../store/ticket/actions";
 import { setBreadcrumbs } from "../../store/breadcrumb/actions";
 import { ApplicationState } from "../../store";
-import { Ticket } from "../../store/ticket/types";
+import { Ticket, Case } from "../../store/ticket/types";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { isEmpty } from 'lodash';
 import * as log from 'loglevel';
@@ -32,7 +32,7 @@ interface QueryFormPageState {
 }
 
 interface PropsFromDispatch {
-    createTicket: (ticket: Ticket) => void,
+    createTicket: (ticket: Case) => void,
     setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 

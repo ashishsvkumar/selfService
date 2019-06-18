@@ -1,25 +1,25 @@
 import { action } from "typesafe-actions";
-import { TicketActionTypes, Ticket } from "./types";
+import { TicketActionTypes, Ticket, Case } from "./types";
 import * as log from 'loglevel';
-import { ticketCreate } from "../../api/support";
 import { isEmptyString } from "../../utils/extras";
 import { showAlert, hideAlert } from "../alert/actions"
 import { getBasePath } from "../../config/environment";
+import { createCase } from "../../api/mtop";
 
-const createRequest = (ticket: Ticket) => action(TicketActionTypes.TICKET_CREATE_REQUEST, ticket);
+const createRequest = (ticket: Case) => action(TicketActionTypes.TICKET_CREATE_REQUEST, ticket);
 const createSuccess = () => action(TicketActionTypes.TICKET_CREATE_SUCCESS);
 const createFailure = () => action(TicketActionTypes.TICKET_CREATE_FAILURE);
 
 type Dispatcher = (param: any) => any;
 
-export function createTicket(ticket: Ticket) {
+export function createTicket(ticket: Case) {
     return function (dispatch: Dispatcher) {
         log.info('Creating ticket', ticket);
         hideAlert();
         dispatch(createRequest(ticket))
 
         // @ts-ignore
-        return ticketCreate(ticket)
+        return createCase(ticket)
             .then((response: any) => {
                 if (response.status === 201) {
                     log.info('Successfully created ticket')

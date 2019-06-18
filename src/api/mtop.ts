@@ -4,14 +4,22 @@ import { currentEnvironment, Environments } from "../config/environment";
 // @ts-ignore
 const Mtop = window.lib.mtop;
 
-if (currentEnvironment === Environments.preLive) {
-  Mtop.config.prefix = "";
-  Mtop.config.subDomain = "acs-wapa";
-  Mtop.config.mainDomain = "lazada.sg";
-} else {
-  Mtop.config.prefix = "";
-  Mtop.config.subDomain = "acs-m";
-  Mtop.config.mainDomain = "lazada.sg";
+function useMobileMtop() {
+  if (currentEnvironment === Environments.preLive) {
+    Mtop.config.prefix = "";
+    Mtop.config.subDomain = "acs-wapa";
+    Mtop.config.mainDomain = "lazada.sg";
+  } else {
+    Mtop.config.prefix = "";
+    Mtop.config.subDomain = "acs-m";
+    Mtop.config.mainDomain = "lazada.sg";
+  }
+}
+
+function useXSpaceMtop() {
+  Mtop.config.prefix = "acs-m";
+  Mtop.config.subDomain = "wapa";
+  Mtop.config.mainDomain = "taobao.com";
 }
 
 const DEFAULT_CONFIG = {
@@ -29,10 +37,25 @@ const DEFAULT_CONFIG = {
   AntiCreep: true
 };
 
+export function createCase(request: any): Promise<any> {
+  useMobileMtop();
+
+  return Mtop.request({
+    ...DEFAULT_CONFIG,
+    api: 'mtop.lazmart.helpcenter.case.rawcreate',
+    data: request,
+    needLogin: false,
+    type: 'POST'
+  });
+}
+
+
 export function orderList(): Promise<any> {
   if (currentEnvironment === Environments.preLive) {
     return mockOrders();
   }
+
+  useMobileMtop();
 
   return Mtop.request(
     {
@@ -49,6 +72,8 @@ export function orderDetails(id: string): Promise<any> {
   if (currentEnvironment === Environments.preLive) {
     return mockDetails(id);
   }
+
+  useMobileMtop();
 
   return Mtop.request(
     {
@@ -67,6 +92,8 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
     return mockUser();
   }
 
+  useMobileMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
@@ -81,6 +108,9 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
 }
 
 export function getRootCategories(): Promise<any> {
+
+  useMobileMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
@@ -93,6 +123,9 @@ export function getRootCategories(): Promise<any> {
 }
 
 export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
+
+  useMobileMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
@@ -109,6 +142,9 @@ export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
 
 
 export function getArticleByUrlKey(urlKey: string): Promise<any> {
+
+  useMobileMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
