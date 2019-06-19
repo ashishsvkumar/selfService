@@ -34,11 +34,13 @@ function prepareChatLibs(isMobile) {
 function prepareChatStyles(isMobile) {
 
     var styles = [];
-    if(devMode) {
+    /** if(devMode) {
         styles.push(isMobile ? 'https://g-assets.daily.taobao.net/lzdfe/chat/0.2.0/pages/mobile/index.css' : 'https://g-assets.daily.taobao.net/lzdfe/chat/0.2.0/pages/desktop/index.css');
     } else {
         styles.push(isMobile ? 'https://g.alicdn.com/lzdfe/chat/0.2.0/pages/mobile/index.css' : 'https://g.alicdn.com/lzdfe/chat/0.2.0/pages/desktop/index.css');
     }
+    */
+    styles.push("https://g-assets.daily.taobao.net/lzdfe/chat/0.3.0/pages/desktop/index.css");
 
     return styles.map(j => `<link rel="stylesheet" href="${j}">`).reduce((s1, s2) => s1 + s2);
 
@@ -102,7 +104,7 @@ function prepareTemplate(head, header, footer, isMobile) {
     <body>
         ${header}
         <script>
-            window.g_config.cscRedMart = true;
+            window.g_config.cscVendor = '10';
         </script>
         <div id="rm-cs-app"></div>
         ${isMobile ? '' : footer}

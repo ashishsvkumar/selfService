@@ -85,7 +85,7 @@ function getSnapEngageScriptSource() {
 }
 
 function getXspaceChatScriptSource() {
-    return 'https://g.alicdn.com/lzdfe/chat/0.2.0/pages/desktop/index.js';
+    return ' https://g-assets.daily.taobao.net/lzdfe/chat/0.3.0/pages/desktop/index.js';
 }
 
 function setupPing(se: SnapEngageApi, dispatch: (param: any) => any) {

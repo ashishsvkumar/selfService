@@ -90,7 +90,7 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
     }
 
     getChatLink  = () => {
-       return "https://helpcenter-pre.lazada.sg/help/chat?redmart=1";
+       return "https://www.lazada.sg/help/chat/?vendor=10&csc-agent=1";
     }
 
     render() {
