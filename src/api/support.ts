@@ -82,6 +82,10 @@ export function ticketCreate(ticket: Ticket) {
             ticket.forXSpace = true;
         }
 
+        if (ticket.publicId != null) {
+            ticket.invoiceId = ticket.publicId
+        }
+
         return fetch(
             `${supportBase}/ticket`,
             {

@@ -12,7 +12,8 @@ export interface Ticket {
     attachments?: {name: string, link: string}[],
     refundMethod?: string,
     tags?: string[],
-    forXSpace?: boolean
+    forXSpace?: boolean,
+    invoiceId?: string
 }
 
 export const enum RefundMethod {
