@@ -144,7 +144,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         const { helpCategory } = this.props;
 
         if (helpCategory === Category.missing) {
-            return Constants.MISSING_REASON_CODE_PRIMARY;
+            return currentEnvironment === Environments.preLive ? '50_Where is my item (short ship)' : Constants.MISSING_REASON_CODE_PRIMARY;
         } else {
             return issueList.filter(option => option.value === this.state.selectedItems[0].selectedIssue).map(option => option.primaryRC)[0];
         }
@@ -154,7 +154,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
         const { helpCategory } = this.props;
 
         if (helpCategory === Category.missing) {
-            return Constants.MISSING_REASON_CODE_SECONDARY;
+            return currentEnvironment === Environments.preLive ? 'Credit/Refund request' : Constants.MISSING_REASON_CODE_SECONDARY;
         } else {
             return issueList.filter(option => option.value === this.state.selectedItems[0].selectedIssue).map(option => option.value)[0];
         }
@@ -170,7 +170,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
             comment: this.state.comment,
             attachments: this.state.attachments.map(url => { return { link: url, name: null } }),
             rpc: this.state.selectedItems.map(item => { 
-                return { id: item.sku, quantity: item.selectedQuantity, reasonCodeId: item.selectedIssue || Constants.MISSING_REASON_CODE_SECONDARY 
+                return { id: item.sku, quantity: item.selectedQuantity, reasonCodeId: item.selectedIssue || (currentEnvironment === Environments.preLive ? 'Credit/Refund request' : Constants.MISSING_REASON_CODE_SECONDARY)
                 } 
             }),
             primaryReasonCodeId: this.getPrimaryReasonCode(),
