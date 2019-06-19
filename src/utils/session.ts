@@ -2,6 +2,7 @@ import { get as getCookie, remove } from "es-cookie";
 import { isEmptyString } from "./extras";
 import { isWindVandAvailable, initiateLogin } from "../api/windvane";
 import { currentEnvironment, Environments } from "../config/environment";
+import { isMock } from "../api/mtop";
 
 const USER_ID_KEY = "lzd_uid";
 const SESSION_ID_KEY = "lzd_sid";
@@ -15,7 +16,7 @@ function cookieDomain() {
 }
 
 export function isLoggedIn() {
-  if (currentEnvironment === Environments.preLive) {
+  if (isMock()) {
     return true;
   }
 

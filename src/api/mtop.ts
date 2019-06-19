@@ -29,7 +29,7 @@ const DEFAULT_CONFIG = {
   AntiCreep: true
 };
 
-function isMock() {
+export function isMock() {
   return /(&?)test=true/.test(location.search);
 }
 
