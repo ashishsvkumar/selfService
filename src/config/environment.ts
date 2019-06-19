@@ -9,7 +9,8 @@ export const enum Environments {
 }
 
 function getCurrentEnvironment() {
-  const isTest = /(&?)test=true/.test(location.search) || (location.host === 'local.lazada.sg');
+  //const isTest = /(&?)test=true/.test(location.search) || (location.host === 'local.lazada.sg') || (location.host === 'redmart-rm.lazada.sg');
+  const isTest = (location.host === 'local.lazada.sg') || (location.host === 'redmart-rm.lazada.sg');
 
   if (!isTest) {
     return Environments.production;

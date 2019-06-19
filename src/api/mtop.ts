@@ -29,8 +29,12 @@ const DEFAULT_CONFIG = {
   AntiCreep: true
 };
 
+function isMock() {
+  return /(&?)test=true/.test(location.search);
+}
+
 export function orderList(): Promise<any> {
-  if (currentEnvironment === Environments.preLive) {
+  if (isMock()) {
     return mockOrders();
   }
 
@@ -46,7 +50,7 @@ export function orderList(): Promise<any> {
 }
 
 export function orderDetails(id: string): Promise<any> {
-  if (currentEnvironment === Environments.preLive) {
+  if (isMock()) {
     return mockDetails(id);
   }
 
@@ -63,7 +67,7 @@ export function orderDetails(id: string): Promise<any> {
 
 
 export function memberDetails(userId: string, sessionId: string): Promise<any> {
-  if (currentEnvironment === Environments.preLive) {
+  if (isMock()) {
     return mockUser();
   }
 
