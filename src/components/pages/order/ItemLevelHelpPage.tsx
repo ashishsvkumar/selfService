@@ -17,6 +17,7 @@ import { RedMartOrder } from "../../../store/package/types";
 import { Constants } from "../../../config/constants";
 import { trackEvent } from "../../../utils/tracker";
 import {isEmpty} from 'lodash';
+import { currentEnvironment, Environments } from "../../../config/environment";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, ItemLevelHelpPageState> {
 
@@ -296,7 +297,7 @@ interface IssueReasonCode extends SelectOption {
     primaryRC: string
 }
 
-const issueList: IssueReasonCode[] = [
+let issueList: IssueReasonCode[] = [
     { displayText: 'The item was broken', value: '1456125006689', primaryRC: '1456125006989' },
     { displayText: 'The item was dented', value: '1456125006789', primaryRC: '1456125006989' },
     { displayText: 'The item was leaking', value: '1456125006889', primaryRC: '1456125006989' },
@@ -309,3 +310,10 @@ const issueList: IssueReasonCode[] = [
     { displayText: 'The fresh food was frozen', value: '1456125007689', primaryRC: '1456125007789' },
     { displayText: 'The item was not cold / melted when received', value: '1456125007589', primaryRC: '1456125007789' }
 ];
+
+if (currentEnvironment === Environments.preLive) {
+    issueList = [
+        { displayText: 'Damaged', value: 'Damaged', primaryRC: '50_I received damaged items' },
+        { displayText: 'The item was dented', value: 'Credit/Refund request', primaryRC: '50_Where is my item (short ship)' }
+    ];
+}
