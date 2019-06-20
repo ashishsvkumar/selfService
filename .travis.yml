@@ -15,6 +15,9 @@ before_install:
 - '/usr/bin/curl -o travis-entry-point.sh --header "Authorization: token $GITHUB_TOKEN" --header "Accept: application/vnd.github.v3.raw" --fail --silent --show-error --location https://api.github.com/repos/redmart/devops-tool/contents/travis-entry-point.sh && . ./travis-entry-point.sh'
 - nvm install 10.14.1
 - nvm install 0.10.33
+- cd ../
+- git clone https://rmautomation:$GITHUB_TOKEN@github.com/Redmart/POC_Laz_Web.git
+- cd service-app-v3/
 install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" >> ~/.netrc
 - nvm use 10.14.1
@@ -22,8 +25,10 @@ install:
 - nvm use 0.10.33
 - npm install -g grunt@0.4.1 grunt-cli@0.1.9
 - redmart_install
+- cd ../POC_Laz_Web
 - gem install bundler;
 - bundle install
+- cd ../service-app-v3
 before_script:
 - redmart_before_script
 - redmart_tunnel -l 4444:selenium.alpha.redmart.com:4444
@@ -32,9 +37,11 @@ script:
 - cd ci/; npm install; chmod +x rm_version_mgr.sh ; ./rm_version_mgr.sh ; cd ../
 - nvm use 10.14.1
 - chmod +x build_app.sh ; ./build_app.sh npm
+- cd ../POC_Laz_Web
 - cucumber -S --retry 1 -p ci --guess --tags @selfService
-- export PROFILE="mobile'
+- export PROFILE="mobile"
 - cucumber -S --retry 1 -p ci --guess --tags @selfServiceMob
+- cd ../service-app-v3
 after_success:
 - nvm use 0.10.33
 - cd ci/; chmod +x rm_deploy.sh ; ./rm_deploy.sh ; cd ../
