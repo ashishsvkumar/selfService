@@ -52,7 +52,7 @@ export function createXspaceCase(caseRequest: CaseRequest): Promise<any> {
   return Mtop.request({
     ...DEFAULT_CONFIG,
     api: 'mtop.lazmart.selfservice.create',
-    data: { case: JSON.stringify(caseRequest) }
+    data: { case: JSON.stringify({...caseRequest, modeOfCommunication: 'SELF_SERVICE_APP'}) }
   });
 }
 
