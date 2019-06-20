@@ -1,17 +1,29 @@
 import { mockOrders, mockDetails, mockUser } from "../mockData/mock";
 import { currentEnvironment, Environments } from "../config/environment";
+import { CaseRequest } from "../store/ticket/types";
 
 // @ts-ignore
 const Mtop = window.lib.mtop;
+Mtop.config.prefix = "";
 
-if (currentEnvironment === Environments.preLive) {
-  Mtop.config.prefix = "";
-  Mtop.config.subDomain = "acs-wapa";
+
+function sgMtop() {
+  if (currentEnvironment === Environments.preLive) {
+    Mtop.config.subDomain = "acs-wapa";
+  } else {
+    Mtop.config.subDomain = "acs-m";
+  }
   Mtop.config.mainDomain = "lazada.sg";
-} else {
-  Mtop.config.prefix = "";
-  Mtop.config.subDomain = "acs-m";
-  Mtop.config.mainDomain = "lazada.sg";
+}
+
+function myMtop() {
+  if (currentEnvironment === Environments.preLive) {
+    Mtop.config.subDomain = "acs-wapa";
+
+  } else {
+    Mtop.config.subDomain = "acs-m";
+  }
+  Mtop.config.mainDomain = "lazada.com.my";
 }
 
 const DEFAULT_CONFIG = {
@@ -33,10 +45,23 @@ export function isMock() {
   return /(&?)test=true/.test(location.search);
 }
 
+export function createXspaceCase(caseRequest: CaseRequest): Promise<any> {
+
+  myMtop();
+
+  return Mtop.request({
+    ...DEFAULT_CONFIG,
+    api: 'mtop.lazmart.selfservice.create',
+    data: { case: JSON.stringify(caseRequest) }
+  });
+}
+
 export function orderList(): Promise<any> {
   if (isMock()) {
     return mockOrders();
   }
+
+  sgMtop();
 
   return Mtop.request(
     {
@@ -53,6 +78,8 @@ export function orderDetails(id: string): Promise<any> {
   if (isMock()) {
     return mockDetails(id);
   }
+
+  sgMtop();
 
   return Mtop.request(
     {
@@ -71,10 +98,12 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
     return mockUser();
   }
 
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
-            api: "mtop.lazada.member.user.biz.getloginuser",
+      api: "mtop.lazada.member.user.biz.getloginuser",
       data: {
         sessionId: sessionId,
         userId: parseInt(userId, 10),
@@ -85,25 +114,31 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
 }
 
 export function getRootCategories(): Promise<any> {
+
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
       appKey: 4272,
       needLogin: false,
-      api:"mtop.helpcenter.category.getrootcategories",
-      data: {}  
+      api: "mtop.helpcenter.category.getrootcategories",
+      data: {}
     }
   );
 }
 
 export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
+
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
       appKey: 4272,
       needLogin: false,
-      api:"mtop.helpcenter.category.getByUrlKey",
-      data: 
+      api: "mtop.helpcenter.category.getByUrlKey",
+      data:
       {
         urlKey: urlKey
       },
@@ -113,13 +148,16 @@ export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
 
 
 export function getArticleByUrlKey(urlKey: string): Promise<any> {
+
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
       appKey: 4272,
       needLogin: false,
-      api:"mtop.helpcenter.article.getByUrlKey",
-      data: 
+      api: "mtop.helpcenter.article.getByUrlKey",
+      data:
       {
         urlKey: urlKey
       },
