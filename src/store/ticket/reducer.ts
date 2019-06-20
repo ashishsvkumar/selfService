@@ -5,7 +5,8 @@ import { TicketActionTypes, TicketState, Result } from "./types";
 export const initialTicketState: TicketState = {
     inProgress: false,
     request: undefined,
-    result: undefined
+    result: undefined,
+    case: undefined
 };
 
 
@@ -18,6 +19,15 @@ export const ticketReducer: Reducer<TicketState> = (state = initialTicketState, 
             return { ...state, inProgress: false, result: Result.SUCCESS };
         }
         case TicketActionTypes.TICKET_CREATE_FAILURE: {
+            return { ...state, inProgress: false, result: Result.FAILURE };
+        }
+        case TicketActionTypes.CASE_CREATE_REQUEST: {
+            return { ...state, inProgress: true, case: action.payload, result: undefined };
+        }
+        case TicketActionTypes.CASE_CREATE_SUCCESS: {
+            return { ...state, inProgress: false, result: Result.SUCCESS };
+        }
+        case TicketActionTypes.CASE_CREATE_FAILURE: {
             return { ...state, inProgress: false, result: Result.FAILURE };
         }
         default: {

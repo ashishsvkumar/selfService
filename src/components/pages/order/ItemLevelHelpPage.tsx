@@ -9,7 +9,7 @@ import { ItemPreviewProps } from "../../item/ItemPreview";
 import { ItemIssue } from "../../item/ItemIssue";
 import { SelectOption } from "../../form/Select";
 import Attachment from "../../form/attachment/Attachment";
-import { Ticket, TicketType, RefundMethod } from "../../../store/ticket/types";
+import { Ticket, TicketType, RefundMethod, CaseRequest, AffectedItem } from "../../../store/ticket/types";
 import { isEmptyString, isEmptyArray } from "../../../utils/extras";
 import { WarningIcon } from "../../icons/WarningIcon";
 import { Comment } from "../../form/Comment";
@@ -161,6 +161,11 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     submitTicket = () => {
+        if (currentEnvironment == Environments.preLive) {
+            this.submitCase();
+            return;
+        }
+
         const ticket: Ticket = {
             type: TicketType.ORDER,
             forLazada: true,
@@ -185,6 +190,24 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
                 trackEvent('Item Issue', 'Selected', 'The item is missing', '1');
             });
         }
+    }
+
+    submitCase = () => {
+        const affectedItems: AffectedItem[] = this.state.selectedItems.map(item => { 
+            return { sku: item.sku, quantity: item.selectedQuantity, reasonCode: { secondary: item.selectedIssue || 'Credit/Refund request' } } 
+        });
+
+        const caseRequest: CaseRequest = {
+            subject: `About your Lazada order #${this.props.order.tradeOrderId}`,
+            email: this.props.order.email,
+            memberId: parseInt(this.props.order.userId),
+            traderOrderId: parseInt(this.props.order.tradeOrderId),
+            attachments: this.state.attachments || [],
+            affectedItems: affectedItems,
+            comment: this.state.comment
+        }
+
+        this.props.createCase(caseRequest);
     }
 
     issuesView = () => {
@@ -290,6 +313,7 @@ export interface ItemLevelHelpPageProps {
     order: RedMartOrder,
     helpCategory: Category,
     createTicket: (ticket: Ticket) => void,
+    createCase: (request: CaseRequest) => void,
     inProgress: boolean
 }
 

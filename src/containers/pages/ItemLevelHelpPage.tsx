@@ -8,8 +8,8 @@ import { ApplicationState } from "../../store";
 import { Spinner } from "../../components/icons/Spinner";
 import { isLoggedIn } from "../../utils/session";
 import { ProtectedPage } from "../../components/wrappers/AuthWrapper";
-import { createTicket } from "../../store/ticket/actions";
-import { Ticket } from "../../store/ticket/types";
+import { createTicket, createCase } from "../../store/ticket/actions";
+import { Ticket, CaseRequest } from "../../store/ticket/types";
 import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
 import { isEmpty, get } from 'lodash';
@@ -52,12 +52,16 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
             return <NotFound />;
         }
         else if (this.props.notFound) {
-            return <NotFound message="Sorry, the order you are looking for could not be found."/>;
+            return <NotFound message="Sorry, the order you are looking for could not be found." />;
         }
         else if (fetching || order === null) {
             return <ProtectedPage><Spinner /></ProtectedPage>
         } else {
-            return <Component order={order} helpCategory={this.props.match.params.category} createTicket={this.props.createTicket} inProgress={this.props.ticketInProgress} />
+            return <Component order={order} helpCategory={this.props.match.params.category}
+                createTicket={this.props.createTicket}
+                createCase={this.props.createCase}
+                inProgress={this.props.ticketInProgress}
+            />
         }
     }
 }
@@ -65,6 +69,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
 interface PropsFromDispatch {
     fetchRedMartOrder: (tradeOrderId: string) => void,
     createTicket: (ticket: Ticket) => void,
+    createCase: (request: CaseRequest) => void,
     setBreadcrumbs: (breadcrumbs: BreadcrumbEntry[]) => void
 }
 
@@ -84,12 +89,13 @@ type ItemLevelHelpPageProps = PropsFromDispatch & PropsFromState & PropsFromRout
 const mapDispatchToProps = {
     fetchRedMartOrder: fetchRedMartOrder,
     createTicket: createTicket,
+    createCase: createCase,
     setBreadcrumbs: setBreadcrumbs
 }
 
 const maptStateToProps = ({ redmartOrders, ticket }: ApplicationState, ownProps: ItemLevelHelpPageProps) => {
     const orderId = ownProps.match.params.tradeOrderId;
-    const fetching =  get(redmartOrders, `details[${orderId}].fetching`, false);
+    const fetching = get(redmartOrders, `details[${orderId}].fetching`, false);
     const notFound = !isEmpty(get(redmartOrders, `details[${orderId}].error`))
     const order = get(redmartOrders, `details[${orderId}].order`, null);
 

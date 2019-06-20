@@ -1,17 +1,34 @@
 import { mockOrders, mockDetails, mockUser } from "../mockData/mock";
 import { currentEnvironment, Environments } from "../config/environment";
+import { CaseRequest } from "../store/ticket/types";
 
 // @ts-ignore
 const Mtop = window.lib.mtop;
 
-if (currentEnvironment === Environments.preLive) {
-  Mtop.config.prefix = "";
-  Mtop.config.subDomain = "acs-wapa";
-  Mtop.config.mainDomain = "lazada.sg";
-} else {
-  Mtop.config.prefix = "";
-  Mtop.config.subDomain = "acs-m";
-  Mtop.config.mainDomain = "lazada.sg";
+
+
+function sgMtop() {
+  if (currentEnvironment === Environments.preLive) {
+    Mtop.config.prefix = "";
+    Mtop.config.subDomain = "acs-wapa";
+    Mtop.config.mainDomain = "lazada.sg";
+  } else {
+    Mtop.config.prefix = "";
+    Mtop.config.subDomain = "acs-m";
+    Mtop.config.mainDomain = "lazada.sg";
+  }
+}
+
+function myMtop() {
+  if (currentEnvironment === Environments.preLive) {
+    Mtop.config.prefix = "";
+    Mtop.config.subDomain = "acs-wapa";
+    Mtop.config.mainDomain = "lazada.com.my";
+  } else {
+    Mtop.config.prefix = "";
+    Mtop.config.subDomain = "acs-m";
+    Mtop.config.mainDomain = "lazada.com.my";
+  }
 }
 
 const DEFAULT_CONFIG = {
@@ -33,10 +50,23 @@ export function isMock() {
   return /(&?)test=true/.test(location.search);
 }
 
+export function createXspaceCase(caseRequest: CaseRequest): Promise<any> {
+
+  myMtop();
+
+  return Mtop.request({
+    ...DEFAULT_CONFIG,
+    api: 'mtop.lazmart.helpcenter.case.create',
+    data: caseRequest
+  });
+}
+
 export function orderList(): Promise<any> {
   if (isMock()) {
     return mockOrders();
   }
+
+  sgMtop();
 
   return Mtop.request(
     {
@@ -53,6 +83,8 @@ export function orderDetails(id: string): Promise<any> {
   if (isMock()) {
     return mockDetails(id);
   }
+
+  sgMtop();
 
   return Mtop.request(
     {
@@ -71,6 +103,8 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
     return mockUser();
   }
 
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
@@ -85,6 +119,9 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
 }
 
 export function getRootCategories(): Promise<any> {
+
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
@@ -97,6 +134,9 @@ export function getRootCategories(): Promise<any> {
 }
 
 export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
+
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
@@ -113,6 +153,9 @@ export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
 
 
 export function getArticleByUrlKey(urlKey: string): Promise<any> {
+
+  sgMtop();
+
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,

@@ -16,6 +16,27 @@ export interface Ticket {
     invoiceId?: string
 }
 
+export interface ReasonCode {
+    primary?: string,
+    secondary: string
+}
+
+export interface AffectedItem {
+    sku: string,
+    quantity: number,
+    reasonCode: ReasonCode
+}
+
+export interface CaseRequest {
+    subject: string,
+    email: string,
+    memberId: number,
+    comment?: string,
+    traderOrderId: number,
+    affectedItems: AffectedItem[],
+    attachments: string[]
+}
+
 export const enum RefundMethod {
     CC_PAYPAL = "CC_PAYPAL"
 }
@@ -34,7 +55,11 @@ export const enum TicketType {
 export const enum TicketActionTypes {
     TICKET_CREATE_REQUEST = "ticket/create/request",
     TICKET_CREATE_SUCCESS = "ticket/create/success",
-    TICKET_CREATE_FAILURE = "ticket/create/failure"
+    TICKET_CREATE_FAILURE = "ticket/create/failure",
+
+    CASE_CREATE_REQUEST = "case/create/request",
+    CASE_CREATE_SUCCESS = "case/create/success",
+    CASE_CREATE_FAILURE = "case/create/failure"
 }
 
 export const enum Result {
@@ -45,5 +70,6 @@ export const enum Result {
 export interface TicketState {
     inProgress: boolean,
     request?: Ticket,
-    result?: Result
+    result?: Result,
+    case?: CaseRequest
 }
