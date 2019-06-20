@@ -28,6 +28,16 @@ export function createCase(request: CaseRequest) {
             if (response.retType === 0) {
                 log.info('Case created ✅');
                 dispatch(caseSuccess());
+                dispatch(showAlert({
+                    show: true,
+                    title: 'Submitted!',
+                    message: 'Thank you for reporting an issue with your delivery. We will verify your claim and issue a refund accordingly.',
+                    btnText: 'Done',
+                    onClick: () => {
+                        // @ts-ignore
+                        window.location = getBasePath();
+                    }
+                }))
             } else {
                 log.error('Could not create case. Server responded', response.ret);
                 onError(response, dispatch);

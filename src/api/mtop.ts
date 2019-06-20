@@ -4,31 +4,26 @@ import { CaseRequest } from "../store/ticket/types";
 
 // @ts-ignore
 const Mtop = window.lib.mtop;
-
+Mtop.config.prefix = "";
 
 
 function sgMtop() {
   if (currentEnvironment === Environments.preLive) {
-    Mtop.config.prefix = "";
     Mtop.config.subDomain = "acs-wapa";
-    Mtop.config.mainDomain = "lazada.sg";
   } else {
-    Mtop.config.prefix = "";
     Mtop.config.subDomain = "acs-m";
-    Mtop.config.mainDomain = "lazada.sg";
   }
+  Mtop.config.mainDomain = "lazada.sg";
 }
 
 function myMtop() {
   if (currentEnvironment === Environments.preLive) {
-    Mtop.config.prefix = "";
     Mtop.config.subDomain = "acs-wapa";
-    Mtop.config.mainDomain = "lazada.com.my";
+
   } else {
-    Mtop.config.prefix = "";
     Mtop.config.subDomain = "acs-m";
-    Mtop.config.mainDomain = "lazada.com.my";
   }
+  Mtop.config.mainDomain = "lazada.com.my";
 }
 
 const DEFAULT_CONFIG = {
@@ -56,8 +51,8 @@ export function createXspaceCase(caseRequest: CaseRequest): Promise<any> {
 
   return Mtop.request({
     ...DEFAULT_CONFIG,
-    api: 'mtop.lazmart.helpcenter.case.create',
-    data: caseRequest
+    api: 'mtop.lazmart.selfservice.create',
+    data: { case: JSON.stringify(caseRequest) }
   });
 }
 
@@ -108,7 +103,7 @@ export function memberDetails(userId: string, sessionId: string): Promise<any> {
   return Mtop.request(
     {
       ...DEFAULT_CONFIG,
-            api: "mtop.lazada.member.user.biz.getloginuser",
+      api: "mtop.lazada.member.user.biz.getloginuser",
       data: {
         sessionId: sessionId,
         userId: parseInt(userId, 10),
@@ -127,8 +122,8 @@ export function getRootCategories(): Promise<any> {
       ...DEFAULT_CONFIG,
       appKey: 4272,
       needLogin: false,
-      api:"mtop.helpcenter.category.getrootcategories",
-      data: {}  
+      api: "mtop.helpcenter.category.getrootcategories",
+      data: {}
     }
   );
 }
@@ -142,8 +137,8 @@ export function getCategoriesByUrlKey(urlKey: string): Promise<any> {
       ...DEFAULT_CONFIG,
       appKey: 4272,
       needLogin: false,
-      api:"mtop.helpcenter.category.getByUrlKey",
-      data: 
+      api: "mtop.helpcenter.category.getByUrlKey",
+      data:
       {
         urlKey: urlKey
       },
@@ -161,8 +156,8 @@ export function getArticleByUrlKey(urlKey: string): Promise<any> {
       ...DEFAULT_CONFIG,
       appKey: 4272,
       needLogin: false,
-      api:"mtop.helpcenter.article.getByUrlKey",
-      data: 
+      api: "mtop.helpcenter.article.getByUrlKey",
+      data:
       {
         urlKey: urlKey
       },
