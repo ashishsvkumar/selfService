@@ -193,8 +193,15 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     submitCase = () => {
+        const primary = issueList.filter(iss => iss.value == item.selectedIssue).map(iss => iss.primaryRC);
         const affectedItems: AffectedItem[] = this.state.selectedItems.map(item => { 
-            return { sku: item.sku, quantity: item.selectedQuantity, reasonCode: { secondary: item.selectedIssue || 'Credit/Refund request' } } 
+            return { 
+                sku: item.sku, quantity: item.selectedQuantity, 
+                reasonCode: { 
+                    primary: primary.length == 0 ? 'Missing' : primary[0],
+                    secondary: item.selectedIssue || 'Incomplete delivery'
+                } 
+            } 
         });
 
         const caseRequest: CaseRequest = {
@@ -337,7 +344,13 @@ let issueList: IssueReasonCode[] = [
 
 if (currentEnvironment === Environments.preLive) {
     issueList = [
-        { displayText: 'Damaged', value: 'Damaged', primaryRC: '50_I received damaged items' },
-        { displayText: 'The item was dented', value: 'Credit/Refund request', primaryRC: '50_Where is my item (short ship)' }
+        { displayText: 'The item was damaged', value: 'Packaging damaged', primaryRC: 'Damaged' },
+        { displayText: 'The item is expired', value: 'Expired', primaryRC: 'Expired product' },
+        { displayText: 'The item is close to expiry', value: 'Close to Expiry', primaryRC: 'Expired product' },
+        { displayText: 'The item did not taste good', value: 'Item taste is not good', primaryRC: 'Food Quality' },
+        { displayText: 'The item may be contaminated', value: 'Pest infestation', primaryRC: 'Food Quality' },
+        { displayText: 'The item was rotten or moldy', value: 'Rotten and/or moldy', primaryRC: 'Food Quality' },
+        { displayText: 'The fresh food was frozen', value: 'Fresh food was frozen', primaryRC: 'Temperature related' },
+        { displayText: 'The item was not cold / melted when received', value: 'Not cold at receiving/ Melted', primaryRC: 'Temperature related' }
     ];
 }
