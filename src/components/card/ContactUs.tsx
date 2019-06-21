@@ -22,21 +22,18 @@ export const ContactUs = (props: ContactUsProps) => {
             <div className={styles.only_desktop}>
                 <div className={cx([styles.only_desktop, styles.title])}>Want to talk to someone?</div>
                 <div className={styles.subtitle}>Can’t find the answer you are looking for RedMart? Chat with our friendly Customer Support officers.</div>
-                { testEnv && 
-                (<div className={styles.btns}>
-                    <div className={cx([styles.btn, "--js-csc-trigger"])} >
-                        <div className={styles.chat} />
-                        <div className={styles.label}>XSpace Chat</div>
-                    </div>
-                </div>) }
-                <div className={styles.btns}>
-                    <div className={styles.btn} onClick={props.onChatClick}>
-                        <div className={styles.chat} />
-                        <div className={styles.label}>{props.chatMessage}</div>
-                    </div>
-                </div>
-               
-                
+                {testEnv ?
+                    (<div className={styles.btns}>
+                        <div className={cx([styles.btn, "--js-csc-trigger"])} >
+                            <div className={styles.chat} />
+                            <div className={styles.label}>Chat with us</div>
+                        </div>
+                    </div>) : (<div className={styles.btns}>
+                        <div className={styles.btn} onClick={props.onChatClick}>
+                            <div className={styles.chat} />
+                            <div className={styles.label}>{props.chatMessage}</div>
+                        </div>
+                    </div>)}
                 <div className={styles.subtext}>{Constants.OPERATION_TIME}</div>
                 <br/>
                 <div className={styles.card_subtitle} style={{marginTop: 0}}>Still Need Help? <span className={styles.more} onClick={props.onMoreClick}>Call us.</span></div>

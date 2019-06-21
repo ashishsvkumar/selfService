@@ -75,6 +75,17 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                 </div>
             );
         }
+        const testEnv = currentEnvironment != Environments.production;
+
+        if (testEnv) {
+            return (
+                <a className={cx([styles.btn, "--js-csc-trigger"])} href={this.getChatLink()}>
+                    <div className={styles.center}>
+                        <div className={cx([styles.chat, styles.icon])} />
+                        <div className={styles.btn_text}>Chat with us</div>
+                    </div>
+                </a>);
+        }
 
         return (
             <div className={styles.pair}>
@@ -101,13 +112,6 @@ export class RMHelpPage extends React.Component<RMHelpPageProps, RMHelpPageState
                 <div className={styles.body}>
                     <div className={styles.subtitle}>Need more help? Our customer support team will be here to assist you.</div>
                     {this.preparePair(false)}
-                    {testEnv &&
-                        (<a className={cx([styles.btn, "--js-csc-trigger"])} href={this.getChatLink()}>
-                            <div className={styles.center}>
-                                <div className={cx([styles.chat, styles.icon])} />
-                                <div className={styles.btn_text}>XSpace Chat</div>
-                            </div>
-                        </a>)}
                     <div className={styles.more_option}>
                         <div className={styles.expander} onClick={this.handleToggleExpander}>
                             <div className={styles.expander_text}>More options</div>
