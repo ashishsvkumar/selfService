@@ -30,8 +30,15 @@ install:
 - bundle install
 - cd ../service-app-v3
 before_script:
-- redmart_before_script
-- redmart_tunnel -l 4444:selenium.alpha.redmart.com:4444
+- echo -n $id_rsa_{a..z} >> ~/.ssh/id_rsa_base64
+- base64 --decode --ignore-garbage ~/.ssh/id_rsa_base64 > ~/.ssh/id_rsa
+- export CHEF_PK=`echo -n $CHEF_KEY | base64 --decode --ignore-garbage`
+- chmod 600 ~/.ssh/id_rsa
+- cd ci/;
+- '/usr/bin/curl --header "Authorization: token $GITHUB_TOKEN" --header "Accept: application/vnd.github.v3.raw"
+  --remote-name --location https://api.github.com/repos/redmart/bourdain/contents/scripts/build-scripts/rm_sync_scripts.sh'
+- chmod +x rm_sync_scripts.sh ; ./rm_sync_scripts.sh ; cd ../
+- cd ../POC_Laz_Web; redmart_tunnel -l 4444:selenium.alpha.redmart.com:4444; cd ../service-app-v3
 script:
 - nvm use 0.10.33
 - cd ci/; npm install; chmod +x rm_version_mgr.sh ; ./rm_version_mgr.sh ; cd ../
