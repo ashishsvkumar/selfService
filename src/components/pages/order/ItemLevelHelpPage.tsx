@@ -193,8 +193,8 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, I
     }
 
     submitCase = () => {
-        const primary = issueList.filter(iss => iss.value == item.selectedIssue).map(iss => iss.primaryRC);
         const affectedItems: AffectedItem[] = this.state.selectedItems.map(item => { 
+            const primary = issueList.filter(iss => iss.value == item.selectedIssue).map(iss => iss.primaryRC);
             return { 
                 sku: item.sku, quantity: item.selectedQuantity, 
                 reasonCode: { 
