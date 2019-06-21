@@ -132,13 +132,13 @@ const helpLinks = (order: RedMartOrder): HelpLink[] => [
     { 
         text: "Report missing items", 
         url: `/orders/${order.tradeOrderId}/help/missing`, 
-        shouldEnable: () => currentEnvironment == Environments.preLive || (["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)),
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems),
         isCTA: true
     },
     { 
         text: "Report an issue with received items", 
         url: `/orders/${order.tradeOrderId}/help/damaged`, 
-        shouldEnable: () => currentEnvironment == Environments.preLive || (["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems)),
+        shouldEnable: () => ["Delivered"].indexOf(order.status) >= 0 && !isEmpty(order.refundableItems),
         isCTA: true
     },
     {
