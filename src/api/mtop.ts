@@ -45,6 +45,21 @@ export function isMock() {
   return /(&?)test=true/.test(location.search);
 }
 
+export function getUploadToken(): Promise<any> {
+  return Mtop.request({
+    ...DEFAULT_CONFIG,
+    api: 'mtop.im.use.web.buyer.mtopImMediaService.getToken',
+    data: {
+      accessKey: 'lazada-pc-h5',
+      accessToken : 'lazada-test-secret',
+      userAccountType: 1
+    },
+    type: 'POST',
+    callback: 'mtopjsonp12',
+    needLogin: false
+  });
+}
+
 export function createXspaceCase(caseRequest: CaseRequest): Promise<any> {
 
   myMtop();

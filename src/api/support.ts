@@ -8,6 +8,9 @@ import { compress } from './compress';
 import { getHostEnvironment, Host } from './windvane';
 import { isMobile, currentEnvironment, Environments } from '../config/environment';
 import { trackEvent } from '../utils/tracker';
+import { getUploadToken } from './mtop';
+import { getUserId } from '../utils/session';
+import { isEmpty } from 'lodash';
 
 function getUploadUrl(): Promise<String> {
     return fetch(`${supportBase}/ticket/attachment`).then((response: any) => {
@@ -26,13 +29,9 @@ export function uploadFile(name: string, fileUncompressed: File,
     callback: (url: string) => void
 ) {
     compress(fileUncompressed, (file) => {
-        const url = `${supportBase}/ticket/attachment?originalSize=${fileUncompressed.size}`;
+        const url = 'https://media.lazada.sg/upload/upload.htm';
 
         const config: any = {
-            // headers: {
-            //     'Content-Type': 'file/image',
-            //     'Content-Disposition': 'inline'
-            // },
             cancelToken: new CancelToken(function executor(c) {
                 // An executor function receives a cancel function as a parameter
                 cancel(name, c);
@@ -40,23 +39,38 @@ export function uploadFile(name: string, fileUncompressed: File,
             onUploadProgress: (event: any) => onProgress(name, event.loaded, event.total)
         };
 
-        const data = new FormData();
-        data.append('file', file);
-
-        axios.post(url, data, config).then(response => {
-            if (response.status === 201) {
-                log.info('File uploaded', response.statusText);
-                callback(response.data.token);
-                trackEvent('Attachment', 'upload', 'host', isMobile() ? 'mobile-web' : 'desktop-web');
+        getUploadToken().then(res => {
+            if (res.retType === 0) {
+                log.info('Got token', res.data.result);
+                return res.data.result;
             } else {
-                log.error('File uploade failed', response);
-                callback(null);
-                trackEvent('Attachment', 'failure', 'host', isMobile() ? 'mobile-web' : 'desktop-web');
+                return 'NA';
             }
-        }).catch(err => {
-            log.error('Error while uploading the file', err);
-            callback('NA');
-        })
+        }).then(token => {
+
+            const data = new FormData();
+            data.append('file', file);
+            data.append('bizCode', 'lazada-im-sg');
+            data.append('dirId', '0');
+            data.append('userId', '1' + getUserId());
+            data.append('token', token);
+    
+            axios.post(url, data, config).then(response => {
+                if (response.status === 200 && !isEmpty( response.data.jsonData.url)) {
+                    log.info('File uploaded', response.data.jsonData.url);
+                    callback(response.data.jsonData.url);
+                    trackEvent('Attachment', 'upload', 'host', isMobile() ? 'mobile-web' : 'desktop-web');
+                } else {
+                    log.error('File uploade failed', response);
+                    callback(null);
+                    trackEvent('Attachment', 'failure', 'host', isMobile() ? 'mobile-web' : 'desktop-web');
+                }
+            }).catch(err => {
+                log.error('Error while uploading the file', err);
+                callback('NA');
+            })
+
+        });
     });
 }
 
