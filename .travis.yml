@@ -24,8 +24,8 @@ install:
 - npm install
 - nvm use 0.10.33
 - npm install -g grunt@0.4.1 grunt-cli@0.1.9
-- redmart_install
 - cd ../POC_Laz_Web
+- redmart_install
 - gem install bundler;
 - bundle install
 - cd ../service-app-v3
