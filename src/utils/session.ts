@@ -30,7 +30,7 @@ export function clearSession() {
 }
 
 export function getUserId() {
-  if (currentEnvironment === Environments.preLive) {
+  if (isMock()) {
     return '1904097086';
   }
 
@@ -39,7 +39,7 @@ export function getUserId() {
 }
 
 export function getSessionId() {
-  if (currentEnvironment === Environments.preLive) {
+  if (isMock()) {
     return 'foo-bar';
   }
 
