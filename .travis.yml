@@ -10,7 +10,8 @@ env:
 cache: bundler
 addons:
   hosts:
-  - 127.0.0.1 sonarqube.service.redmart.com
+  - sonarqube.service.redmart.com
+  - selenium.alpha.redmart.com
 before_install:
 - '/usr/bin/curl -o travis-entry-point.sh --header "Authorization: token $GITHUB_TOKEN" --header "Accept: application/vnd.github.v3.raw" --fail --silent --show-error --location https://api.github.com/repos/redmart/devops-tool/contents/travis-entry-point.sh && . ./travis-entry-point.sh'
 - nvm install 10.14.1
@@ -38,7 +39,6 @@ before_script:
 - '/usr/bin/curl --header "Authorization: token $GITHUB_TOKEN" --header "Accept: application/vnd.github.v3.raw"
   --remote-name --location https://api.github.com/repos/redmart/bourdain/contents/scripts/build-scripts/rm_sync_scripts.sh'
 - chmod +x rm_sync_scripts.sh ; ./rm_sync_scripts.sh ; cd ../
-- redmart_before_script
 script:
 - nvm use 0.10.33
 - cd ci/; npm install; chmod +x rm_version_mgr.sh ; ./rm_version_mgr.sh ; cd ../
