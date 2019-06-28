@@ -30,7 +30,6 @@ export function createCase(request: CaseRequest) {
 
             if (response.retType === 0) {
                 log.info('Case created ✅');
-                trackEvent('TicketCreation', "Success", 'host', isMobile() ? 'mobile-web' : 'desktop-web');
                 dispatch(caseSuccess());
                 dispatch(showAlert({
                     show: true,
@@ -42,11 +41,12 @@ export function createCase(request: CaseRequest) {
                         window.location = getBasePath();
                     }
                 }))
+                trackEvent('TicketCreation', "Success", 'host', isMobile() ? 'mobile-web' : 'desktop-web');
             } else {
                 log.error('Could not create case. Server responded', response.ret);
-                trackEvent('TicketCreation', "Failure", 'host', isMobile() ? 'mobile-web' : 'desktop-web');
                 onError(response, dispatch);
                 dispatch(caseFailure());
+                trackEvent('TicketCreation', "Failure", 'host', isMobile() ? 'mobile-web' : 'desktop-web');
             }
         }).catch((err: any) => {
             onError(err, dispatch);
