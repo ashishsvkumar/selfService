@@ -14,8 +14,9 @@ import { BreadcrumbEntry } from "../../store/breadcrumb/types";
 import { RedMartOrder } from "../../store/package/types";
 import { isEmpty, get } from 'lodash';
 import { NotFound } from "../../components/pages/notFound/NotFound";
-import { trackPageView } from "../../utils/tracker";
+import { trackPageView, trackEvent } from "../../utils/tracker";
 import { setTitle } from "../../utils/container";
+import { isMobile } from "../../config/environment";
 
 export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {}> {
 
@@ -38,6 +39,7 @@ export class ItemLevelHelpPage extends React.Component<ItemLevelHelpPageProps, {
         }
 
         trackPageView(`Order Help: items ${this.props.match.params.category}`);
+        trackEvent('OrderHelp', this.props.match.params.category, 'host', isMobile() ? 'mobile-web' : 'desktop-web');
         setTitle(title);
     }
 
