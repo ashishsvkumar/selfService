@@ -6,6 +6,9 @@ import { isEmptyString } from "../../utils/extras";
 import { showAlert, hideAlert } from "../alert/actions"
 import { getBasePath } from "../../config/environment";
 import { createXspaceCase } from "../../api/mtop";
+import { trackEvent } from "../../utils/tracker";
+import { isMobile } from "../../config/environment";
+
 
 const createRequest = (ticket: Ticket) => action(TicketActionTypes.TICKET_CREATE_REQUEST, ticket);
 const createSuccess = () => action(TicketActionTypes.TICKET_CREATE_SUCCESS);
@@ -38,10 +41,12 @@ export function createCase(request: CaseRequest) {
                         window.location = getBasePath();
                     }
                 }))
+                trackEvent('TicketCreation', "Success", 'host', isMobile() ? 'mobile-web' : 'desktop-web');
             } else {
                 log.error('Could not create case. Server responded', response.ret);
                 onError(response, dispatch);
                 dispatch(caseFailure());
+                trackEvent('TicketCreation', "Failure", 'host', isMobile() ? 'mobile-web' : 'desktop-web');
             }
         }).catch((err: any) => {
             onError(err, dispatch);
