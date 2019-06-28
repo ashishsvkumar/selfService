@@ -13,7 +13,7 @@
     "build:ftr": "npm run build:alpha",
     "clean": "rm -rf dist mobile.html desktop.html",
     "predeploy": "npm run build:alpha",
-    "deploy": "gh-pages -d build:alpha",
+    "deploy": "gh-pages -d dist",
     "lint": "tslint --project tsconfig.json --config tslint.json '{src,stories}/**/*.{ts,tsx,js}' --fix"
   },
   "author": "",
