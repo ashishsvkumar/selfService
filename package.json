@@ -1,7 +1,7 @@
 {
   "name": "service-app-v3",
   "description": "",
-"version": "0.6.3-0",
+  "version": "0.6.3-0",
   "homepage": "https://ashishsvkumar.github.io/selfService",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "build:alpha": "npm run template && NODE_ENV=live webpack --config webpack/development.config.js -d",
     "build:ftr": "npm run build:alpha",
     "clean": "rm -rf dist mobile.html desktop.html",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:alpha",
     "deploy": "gh-pages -d build",
     "lint": "tslint --project tsconfig.json --config tslint.json '{src,stories}/**/*.{ts,tsx,js}' --fix"
   },
@@ -76,6 +76,7 @@
     "cross-fetch": "^3.0.0",
     "css-loader": "^2.1.0",
     "es-cookie": "^1.2.0",
+    "gh-pages": "^2.0.1",
     "lodash": "^4.17.11",
     "loglevel": "^1.6.1",
     "moment": "^2.23.0",
